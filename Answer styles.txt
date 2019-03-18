@@ -1,0 +1,18 @@
+Which approach should you use to satisfy these requirements?
+Which option will provide the most solution...?
+Which of the following statement about EBS Volumes is true?
+
+What is an effective method to mitigate this?
+
+Which services will meet this requirement?
+
+You are a solutions architect who has been asked to do some consulting for a US company that produces re-useable rocket parts. They have a new web application that needs to be built and this application must not store session state in the httpd server. Which three services could you use to achieve this?
+
+
+946-1020 question 44-56
+
+======================================
+
+
+You’re a developer doing contract work for the media sector. Since you work alone, you opt for technologies that require little maintenance, which allows you to focus more on your coding. You have chosen AWS Elastic Beanstalk to assist with deployment of your applications. While reading online documentation you find that Elastic Beanstalk relies on a similar deployment service to provision your resources. Which of the following services is it?
+

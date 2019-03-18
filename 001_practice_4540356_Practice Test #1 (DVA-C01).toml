@@ -1,0 +1,1376 @@
+CourseID = 1975038
+PracticeTestID = 4540356
+
+[question-1]
+Question = "You have empowered your departments by creating a distinct account for each of them. Yet you would like to be able to debug and trace data across accounts and visualize it in a centralized account. What would you use to achieve that?"
+Correct = "A"
+A = "X-Ray"
+B = "VPC Flow Logs"
+C = "CloudWatch Events"
+D = "CloudTrail"
+Explanation = """
+Correct answer - "X-Ray": X-Ray is used to provide tracing data and debug your applications. It also be used cross accounts
+
+.Incorrect:
+
+"VPC Flow Logs": This is used to analyze network traces and helps with network security
+
+"CloudWatch Events": This helps to trigger notifications based on changes happening in AWS services
+
+"CloudTrail": This is used to trace API calls made within your AWS accounts on AWS resources
+"""
+Topic = "X-Ray"
+
+[question-2]
+Question = "You have deployed a Java application to an EC2 instance. The application is using the X-Ray SDK. When testing from your personal computer, the application sent data to X-Ray but when the application runs from within EC2, the application fails to send data to X-Ray. Which of the following does *NOT* help you with debugging the issue?"
+Correct = "A"
+A = "X-Ray sampling"
+B = "EC2 X-Ray Daemon"
+C = "EC2 Instance Role"
+D = "CloudTrail"
+Explanation = """
+Correct answer - "X-Ray sampling": X-Ray SDK applies a sampling algorithm to determine which requests get traced however because our application is failing to send data to X-Ray it does not help in determining the cause of failure.
+
+Incorrect:
+
+"EC2 X-Ray Daemon" - The daemon logs could help with figuring out the problem.
+
+"EC2 Instance Role" - Eliminates API permission issues (in case the role doesn't have IAM permissions to write data to the X-Ray serivce)
+
+"CloudTrail" - We could check CloudTrail to see if any API call is being denied on X-Ray
+
+For more information visit https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html
+"""
+Topic = "X-Ray"
+
+[question-3]
+Question = "You want to provision your own Docker images that can be used as input sources for CodeBuild. These images will contain cached dependencies as well as special tooling for your builds that are proprietary to your company. Which of the following services will you use to send your Docker images to?"
+Correct = "A"
+A = "ECR"
+B = "S3"
+C = "EFS"
+D = "EBS"
+Explanation = """
+Correct answer - "ECR": Stores docker images in docker repositories.
+
+Incorrect:
+
+"S3" - ECR stores images in S3 but ECR is a managed service that handles many things for you
+
+"EFS" - Designed to provide storage for many EC2 instances
+
+"EBS" - Volumes that are attached to an instance
+
+For more information visit https://docs.amazonaws.cn/en_us/codebuild/latest/userguide/sample-ecr.html
+"""
+Topic = "ECR"
+
+[question-4]
+Question = "A developer in your company has configured an AWS CodeBuild build. The build fails and the developer needs to quickly troubleshoot the issue to see which commands or settings located in the BuildSpec file are causing an issue. Which approach will help them accomplish this?"
+Correct = "A"
+A = "Run AWS CodeBuild locally"
+B = "SSH into the CodeBuild Docker container"
+C = "Freeze the CodeBuild during its next execution"
+D = "Enable detailed monitoring"
+Explanation = """
+Correct answer - "Run AWS CodeBuild locally": With the Local Build support for AWS CodeBuild, you just specify the location of your source code, choose your build settings, and CodeBuild runs build scripts for compiling, testing, and packaging your code.
+
+Incorrect:
+
+"SSH into the CodeBuild Docker container" - Not possible that is why test locally is available
+
+"Freeze the CodeBuild during its next execution" - You cannot freeze but you can stop it
+
+"Enable detailed monitoring" - You do not enable detailed monitoring but you can specify output logs to CloudWatch
+
+For more information visit https://docs.aws.amazon.com/codebuild/latest/userguide/use-codebuild-agent.html
+"""
+Topic = "CodeBuild"
+
+[question-5]
+Question = "A Solutions Architect is designing a system where only a single server can be used to run an application. The single server will have multiple containers of a service running. Which services can be used to meet this requirement?"
+Correct = "A"
+A = "Application Load Balancer + ECS"
+B = "Classic Load Balancer + ECS"
+C = "Application Load Balancer + Beanstalk"
+D = "Classic Load Balancer + Beanstalk"
+Explanation = """
+Correct answer - "Application Load Balancer + ECS": Application Load Balancers allow containers to use dynamic host port mapping (so that multiple tasks from the same service are allowed per container instance). For more information visit https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html
+
+Incorrect:
+
+"Classic Load Balancer + ECS" - This configuration can cause issues if a task from one service stops.
+
+"Application Load Balancer + Beanstalk" - Beanstalk does not give you fine grain control as ECS
+
+"Classic Load Balancer + Beanstalk" - Classic Load Balancer does not allow to run multiple copies of a task on the same instance because the ports conflict
+"""
+Topic = "ECS"
+
+[question-6]
+Question = "An organization is investigating an issue where ten of their virtual machines were terminated unexpectedly. You have been hired as an independent consultant to find out how this happened. Which AWS service will assist you with this task?"
+Correct = "A"
+A = "CloudTrail"
+B = "EC2 Logs"
+C = "CloudWatch"
+D = "Config"
+Explanation = """
+Correct answer - "CloudTrail": CloudTrail records API calls made and will list details such as who did it and when call was made.
+
+Incorrect:
+
+"EC2 Logs" - These logs only pertain to the system within and not help to determine who deleted an instance
+
+"CloudWatch" - Will help you monitor but not determine who deleted an instance
+
+"Config" - Helps determine what change but not who changed it
+"""
+Topic = "CloudTrail"
+
+[question-7]
+Question = "A Developer was called to fix an issue with a system that uses SQS. The SQS consumers take an unpredictably long time to process messages and therefore some consumers are receiving duplicate messages from the SQS queue. Which action should be taken to resolve the issue?"
+Correct = "A"
+A = "Use ChangeMessageVisibility"
+B = "Use DeleteMessage"
+C = "Change the Visibility Timeout"
+D = "Use Long Polling"
+Explanation = """
+Correct answer - "Use ChangeMessageVisibility": This extends message visibility when the processing is taking longer than expected.
+
+Incorrect:
+
+"Use DeleteMessage" - This deletes the message however you may not be able to delete in time before the message gets sent again
+
+"Change the Visibility Timeout" - For standard queues, the visibility timeout isn't a guarantee against receiving a message twice, especially as the processing time is unpredictable
+
+"Use Long Polling" - Eliminates the number of empty responses
+"""
+Topic = "SQS"
+
+[question-8]
+Question = "You've been hired as a developer to work on an application. The application is hosted on an EC2 instance that interacts with an SQS queue.  It is been noticed that when a consumer fails to process a message that it is taking a long time for other consumers to process the message.  What change can you make to ensure that consumers will get the same message again?"
+Correct = "A"
+A = "decrease VisibilityTimeout"
+B = "disable LongPolling"
+C = "Use a FIFO queue"
+D = "Use a lower DelaySeconds"
+Explanation = """
+Correct answer - "decrease VisibilityTimeout": The default visibility timeout for a message is 30 seconds. The minimum is 0 seconds. The maximum is 12 hours. Once a message is received by one of the distributed consumers, the message cannot be read again until the visibility timeout of that particular message expires. By setting an appropriate visibility timeout for the specific message, we can control how sooner or later the message is available for processing by other applications. Read more: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html
+
+Incorrect:
+
+"disable LongPolling" - By default, Amazon SQS uses short polling. Short polling is when quick responses are not needed
+
+"Use a FIFO queue" - Good for situations where duplicates should not be introduced into the queue
+
+"Use a lower DelaySeconds" - Message is hidden when it is first added to queue, whereas for visibility timeouts a message is hidden only after it is consumed from the queue.
+"""
+Topic = "SQS"
+
+[question-9]
+Question = "A developer has been asked to create an application that can be deployed across a fleet of EC2 instances. The configuration must allow for full control over the deployment steps using blue-green deployment. Which service will help you achieve that?"
+Correct = "A"
+A = "CodeDeploy"
+B = "CodeBuild"
+C = "Elastic Beanstalk"
+D = "CodePipeline"
+Explanation = """
+Correct answer - "CodeDeploy": AWS CodeDeploy is a deployment service that automates application deployments to Amazon EC2 instances, on-premises instances, or serverless Lambda functions. AWS CodeBuild is a fully managed continuous integration service that compiles source code, runs tests, and produces software packages that are ready to deploy.
+
+Incorrect:
+
+"CodeBuild" - AWS CodeBuild is a fully managed continuous integration service that compiles source code, runs tests, and produces software packages that are ready to deploy
+
+"Elastic Beanstalk" - AWS Elastic Beanstalk offers hooks but not more control as CodeDeploy
+
+"CodePipeline" - CodePipeline automates the build, test, and deploy phases of your release process every time there is a code change
+"""
+Topic = "CodeDeploy"
+
+[question-10]
+Question = "You have created a Java application that uses RDS for its main data storage and ElasticCache for user session storage.  The application will be deployed using Elastic Beanstalk and each deployment performed should allow any application server to reuse the RDS database while user session data stored in ElasticCache can be created for every single deployment.  Which configuration will allow you to achieve that? (Select two)"
+Correct = "A,B"
+A = "RDS database defined externally and referenced through environment variables"
+B = "ElastiCache defined in .ebextensions/"
+C = "RDS database defined in .ebextensions/"
+D = "ElastiCache database defined externally and referenced through environment variables"
+E = "ElastiCache bundled with the application source code"
+Explanation = """
+Correct answers - "RDS database defined externally and referenced through environment variables & ElastiCache defined in .ebextensions/ : Any resources created as part of your .ebextensions is part of your CloudFormation template and will get deleted if the environment is terminated. Resources that need to persist environments deletions must be created externally": .
+
+Incorrect:
+
+"RDS database defined in .ebextensions/" - The lifetime of the RDS instance is tied to the lifetime of the Elastic Beanstalk environment
+
+"ElastiCache database defined externally and referenced through environment variables" - In this case we do not care that data is lost so defining it in .ebextensions/ is more appropriate
+
+"ElastiCache bundled with the application source code" - ElastiCache is a service and cannot be bundled
+"""
+Topic = "Elastic Beanstalk"
+
+[question-11]
+Question = "Your company has configured AWS Organizations to manage multiple AWS accounts. Within each AWS account there are many CloudFormation scripts running. Your manager has requested that each script output the account number of the account the script was created in. Which Pseudo parameter will you use to get this information?"
+Correct = "A"
+A = "AWS::AccountId"
+B = "AWS::AccountNumber"
+C = "AWS::Region"
+D = "AWS::StackName"
+Explanation = """
+Correct answer - "AWS::AccountId : Returns the AWS account ID of the account in which the stack is being created.
+
+Incorrect:
+
+"AWS::NoValue" - Removes the corresponding resource property
+
+"AWS::Region" - Returns a string representing the AWS Region where resource is being created
+
+"AWS::StackName" - Returns stack name
+
+For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html
+"""
+Topic = "CloudFormation"
+
+[question-12]
+Question = "Your company has stored all application secrets in SSM Parameter Store. The audit team has requested to get a report to better understand when and who has been issuing API calls against SSM Parameter Store. Which AWS service can you use to produce your report?"
+Correct = "A"
+A = "CloudTrail"
+B = "SSM Parameter Store List feature"
+C = "SSM Parameter Store Access Logs in CloudWatch Logs"
+D = "SSM Parameter Store Access Logs in S3"
+Explanation = """
+Correct answer - "CloudTrail" : It records API calls and helps determine source
+
+Incorrect:
+
+"SSM Parameter Store List feature" - There is no such thing
+
+"SSM Parameter Store Access Logs in CloudWatch Logs" - CloudWatch can be integrated but it does not help determine who issued API calls
+
+"SSM Parameter Store Access Logs in S3" - S3 can be integrated but it does not help determine who issued API calls
+"""
+Topic = "CloudTrail"
+
+[question-13]
+Question = "Applications running on EC2 instances process messages from an SQS queue.  Sometimes the messages cannot be processed because of a variety of possible issues and applications are experiencing errors.  You would like to isolate the messages, which option will help with further debugging?"
+Correct = "A"
+A = "Implement a DLQ"
+B = "Use DeleteMessage"
+C = "Reduce the VisibilityTimeout"
+D = "Increase the VisibilityTimeout"
+Explanation = """
+Correct answer - "Implement a Dead-letter queues" : Amazon SQS supports dead-letter queues, which other queues (source queues) can target for messages that cannot be processed (consumed) successfully. Dead-letter queues are useful for debugging your application or messaging system because they let you isolate problematic messages to determine why their processing doesn't succeed.
+
+Incorrect:
+
+"Use DeleteMessage" - It deletes the message but does not help you find the issue
+
+"Reduce the VisibilityTimeout" - More consumers will get the failed message
+
+"Increase the VisibilityTimeout" - It wont help because we don't need more time but rather an isolated place to debug
+
+For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html
+"""
+Topic = "SQS"
+
+[question-14]
+Question = "A company has been experiencing high latency on their main application, affecting thousands of users daily. You have been hired to redesign the application and find that the company has been using a hybrid approach where the application is hosted on EC2 instances but the databases are hosted within the corporate network. After some research you conclude that a first step to reduce latency is use an in-memory cache service. Which of the following services best meets your needs?"
+Correct = "A"
+A = "ElastiCache"
+B = "RDS"
+C = "DynamoDB"
+D = "Parameter Store"
+Explanation = """
+Correct answer - "ElastiCache" : A managed service offering from AWS for in-memory data storages.
+
+Incorrect:
+
+"RDS" - Stores data on disk which has higher read latency
+
+"DynamoDB" - Stores data on disk which has higher read latency
+
+"Parameter Store" - Best suited for secrets and configuration information
+
+For more information visit https://aws.amazon.com/elasticache/. Also take a look at DynamoDB In-memory caching here https://aws.amazon.com/blogs/aws/amazon-dynamodb-accelerator-dax-in-memory-caching-for-read-intensive-workloads/
+"""
+Topic = "ElastiCache"
+
+[question-15]
+Question = "A developer has been asked to create a web application that will handle thousands of requests. There are no architects around for server provisioning and deployment and all time must be utilized writing custom code.  What tool should the developer use?"
+Correct = "A"
+A = "Elastic Beanstalk"
+B = "CodeDeploy"
+C = "CodePipeline"
+D = "ECS Classic"
+Explanation = """
+Correct answer - "Elastic Beanstalk" : AWS Elastic Beanstalk lets you manage all of the resources that run your application as environments where each environment runs only a single application version at a time. When an environment is being created, Elastic Beanstalk provisions all the required resources needed to run the application version. Read more: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.html
+
+Incorrect:
+
+"CodeDeploy" - Deploys an application to an instance but does not provision
+
+"CodePipeline" - It uses a model to direct Elastic Beanstalk to do it
+
+"ECS Classic" - No such thing exist
+"""
+Topic = "Elastic Beanstalk"
+
+[question-16]
+Question = "You are the administrator for the company's AWS account that manages new users. Five new employees have been hired to a new department who will be performing the same tasks. You will need to create new IAM users for these employees. Which approach follows best practices?"
+Correct = "A"
+A = "Create a group, assign the policy to the group and the users to the group"
+B = "Never assign the same policy to two user"
+C = "Use only one account shared by your users"
+D = "Let your users have admin rights"
+Explanation = """
+Correct answer - "Create a group, assign the policy to the group and the users to the group" : IAM Groups is an abstraction making the management of user groups easier. For instance we want to add a new policy to all the users in a group. Now instead of assigning the policy to each individual user, it can just be assigned once to the IAM Group. Read more: https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html
+
+Incorrect:
+
+"Never assign the same policy to two user" - This adds more maintenance
+
+"Use only one account shared by your users" - Bad practice to share credentials. Each user should have their own credentials
+
+"Let your users have admin rights" - This violates the principal of least privilege
+"""
+Topic = "IAM"
+
+[question-17]
+Question = "You have written an application that uploads objects onto an S3 bucket. Every single PUT request is at least 4TB in size. You expect single PUT request to increase in size as operations begin to grow. What is the maximum file size for individual objects stored on an S3 bucket?"
+Correct = "A"
+A = "5 TB"
+B = "1 TB"
+C = "infinite"
+D = "50 TB"
+Explanation = """
+Correct answer - "5 TB" : Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes. The largest object that can be uploaded in a single PUT is 5 gigabytes. Read more: https://aws.amazon.com/s3/faqs/
+
+Incorrect:
+
+"1 TB" - Refer to correct answer description
+
+"infinite" - Refer to correct answer description
+
+"50 TB" - Refer to correct answer description
+"""
+Topic = "S3"
+
+[question-18]
+Question = "You are working with a template document written in YAML that represents the architecture of a serverless application. When you read the document you see the first line contains Transform: 'AWS::Serverless-2016-10-31'. What does the Transform section in the document represent?"
+Correct = "A"
+A = "It is a SAM template"
+B = "It is an intrinsic function"
+C = "It is a Lambda function definition"
+Explanation = """
+Correct answer - "It is a SAM template" : The AWS::Serverless transform is specifically used for transforming an entire template written in the AWS Serverless Application Model (AWS SAM) syntax into a compliant AWS CloudFormation template. Read more: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html
+
+Incorrect:
+
+"Intrinsic function" - Functions in templates to assign values to properties that are not available until runtime
+
+"Lambda function definition" - A lambda function would be referenced such as AWS::Lambda::Function
+
+"50 TB" - Refer to correct answer description-
+"""
+Topic = "SAM"
+
+[question-19]
+Question = "A developer created an online shopping application that runs on EC2 instances behind load balancers. The same web application version is hosted on several EC2 instances and the instances run in an Auto Scaling group. The application uses STS to request credentials but after an hour your application stops working. What is the most likely cause for this?"
+Correct = "A"
+A = "Your application needs to renew the credentials after 1 hour when they expire"
+B = "Your IAM policy is wrong"
+C = "A lambda function revokes your access every hour"
+D = "The IAM service is experiencing downtime once an hour"
+Explanation = """
+Correct answer - "Your application needs to renew the credentials after 1 hour when they expire" : Credentials that are created by using account credentials can range from 900 seconds (15 minutes) up to a maximum of 3,600 seconds (1 hour), with a default of 1 hour. Hence you need to renew the credentials post expiry. Read more: https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html
+
+Incorrect:
+
+"Your IAM policy is wrong" - If your policy was wrong a reboot would not solve the issue
+
+"A lambda function revokes your access every hour" - Revoking is done by the IAM policy
+
+"The IAM service is experiencing downtime once an hour" - The IAM service is very reliable
+"""
+Topic = "STS"
+
+[question-20]
+Question = "You are configuring your CloudFront distribution to tell CloudFront where you want content to be delivered from. When configuring settings, which protocol is not supported?"
+Correct = "A"
+A = "UDP"
+B = "HTTP"
+C = "HTTPS"
+D = "RTMP"
+Explanation = """
+Correct answer - "UDP" : UDP stands for User Datagram Protocol. UDP is used when speed is desirable and error correction is not necessary. For example, UDP is frequently used for live broadcasts and online games.
+
+Incorrect:
+
+"HTTP" - Serves static and dynamic content
+
+"HTTPS" - Serves static and dynamic content
+
+"RTMP" - Serves adobe flash multimedia
+
+For more information visit https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview.html
+"""
+Topic = "CloudFront"
+
+[question-21]
+Question = "Your been hired as a new Solutions Architect with no experience using CloudFormation. To learn how it works you quickly create a template and upload it through the management console. You find that the template is missing a section that is required. Which section of the template is required?"
+Correct = "A"
+A = "Resources"
+B = "Parameters"
+C = "Outputs"
+D = "Mappings"
+Explanation = """
+Correct answer - "Resources" : Resources is the only mandatory section of the CloudFormation template and all other sections are optional. For more information visit: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html
+
+Incorrect:
+
+"Parameters" - Optional values to pass to your template at runtime
+
+"Outputs" - Describes the values that are returned whenever you view your stack's properties.
+
+"Mappings" - A mapping of keys and associated values that you can use to specify conditional parameter values
+
+For more information visit https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview.html
+"""
+Topic = "CloudFormation"
+
+[question-22]
+Question = "You're a developer maintaining a web application written in .NET. The application makes references to public objects in a public S3 accessible bucket using the public URL. While doing a code review your colleague advises that the approach is not a best practice because the objects contain private data. After your administrator makes the S3 bucket private you can no longer access the S3 objects. Which of the following options should you use to get read access to the objects?"
+Correct = "A"
+A = "Using pre-signed URL"
+B = "Using bucket policy"
+C = "Using Routing Policy"
+D = "Not possible"
+Explanation = """
+Correct answer - "Using pre-signed URL" : All objects by default are private. Only the object owner has permission to access these objects. However, the object owner can optionally share objects with others by creating a presigned URL, using their own security credentials, to grant time-limited permission to download the objects. For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURL.html
+
+Incorrect:
+
+"Using bucket policy" - You can use this policy to limit users from a source IP address however for time limitations you are better off with a pre-signed URL
+
+"Using Routing Policy" - This concept applies to DNS in Route53
+
+"Not possible" - This is false, it is absolutely possible so read the documentation
+"""
+Topic = "S3"
+
+[question-23]
+Question = "A company is developing a highly available web application using DynamoDB for its data access. While configuring the new NoSQL database what is the maximum number of attributes that can be combined in a primary key?"
+Correct = "A"
+A = "2"
+B = "1"
+C = "3"
+D = "4"
+Explanation = """
+Correct answer - "2" : The primary key can just consist of a simple partition key as a single attribute or a max of two attributes as a composite key consisting of partition key and sort key. For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey
+
+Incorrect:
+
+"1" - A simple primary key, composed of one attribute known as the partition key but this is not the maximum
+
+"3" - Incorrect
+
+"4" - Incorrect
+"""
+Topic = "DynamoDB"
+
+[question-24]
+Question = "An application is hosted by a 3rd party and is exposed as yourapp.3rdparty.com. You would like to have your users access your application using www.mydomain.com , which you own and manage under Route53. What record should you create?"
+Correct = "A"
+A = "Create a CNAME record"
+B = "Create an A record"
+C = "Create a PTR record"
+D = "Create an Alias Record"
+Explanation = """
+Correct answer - "Create a CNAME record" : CNAME records can be used to map one name to another. Read more: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html#CNAMEFormat
+
+Incorrect:
+
+"Create an A record" - Used to point a domain or subdomain to an IP address
+
+"Create a PTR record" - A Pointer (PTR) record resolves an IP address to a fully-qualified domain name (FQDN) as an opposite to what A record does. PTR records are also called Reverse DNS records
+
+"Create an Alias Record" - Alias records let you route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets. 3rd party websites do not qualify for these as we have no control over those
+"""
+Topic = "Route53"
+
+[question-25]
+Question = "Your business requires an order-processing application which will process orders during weekdays between the hours of 8am to 5pm. No operations will take place evenings or weekends. To reduce cost no servers must operate during afterhours.  Which instance type will meet these requirements?"
+Correct = "A"
+A = "Scheduled Instances"
+B = "On-demand Instances"
+C = "Classic Instances"
+D = "Spot Instances"
+Explanation = """
+Correct answer - "Scheduled Instances" : Scheduled instances allow you to reserve capacity on a recurring basis with a daily, weekly, or monthly schedule over the course of a one-year term. For more information visit https://aws.amazon.com/blogs/aws/new-scheduled-reserved-instances/
+
+Incorrect:
+
+"On-demand Instances" - You can use this but will need to manually start/stop the instances which is not something you want to do
+
+"Classic Instances" - If you created your AWS account after 2013-12-04, it does not support EC2-Classic
+
+"Spot Instances" - Its recommended for applications that have flexible start and end times
+"""
+Topic = "EC2"
+
+[question-26]
+Question = "Which of the following best describes how KMS Encryption works?"
+Correct = "A"
+A = "KMS stores the CMK, and receives data from the clients, which it encrypts and sends back."
+B = "KMS receives CMK from the client at every Encrypt call, and encrypts the data with that"
+C = "KMS sends the CMK to the client, which performs the encryption and then deletes the CMK"
+D = "KMS generates a new CMK for each Encrypt call and encrypts the data with it"
+Explanation = """
+Correct answer - "KMS encrypts and decrypts data using your master keys stored in KMS" : These are known as customer master keys or CMKs. You can generate CMKs in KMS, in an AWS CloudHSM cluster, or import them from your own key management infrastructure.
+
+Incorrect:
+
+"KMS receives CMK from the client at every encrypt call, and encrypts the data with that" - You can import your own CMK (Customer Master Key) but it is done once and then you can encrypt/decrypt as needed
+
+"KMS sends the CMK to the client, which performs the encryption and then deletes the CMK" - KMS does not send CMK to the client, KMS decrypts the data
+
+"KMS generates a new CMK for each encrypt call and encrypts the data with it" - KMS does not generate a new key each time but you can have KMS rotate the keys for you. Best practices discourage extensive reuse of encryption keys so it is good practice to generate new keys
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/kms/encrypt.html
+"""
+Topic = "KMS"
+
+[question-27]
+Question = "Your client is migrating an application to the cloud that will handle thousands of requests. The application will require a load balancer and an auto scaling group therefore your application must be stateless. An in-memory store will be needed to store session state. Which AWS service is best suited for this?"
+Correct = "A"
+A = "ElastiCache"
+B = "RDS"
+C = "DynamoDB"
+D = "S3"
+Explanation = """
+Correct answer - "ElastiCache" : ElastiCache is a managed service offering from AWS for in-memory data storages.
+
+Incorrect:
+
+"RDS" - Its stateless but has a high latency as you deal with queries
+
+"DynamoDB" - Its stateless but has a high latency as you deal with queries
+
+"S3" - A good storage option but ElastiCache is much faster
+
+For more information visit https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-use-cases.html#elasticache-use-cases-data-store
+"""
+Topic = "ElastiCache"
+
+[question-28]
+Question = "You are a Solutions Architect who has been asked to do some consulting for a European company that produces smartphone cases with country flags embedded. The company has a new web application that needs to be built and they would like users in Europe to be routed to CloudFront resources near them. For users in any other country, CloudFront resources will need to route users to resources near them. Which routing policy meets this requirement?"
+Correct = "A"
+A = "Geoproximity"
+B = "Geolocation"
+C = "Failover"
+D = "Latency"
+E = "Weighted"
+Explanation = """
+Correct answer - "Geoproximity" : Geoproximity routing lets Amazon Route 53 route traffic to your resources based on the geographic location of your users and your resources.
+
+Incorrect:
+
+"Geolocation" - When you use geolocation routing, you can localize your content and present some or all of your website in the language of your users
+
+"Failover" - Failover routing lets you route traffic to a resource when the resource is healthy or to a different resource when the first resource is unhealthy
+
+"Latency" - If your application is hosted in multiple AWS Regions, you can improve performance for your users by serving their requests from the AWS Region that provides the lowest latency
+
+"Weighted" - Use to route traffic to multiple resources in proportions that you specify
+
+For more information visit https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html
+"""
+Topic = "Route53"
+
+[question-29]
+Question = "Your team lead has finished creating a build project in the management console. A build spec has been defined for the project. The build is ran and CodeBuild fails to pull a Docker image into the build environment. What is the most likely cause?"
+Correct = "A"
+A = "Missing IAM permissions for the CodeBuild Service"
+B = "The Docker image is missing some tags"
+C = "CodeBuild cannot work with custom Docker images"
+D = "The Docker image is too big"
+Explanation = """
+Correct answer - "Missing IAM permissions for the CodeBuild Service" : By default, IAM users don't have permission to create or modify Amazon Elastic Container Registry (Amazon ECR) resources, or perform tasks using the Amazon ECR API. A user who uses the AWS CodeBuild console must have a minimum set of permissions that allows the user to describe other AWS resources for the AWS account.
+
+Incorrect:
+
+"The Docker image is missing some tags" - Tags are optional for naming purposes
+
+"CodeBuild cannot work with custom Docker images" - Custom docker images are supported
+
+"The Docker image is too big" - It is good to properly designed the image but in this case it does not affect the CodeBuild. You can also look at multi-stage builds, which are a new feature requiring Docker 17.05 or higher on the daemon and client. Multistage builds are useful to anyone who has struggled to optimize Dockerfiles while keeping them easy to read and maintain
+
+For more information visit https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_IAM_policies.html
+"""
+Topic = "CodeBuild"
+
+[question-30]
+Question = "A Solutions Architect at a company is working on a CloudFormation template to set up resources. The plan is to describe the resources in code and then provision them. Some resources will be defined based on certain conditions. Which section of a CloudFormation template does not allow for conditions?"
+Correct = "A"
+A = "Parameters"
+B = "Resources"
+C = "Conditions"
+D = "Outputs"
+Explanation = """
+Correct answer - "Parameters" : Conditions cannot be used within the parameters section. Please visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html for more information on the parameter structure.
+
+Incorrect:
+
+"Resources" - Associate conditions with the resources that you want to conditionally create
+
+"Conditions" - You can define conditions in this section
+
+"Outputs" - Associate conditions with the outputs that you want to conditionally create
+
+For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html
+"""
+Topic = "CloudFormation"
+
+[question-31]
+Question = "You are creating an Amazon DynamoDB table that will hold game scores for a Node.Js application. The application will need to perform many kinds of queries, using different attributes as query criteria. Which of the following will help you achieve that?"
+Correct = "A"
+A = "Create a GSI"
+B = "Call Scan"
+C = "Create a LSI"
+D = "Migrate away from DynamoDB"
+Explanation = """
+Correct answer - "Create a GSI (Global Secondary Index)" : Some applications might need to perform many kinds of queries, using a variety of different attributes other than the specified partition key as query criteria. To support these requirements, you can create one or more global secondary indexes and issue Query requests against these indexes. For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html
+
+Incorrect:
+
+"Call Scan" - The Scan operation returns one or more items and item attributes by accessing every item in a table or a secondary index. They are less efficient
+
+"Create a LSI" - An LSI (Local Secondary Index) uses a partition key which is the same as that of its base table
+
+"Migrate away from DynamoDB" - Not a good idea to make a rash decision. Research the issue to make a good informed decision
+"""
+Topic = "DynamoDB"
+
+[question-32]
+Question = "Your team lead has decided to make changes to the current architecture. The current application was written in Node.js and runs on a Linux server. The team lead would like to deploy the application to a Docker container, then decouple the application into microservices without any downtime. Which AWS service is best suited for this change?"
+Correct = "A"
+A = "ECS"
+B = "ECR"
+C = "Elastic Beanstalk"
+D = "EC2"
+Explanation = """
+Correct answer - "ECS" : Amazon ECS lets you easily build all types of containerized applications, from long-running applications and microservices to batch jobs and machine learning applications. You can migrate legacy Linux or Windows applications from on-premises to the cloud and run them as containerized applications using Amazon ECS.
+
+"ECR" - Amazon ECR is a managed AWS Docker registry service and is an extension to Amazon ECS
+
+"Elastic Beanstalk" - Elastic Beanstalk supports Docker as well as ECS but with Elastic Beanstalk it allows developers to focus on their code and not have to worry about fine-grained architecture
+
+"EC2" - Amazon ECS uses Docker images in task definitions to launch containers on Amazon EC2 instances in your clusters
+
+For more information visit https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+"""
+Topic = "ECS"
+
+[question-33]
+Question = "You've just deployed an AWS Lambda function. The lambda function will be invoked via the API Gateway.  You will need to control access to your API Gateway. Which of the following mechanisms is not supported for API Gateway?"
+Correct = "A"
+A = "STS"
+B = "IAM permissions with sigv4"
+C = "Lambda Authorizer"
+D = "Cognito User Pools"
+Explanation = """
+Correct answer - "STS" : The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users that you authenticate (federated users). However is not supported at the time with API Gateway.
+
+Incorrect:
+
+"IAM permissions with sigv4" - They can be applied to an entire API or individual methods
+
+"Lambda Authorizer" - Control access to REST API methods using bearer token authentication as well as information described by headers, paths, query strings, stage variables, or context variables request parameter
+
+"Cognito User Pools" - Create customizable authentication and authorization solutions for your REST APIs
+"""
+Topic = "API Gateway"
+
+[question-34]
+Question = "Your global organization has an infrastructure that is deployed with Cloud Formation. One employee, in us-east-1 has created a stack 'Application1' and made an exported output with name 'ELBDNSName'. Another employee has created a stack for a different application 'Application2' in us-east-2 and also exported an output with the name 'ELBDNSName'. The first employee wanted to deploy the Cloud Formation stack 'Application1' in us-east-2, but it got an error. What is the cause of the error?"
+Correct = "D"
+A = "Output Values in CloudFormation must have unique names across all regions"
+B = "Exported Output Values in CloudFormation must have unique names across all regions"
+C = "Output Values in CloudFormation must have unique names within a single region"
+D = "Exported Output Values in CloudFormation must have unique names within a single region"
+Explanation = """
+For each AWS account, export names must be unique within a region. In this case we would have a conflict within us-east-2.
+
+For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
+"""
+Topic = "CloudFormation"
+
+[question-35]
+Question = "You have created a target group which has marked all your EC2 instances as unhealthy. Surprisingly, when you enter the IP address of the EC2 instances in your web browser, you are able to access your website. What could be the reason your instances are being marked as unhealthy? (Select two)"
+Correct = "A,B"
+A = "The security group of the EC2 instance does not allow for traffic from the security group of the Application Load Balancer"
+B = "The route for the health check is misconfigured"
+C = "The EBS volumes have been improperly mounted"
+D = "Your web-app has a runtime that is not supported by the Application Load Balancer"
+E = "You need to attach Elastic IP to the EC2 instances"
+Explanation = """
+Correct answers - "The security group of the EC2 instance does not allow for traffic from the security group of the Application Load Balancer & The route for the health check is misconfigured" : You must ensure that your load balancer can communicate with registered targets on both the listener port and the health check port. Whenever you add a listener to your load balancer or update the health check port for a target group used by the load balancer to route requests, you must verify that the security groups associated with the load balancer allow traffic on the new port in both directions.
+
+Incorrect:
+
+"The EBS volumes have been improperly mounted" - Using the IP address does work so this cannot be the answer
+
+"Your web-app has a runtime that is not supported by the Application Load Balancer" - There is no connection between a web app and the application load balancer. They are don't have an effect on each other for this issue
+
+"You need to attach Elastic IP to the EC2 instances" -Elastic IPs are not required for using an Application Load Balancer
+
+For more information visit https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html
+https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-update-security-groups.html
+"""
+Topic = "EC2"
+
+[question-36]
+Question = "A company is starting to automate the creation of ECS clusters using CloudFormation. The process has been working for a while, but after creating task definitions and assigning roles, the engineers discover that the tasks for containers are not using the permissions assigned to them. Which ECS config must be set in /etc/ecs/ecs.config to allow ECS tasks to use IAM roles?"
+Correct = "A"
+A = "`ECS_ENABLE_TASK_IAM_ROLE`"
+B = "`ECS_ENGINE_AUTH_DATA`"
+C = "`ECS_AVAILABLE_LOGGING_DRIVERS`"
+D = "`ECS_CLUSTER`"
+Explanation = """
+Correct answer - `ECS_ENABLE_TASK_IAM_ROLE` : Enables IAM roles for tasks for containers with the bridge and default network modes.
+
+`ECS_ENGINE_AUTH_DATA` - The contents of a Docker configuration file
+
+Elastic `ECS_AVAILABLE_LOGGING_DRIVERS` - The Amazon ECS container agent running on a container instance must register the logging drivers available on that instance with this variable
+
+`ECS_CLUSTER` - Passed to the container instance at launch through Amazon EC2 user data
+
+For more information visit https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
+"""
+Topic = "ECS"
+
+[question-37]
+Question = "A developer has been asked to create an AWS Elastic Beanstalk environment. The environment will handle deployment for an application that has high traffic and runs 24/7. You would like to deploy a new application version using Beanstalk but don't want to bring your capacity down. You are also very cost conscious and want to ensure any added cost will be minimal. Which deployment meets this need?"
+Correct = "A"
+A = "rolling with additional batches"
+B = "immutable"
+C = "all at once"
+D = "rolling"
+E = "blue/green"
+Explanation = """
+Correct answer - "rolling with additional batches" : Rolling with additional batches is the most optimum deployment policy when a user doesn't want to compromise on the output capacity of the application but also keep the additional expense incurs to the minimum.
+
+Incorrect:
+
+"immutable" - Deploys the new version to a fresh group of instances
+
+"all at once
+"""
+Topic = "Elastic Beanstalk"
+
+[question-38]
+Question = "You have created an AWS CodePipeline pipeline that performs many actions in a specified order.  After careful revision of your steps you determine that some steps need to run at the same instead of a specified order. This change will speed up your pipeline. What method will achieve this?"
+Correct = "A"
+A = "Re-design the pipeline to include steps to occur in parallel where possible"
+B = "Upgrade the AWS CodePipeline instance type"
+C = "Ask for a 'speed boost' from the AWS support"
+D = "Enable pipeline caching"
+Explanation = """
+Correct answer - "Re-design the pipeline to include steps to occur in parallel where possible" : Actions in parallel in CodePipeline can help with speed requirements.
+
+Incorrect:
+
+"Upgrade the AWS CodePipeline instance type" - There is no instance types. A pipeline is a workflow construct that describes how software changes go through a release process. You define the workflow with a sequence of stages and actions.
+
+"Ask for a 'speed boost' from the AWS support" - You can but they may redirect you to documentation to re-design your pipeline
+
+"Enable pipeline caching" - There is no caching instead pipeline is a workflow that describes the stages and actions
+
+For more information visit https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements
+"""
+Topic = "CodePipeline"
+
+[question-39]
+Question = "You are running workloads on AWS and have embedded database connection strings within each web server hosting your applications. After failing a security audit you are encouraged to take a different approach where you store your secrets. Which AWS service can you use to manage your database connection strings?"
+Correct = "A"
+A = "SSM Parameter Store"
+B = "EFS"
+C = "EBS"
+D = "KMS"
+Explanation = """
+Correct answer - "SSM Parameter Store" : AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values. For more information visit https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html
+
+Incorrect:
+
+"EFS" - Elastic File System (EFS) is a shared file storage service for Amazon EC2 instances
+
+"EBS" - Elastic Block Store (EBS) is recommended for data requiring a higher level of durability but not for configuration storage
+
+"KMS" - AWS Key Management Service (KMS) makes it easy for you to create and manage keys and control the use of encryption
+"""
+Topic = "SSM"
+
+[question-40]
+Question = "A company has 10 EC2 instances running on the same application version that handles thousands of requests daily. Elastic Beanstalk is used to deploy new changes of the application to the EC2 instances. When a deployment is executed some instances should server requests with the old version of the application, while other instances serve the new requests until the deployment is completed. The company would like to have the same costs during the upgrade. Which deployment meets this requirement?"
+Correct = "A"
+A = "rolling"
+B = "immutable"
+C = "all at once"
+D = "rolling with additional batches"
+E = "blue/green"
+Explanation = """
+Correct answer - "rolling" : Deploys the new version in batches. Each batch is taken out of service during the deployment phase, reducing your environment's capacity by the number of instances in a batch. The cost remains the same as the number of EC2 instances does not increase
+
+Incorrect:
+
+"immutable" - Deploys the new version to a fresh group of instances causing downtime and charges
+
+"all at once" - Deploys the new version to all instances simultaneously. All instances in your environment are out of service for a short time while the deployment occurs.
+
+"rolling with additional batches" - Deploys the new version in batches, but first launch a new batch of instances to ensure full capacity during the deployment process causing downtime and charges
+
+"blue/green" - Incurs charges because deploys a new version to a separate environment, and then swaps CNAMEs of the two environments to redirect traffic to the new version instantly
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rolling-version-deploy.html
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deploy-existing-version.html
+"""
+Topic = "Elastic Beanstalk"
+
+[question-41]
+Question = "You're a developer for Movie Gallery, a company that just migrated to the cloud. A database must be created using NoSQL technology to hold movies that are listed for public viewing. You are taking an important step in designing the database with DynamoDB and need to choose the appropriate partition key. Which of the following unique attributes satisfies this requirement?"
+Correct = "A"
+A = "`movie_id`"
+B = "`producer_name`"
+C = "`lead_actor_name`"
+D = "`movie_language`"
+Explanation = """
+Correct answer - `movie_id` : The `movie_id` is unique in nature across the entire collection of the movies database, hence it is the suitable candidate for the partition key in this use case. These are attributes that have distinct values for each item.
+
+Incorrect:
+
+`producer_name` - Does not qualify because it can contain a duplicate value
+
+`lead_actor_name` - Not a good one because a record may have duplicate values
+
+`movie_language` - Not a good one because most movies will have the same language over and over
+
+For more information visit https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/
+"""
+Topic = "DynamoDB"
+
+[question-42]
+Question = "Your company has a workflow in AWS consisting of CodePipeline and CodeBuild. In the process Amazon ECS container instances attempt to pull Docker images from Amazon ECR. The attempt fails with an authorization error. Which of the following actions should you take?"
+Correct = "A"
+A = "Double check your IAM permissions for CodeBuild service"
+B = "Delete and re-create ECR repositories"
+C = "Open an AWS support ticket"
+D = "You first need to run an ECS instance"
+Explanation = """
+Correct answer - "Double check your IAM permissions for CodeBuild service" : By default, IAM users don't have permission to create or modify Amazon ECR resources, or perform tasks using the Amazon ECR API.
+
+Incorrect:
+
+"Delete and re-create ECR repositories" - You can but all your images in it will be deleted. Also you will experience the same issue as before because this is an authorization issue
+
+"Open an AWS support ticket" - Before you do always check IAM permissions when dealing with authorization issues
+
+"You first need to run an ECS instance" - This will not help resolve the issue
+
+For more information visit https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_IAM_policies.html
+"""
+Topic = "ECR"
+
+[question-43]
+Question = "As a developer for a company working on AWS workloads, you understand that AWS CloudWatch logs are kept indefinitely and never expire. You are given a security compliance request that requires logs to be deleted after 1 week. Which of the following options will do that?"
+Correct = "A"
+A = "CloudWatch log expiration policies"
+B = "AWS Lambda with a CloudWatch Event"
+C = "CloudWatch S3 exporter"
+D = "CloudWatch Log Streams"
+Explanation = """
+Correct answer - "CloudWatch log expiration policies" : By default, logs are kept indefinitely and never expire. You can adjust the retention policy for each log group, keeping the indefinite retention, or choosing a retention period between one day to ten years.
+
+Incorrect:
+
+"AWS Lambda with a CloudWatch Event" - You can create a scheduled task that calls lambda and then programmatically deletes the logs but why go through that trouble when an easier option is available
+
+"CloudWatch S3 exporter" - There is no tool named this but even if you transferred over to S3 it may not meet compliance because you will still have a copy of the logs somewhere else
+
+"CloudWatch Log Streams" - It will not meet compliance because it will still be stored in CloudWatch
+
+For more information visit https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html
+"""
+Topic = "CloudWatch"
+
+[question-44]
+Question = "You run a SAAS company for the healthcare industry that is used worldwide.  Your SAAS users pay a monthly subscription. There has been requests by mobile developers to expose public API's created with API Gateway.  You decide to make the API's available to mobile developers as product offerings. Which feature will allow you to do that?"
+Correct = "A"
+A = "Usage Plans and API Keys"
+B = "AWS Billing"
+C = "CloudTrail"
+D = "AWS Lambda Custom Authorizers"
+Explanation = """
+Correct answer - "Usage Plans and API Keys" : You can configure usage plans and API keys to allow customers to access selected APIs at agreed-upon request rates and quotas that meet their business requirements and budget constraints.
+
+Incorrect:
+
+"AWS Billing" - In billing you can set a spending quota notification but not API consumption
+
+"CloudTrail" - CloudTrail does not set limits instead it is used as an audit tool
+
+"AWS Lambda Custom Authorizers" - Lambda is a separate service than Gateway API therefore it does not determine its limit
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html
+"""
+Topic = "API Gateway"
+
+[question-45]
+Question = "You have configured the AWS CLI on your workstation. Your default region is us-east-1 and your IAM user has permissions to operate commands on services such as EC2, S3 and RDS in any region. You would like to execute a command to stop an EC2 instance in the us-east-2 region. What must you do to achieve this?"
+Correct = "A"
+A = "Use the --region parameter"
+B = "You need the override the default region use aws configure"
+C = "You should create a new profile just for that other region"
+D = "Use boto3 dependency injection"
+Explanation = """
+Correct answer - "Use the --region parameter" : If the region parameter is not set, then the CLI command is executed against the default AWS region.
+
+Incorrect:
+
+"You need the override the default region use aws configure" - That is not the most simple way as you will have to change it again for use with default region
+
+"You should create a new profile just for that other region" - This is not the most simple way as it causes you to manage two profiles
+
+"Use boto3 dependency injection" - With the CLI you do not use boto3
+
+For more information visit https://docs.aws.amazon.com/cli/latest/topic/config-vars.html#general-options
+"""
+Topic = "CLI"
+
+[question-46]
+Question = "You're a developer working on a big scale order processing application. After completing features you commit your code to AWS CodeCommit and begin building the project with AWS CodeBuild before it gets deployed to the server. The build is taking too long and the error points to an issue resolving dependencies from a third party. You would like to prevent a build running this long in the future for the same reasons. Which of the following will help?"
+Correct = "A"
+A = "Enable CodeBuild timeouts"
+B = "Use AWS Lambda"
+C = "Use AWS CloudWatch Events"
+D = "Use VPC Flow Logs"
+Explanation = """
+Correct answer - "Enable CodeBuild timeouts" : By setting the timeout configuration, the build process will automatically terminate post the expiry of configured timeout. The default is 60 minutes.
+
+Incorrect:
+
+"Use AWS Lambda" - Lambda does not have an effect on the code being complied
+
+"Use AWS CloudWatch Events" - CloudWatch is good for monitoring and viewing logs
+
+"Use VPC Flow Logs" - VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC but not for code compiling configuration
+
+For more information visit Read more: https://docs.aws.amazon.com/codebuild/latest/userguide/change-project.html
+"""
+Topic = "CodeBuild"
+
+[question-47]
+Question = "You are creating a Cloud Formation template to deploy your CMS application running on an EC2 instance within your AWS account. Because you would like to deploy the application across multiple regions you have decided to create a Map of all the possible values for the base AMI for the EC2 instance. How should you invoke the `!FindInMap` function?"
+Correct = "C"
+A = "`!FindInMap [ MapName ]`"
+B = "`!FindInMap [ MapName, TopLevelKey ]`"
+C = "`!FindInMap [ MapName, TopLevelKey, SecondLevelKey ]`"
+D = "`!FindInMap [ MapName, TopLevelKey, SecondLevelKey, ThirdLevelKey ]`"
+Explanation = """
+Correct answer - `!FindInMap [ MapName, TopLevelKey, SecondLevelKey ]` : Read documentation link to view arguments
+
+For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-findinmap.html
+"""
+Topic = "CloudFormation"
+
+[question-48]
+Question = "You are a developer for a web application written in .NET which uses the AWS SDK. You need to implement an authentication mechanism which returns a JWT (JSON Web Token). Which AWS service will help you token handling and validation?"
+Correct = "A"
+A = "Cognito User Pools"
+B = "API Gateway"
+C = "Cognito Identity Pools"
+D = "Cognito Sync"
+Explanation = """
+Correct answer - "Cognito User Pools" : After successfully authenticating a user, Amazon Cognito issues JSON web tokens (JWT) that you can use to secure and authorize access to your own APIs, or exchange for AWS credentials.
+
+Incorrect:
+
+"API Gateway" - If you are processing tokens server-side and using other programming languages not supported in AWS it may be a good choice other than that go with a service already providing the functionality
+
+"Cognito Identity Pools" - A way to authorize your users to use the various AWS services vs authorization in your application
+
+"Cognito Sync" - You can use it to synchronize user profile data across mobile devices and the web without requiring your own backend
+
+For more information visit https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html
+"""
+Topic = "Cognito"
+
+[question-49]
+Question = "As a developer you have chosen AWS Elastic Beanstalk because you can simply upload your application code and the AWS service handles all the details such as provisioning resources and monitoring. While creating configuration files for AWS Elastic Beanstalk which naming convention should you follow?"
+Correct = "A"
+A = "`.ebextensions/<mysettings>.config`"
+B = "`.ebextensions_<mysettings>.config`"
+C = "`.config/<mysettings>.ebextensions`"
+D = "`.config_<mysettings>.ebextensions`"
+Explanation = """
+Correct answer - `.ebextensions/<mysettings>.config` : You can add AWS Elastic Beanstalk configuration files (`.ebextensions`) to your web application's source code to configure your environment and customize the AWS resources that it contains. Configuration files are YAML- or JSON-formatted documents with a .config file extension that you place in a folder named .ebextensions and deploy in your application source bundle.
+
+Incorrect:
+
+`.ebextensions_<mysettings>.config` - Place all of your configuration files in a single folder, named `.ebextensions`, in the root of your source bundle
+
+`.config/<mysettings>.ebextensions` - Configuration files must end with a `.config` file extension
+
+`.config_<mysettings>.ebextensions` - Place all of your configuration files in a single folder, named `.ebextensions`, in the root of your source bundle.
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html
+"""
+Topic = "Elastic Beanstalk"
+
+[question-50]
+Question = "You are a developer writing a CloudFormation template written in YAML. Your template will consist of creation of EC2 instances and one RDS resource. Once your resources are created you would like to output the connection endpoint for the database in RDS. Which intrinsic function returns the value needed?"
+Correct = "A"
+A = "`!GetAtt`"
+B = "`!Ref`"
+C = "`!Sub`"
+D = "`!FindInMap`"
+Explanation = """
+Correct answer - "`!GetAtt`" : The `Fn::GetAtt` intrinsic function returns the value of an attribute from a resource in the template. We can use the above function to get the regions ID attribute of the required EC2 instance by passing region ID as the attributeName and EC2 instance ID as logicalNameOfResource.
+
+Incorrect:
+
+`!Ref` - Returns the value of the specified parameter or resource
+
+`!Sub` - Substitutes variables in an input string with values that you specify
+
+`!FindInMap` - For example you can use this in the Mappings section that contains a single map, RegionMap, that associates AMIs with AWS regions
+
+For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html
+"""
+Topic = "CloudFormation"
+
+[question-51]
+Question = "You are a developer working on AWS Lambda functions that are invoked over HTTPS. The functions are invoked via REST API's using Amazon API Gateway for methods such as GET and PUT. When a GET request is invoked by consumers all fields returned by your Lambda functions are seen. Your supervisor asks you to format the data response. What can you do with API Gateway to satisfy the request?"
+Correct = "A"
+A = "Use Mapping Templates"
+B = "Deploy an interceptor shell script"
+C = "Use a stage variable"
+D = "Use a Lambda custom interceptor"
+Explanation = """
+Correct answer - "Use Mapping Templates" : API Gateway lets you use mapping templates to map the payload from a method request to the corresponding integration request and from an integration response to the corresponding method response.
+
+Incorrect:
+
+"Deploy an interceptor shell script" - This is not possible
+
+"Use a stage variable" - They act like environment variables
+
+"Use a Lambda custom interceptor" - Lambda is a great service but it cannot intercept in this way
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
+"""
+Topic = "API Gateway"
+
+[question-52]
+Question = "You have launched EC2 instances hosted the same application version. Instances are launched based on traffic using an auto scaling group. Each EC2 instance is assigned an instance-id and you plan on capturing this data within the application. Which of the following way can you accomplish this?"
+Correct = "A"
+A = "Use EC2 meta data service"
+B = "Attach an IAM role and allow the ec2 describes-instances permission"
+C = "Use EC2 User Data"
+D = "Inject that information using AWS Lambda"
+Explanation = """
+Correct answer - "Use EC2 meta data service" : As your instance metadata is available from your running instance, you do not need to use the Amazon EC2 console or the AWS CLI. This can be helpful when you're writing scripts to run from your instance. For example, you can access the local IP address of your instance from instance metadata to manage a connection to an external application.
+
+Incorrect:
+
+"Attach an IAM role and allow the ec2 describes-instances permission" - Instance metadata is available from your running instance
+
+"Use EC2 User Data" - Information provided when launching the instance. You do not have control over providing things that EC2 meta data returns
+
+"Inject that information using AWS Lambda" - Meta data cannot be injected. For example it is not possible to assign a new custom primary private IP address to an existing instance
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html#instancedata-data-retrieval
+"""
+Topic = "EC2"
+
+[question-53]
+Question = "As a Solutions Architect you have responsibility of maintaining infrastructure of the company's technology. The company is limited in the amount of engineers it can hire and need to keep maintenance to a very low. One of those assets under your maintenance are AWS Lambda functions and you would like to deploy new versions and shift traffic to them. Which AWS service meets your need?"
+Correct = "A"
+A = "CodeDeploy"
+B = "CodeBuild"
+C = "CodeCommit"
+D = "CodePipeline"
+Explanation = """
+Correct answer - "CodeDeploy" : You can deploy nearly unlimited variety of application content, such as code, serverless AWS Lambda functions, web and configuration files, executables, packages, scripts, multimedia files, and so on.
+
+Incorrect:
+
+"CodeBuild" - AWS CodeBuild is a fully managed continuous integration service that compiles source code, runs tests, and produces software packages that are ready to deploy
+
+"CodeCommit" - CodeCommit eliminates the need to operate your own source control system or worry about scaling its infrastructure
+
+"CodePipeline" - CodePipeline automates the build, test, and deploy phases of your release process every time there is a code change, based on the release model you define
+
+For more information visit https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html
+"""
+Topic = "CodeDeploy"
+
+[question-54]
+Question = "Your team lead is reviewing a CloudFormation template written by you. The template you created was written in YAML and it will be reused by many. After your team lead finished reviewing the template, they found a section that was not valid. Which of the following sections was it?"
+Correct = "A"
+A = "Dependencies"
+B = "Resources"
+C = "Parameters"
+D = "Conditions"
+Explanation = """
+Correct answer - "Dependencies" : There is not a section called Dependencies however you can for example, create a resource that depends on whether the stack is for a production or test environment. In this sense its a dependency but not a section found in the template.
+
+Incorrect:
+
+"Resources" - Specifies the stack resources and their properties, such as an Amazon Elastic Compute Cloud instance or an Amazon Simple Storage Service bucket
+
+"Parameters" - Values to pass to your template at runtime (when you create or update a stack)
+
+"Conditions" - Control whether certain resources are created or whether certain resource properties are assigned a value during stack creation or update
+
+For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html
+"""
+Topic = "CloudFormation"
+
+[question-55]
+Question = "A company is undergoing a compliance audit by the government. The company has hundreds of IAM users that make API calls but specifically it needs to be determined who is making KMS API calls. Which of the following services should the audit team use?"
+Correct = "A"
+A = "CloudTrail"
+B = "CloudWatch Metrics"
+C = "X-Ray"
+D = "CloudWatch Alarms"
+Explanation = """
+Correct answer - "CloudTrail" : With CloudTrail, you can log, continuously monitor, and retain account activity related to actions across your AWS infrastructure. It is a good tool for auditing and compliance purposes.
+
+Incorrect:
+
+"CloudWatch Metrics" - Its a monitor tool for example to monitor CPU usage of a particular EC2 instance
+
+"X-Ray" - More appropriate for the application level as it helps with tracking requests made to your applications
+
+"CloudWatch Alarms" - Used for watching a single CloudWatch metric and not API calls
+
+For more information visit https://aws.amazon.com/cloudtrail/
+"""
+Topic = "CloudTrail"
+
+[question-56]
+Question = "You are a developer in a manufacturing company that has several servers on-site. The company decides to move new development to the cloud using serverless technology. You decide to use the AWS Severless Application Model (AWS SAM). While creating an AWS SAM template file that that represents your serverless architecture you being to select your resources. Which of the following is not a valid serverless resource type?"
+Correct = "A"
+A = "AWS::Serverless::UserPool"
+B = "AWS::Serverless::Function"
+C = "AWS::Serverless::Api"
+D = "AWS::Serverless::SimpleTable"
+Explanation = """
+Correct answer - "AWS::Serverless::UserPool" : UserPool applies to the Cognito service which is used for authentication for mobile app and web. There is no resource named UserPool in the Serverless Application Model.
+
+Incorrect:
+
+"AWS::Serverless::Function" - This resource creates a lambda function
+
+"AWS::Serverless::Api" - Describes an API Gateway resource. It is useful for advanced use cases where you want full control and flexibility when you configure your APIs.
+
+"AWS::Serverless::SimpleTable" - Syntax for describing how to create DynamoDB tables
+
+For more information visit https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template.html#serverless-sam-template-function
+"""
+Topic = "SAM"
+
+[question-57]
+Question = "You are a developer at a company who creates the serverless functions in AWS Lambda. The functions are invoked by clients via AWS API Gateway, which anyone can access. Your team lead decides that it is time to control access and has requested you do that soon, using a 3rd party authorized mechanism. Which authorizer should you use?"
+Correct = "A"
+A = "Lambda Authorizer"
+B = "IAM permissions with sigv4"
+C = "Cognito User Pools"
+Explanation = """
+Correct answer - "Lambda Authorizer" : An Amazon API Gateway Lambda authorizer (formerly known as a custom authorizer) is a Lambda function that you provide to control access to your API. A Lambda authorizer uses bearer token authentication strategies, such as OAuth or SAML. Before creating an API Gateway Lambda authorizer, you must first create the AWS Lambda function that implements the logic to authorize and, if necessary, to authenticate the caller.
+
+Incorrect:
+
+"IAM permissions with sigv4" - You will still need to provide permissions but our requirements have need for 3rd party authentication which is where Lambda Authorizer comes in to play
+
+"Cognito User Pools" - This is managed by AWS therefore does not meet our requirements
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
+"""
+Topic = "API Gateway"
+
+[question-58]
+Question = "A company is developing a highly available web application using stateless web servers. Currently the application is hosted on one EC2 instance that is installed along with SQL server. The company solutions architect is redesigning the architecture to allow for scalability. One of those changes will require replacement of the relational database to a NoSQL database technology. Which of the following services should you use given these requirements?"
+Correct = "A"
+A = "DynamoDB"
+B = "RDS"
+C = "Redshift"
+D = "ElastiCache"
+Explanation = """
+Correct answer - "DynamoDB" : Amazon DynamoDB is a no relational database that delivers reliable performance at any scale. It is a fully managed, multi-region, multi-master database that provides consistent single-digit millisecond latency.
+
+Incorrect:
+
+"RDS" - Its use for relational storage and not NoSQL
+
+"Redshift" - Redshift is a petabyte scale warehouse service and you have to manually change settings for scaling
+
+"ElastiCache" - Good for in-memory caching and helps significantly improve latency
+
+For more information visit https://aws.amazon.com/dynamodb/
+"""
+Topic = "DynamoDB"
+
+[question-59]
+Question = "You are a developer working on an application that uses encryption heavily. You also handle the deployment of the application via AWS Elastic Beanstalk. During load testing of the application you find that the KMS requests are exceeding per second limit. Which of the following alternatives will help you resolve this issue?"
+Correct = "A"
+A = "Use the Encryption SDK"
+B = "KMS Encrypt API Call"
+C = "S3 Encrypt API Call"
+D = "IAM Encrypt API call"
+Explanation = """
+Correct answer - "Use the Encryption SDK" : The AWS Encryption SDK is an encryption library that helps make it easier for you to implement encryption best practices in your application.
+
+Incorrect:
+
+"KMS Encrypt API Call" - Although you might use it to encrypt small amounts of data, such as a password or RSA key, they are not designed to encrypt application data, especially in this size amount
+
+"S3 Encrypt API Call" - You can encrypt data in your code using SDK but only can encrypt if storing objects in S3
+
+"IAM Encrypt API Call" - Does not allow this functionality but can use IAM to set policies if needed
+
+For more information visit https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/introduction.html
+"""
+Topic = "KMS"
+
+[question-60]
+Question = "A company has configured a continuous delivery service using AWS CodePipeline. The stages of a software release have been modeled. The pipeline created will copy files or changes that will be worked on by the actions and stages. Which of the following AWS service will assist in the storage of these files?"
+Correct = "A"
+A = "S3"
+B = "SQS"
+C = "AWS Lambda"
+D = "EFS"
+Explanation = """
+Correct answer - "S3" : The Artifact Store is an Amazon S3 bucket that CodePipeline uses to store artifacts used by pipelines. When you first use the CodePipeline console in a region to create a pipeline, CodePipeline automatically generates this S3 bucket in the AWS region. It stores artifacts for all pipelines in that region in this bucket.
+
+Incorrect:
+
+"SQS" - A queue that lets you integrate and decouple distributed software systems and components.
+
+"AWS Lambda" - AWS Lambda lets you run code without provisioning or managing servers
+
+"EFS" - Amazon EFS is designed to provide performance for a broad spectrum of workloads and applications, including Big Data and analytics, media processing workflows, content management, web serving, and home directories.
+
+For more information visit https://aws.amazon.com/efs/
+"""
+Topic = "CodePipeline"
+
+[question-61]
+Question = "A company has migrated to the cloud recently and began creating a serverless infrastructure. The infrastructure is composed of AWS Lambda functions, API Gateway and EC2 instances with applications that reference API Gateway. In addition the company has enabled CloudWatch Logs for API Gateway but CloudWatch logs are not being written. What is the likely cause of this issue?"
+Correct = "A"
+A = "Check the Service IAM permissions"
+B = "Check the CloudWatch Logs Policy"
+C = "Also enable X-Ray integration"
+D = "Ensure in-flight encryption is disabled"
+Explanation = """
+Correct answer - "Check the Service IAM permissions" : To enable CloudWatch Logs, you must grant API Gateway permission to read and write logs to CloudWatch for your account. The AmazonAPIGatewayPushToCloudWatchLogs managed policy (with an ARN of arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs) has all the required permissions.
+
+Incorrect:
+
+"Check the CloudWatch Logs Policy" - There is no such policy instead you would create an IAM Policy to Access CloudWatch Logs
+
+"Also enable X-Ray integration" - X-ray does not authorize API calls
+
+"Ensure in-flight encryption is disabled" - Encryption has nothing to do with API Gateway accessing CloudWatch logs
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html
+"""
+Topic = "API Gateway"
+
+[question-62]
+Question = "Your company hired an outside consultant to help with redesigning internal systems. The company wants to allow consuming applications to process nearly limitless streams of data in flight. Which solution should the outside consultant recommend?"
+Correct = "A"
+A = "Kinesis Stream"
+B = "SNS"
+C = "SQS"
+D = "Lambda"
+Explanation = """
+Correct answer - "Kinesis Stream" : Kinesis data streams can continuously capture gigabytes of data per second from hundreds of thousands of sources such as website clickstreams, database event streams, financial transactions, social media feeds, IT logs, and location-tracking events.
+
+Incorrect:
+
+"SNS" - SNS is appropriate for flexible message delivery over multiple transport protocols
+
+"SQS" - Amazon Simple Queue Service (Amazon SQS) offers a secure, durable, and available hosted queue that lets you integrate and decouple distributed software systems and components
+
+"Lambda" - AWS Lambda makes it easy to execute code in response to events, such as changes to Amazon S3 buckets, updates to an Amazon DynamoDB table, or custom events generated by your applications or devices. Not suitable in this scenario
+
+For more information visit https://aws.amazon.com/kinesis/data-streams/
+"""
+Topic = "Kinesis"
+
+[question-63]
+Question = "A company has created a software delivery process using AWS CodePipeline.  The solutions architect has managed to model all the resources and has executed the pipeline. During this process the pipeline fails due to an authorization error. What should be the first step the solutions architect takes to solve this issue?"
+Correct = "A"
+A = "Check the Service IAM permissions"
+B = "Check changes in CloudTrail"
+C = "Check the recent changes in CloudWatch"
+D = "Audit the S3 bucket CORS policy where the artifacts are stored"
+Explanation = """
+Correct answer - "Check the Service IAM permissions" : Any authorization related failure directly indicates to us that our first point of debugging should be validating the IAM permissions for the service.
+
+Incorrect:
+
+"Check changes in CloudTrail" - You can make changes related to storage of your files and receiving notifications but it does not affect authorization
+
+"Check the recent changes in CloudWatch" - CloudWatch is a monitoring service therefore it does not affect authorization
+
+"Audit the S3 bucket CORS policy where the artifacts are stored" - Cross-origin resource sharing (CORS) defines a way for client web applications that are loaded in one domain to interact with resources in a different domain. CORS applies to web and not for internal AWS service authorization
+
+For more information visit https://aws.amazon.com/cloudtrail/
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html
+"""
+Topic = "CodePipeline"
+
+[question-64]
+Question = "Your development team has created a popular mobile app written for Android. They have sent you, a solutions architect, a request to suggest a technology where messages can be sent to mobile devices using the mobile app. Mobile app users will register as users and be given permissions to access AWS resources. Which technology would you recommend for subscribing users to messages?"
+Correct = "A"
+A = "SNS"
+B = "SQS"
+C = "Kinesis"
+D = "SES"
+Explanation = """
+Correct answer - "SNS" : Amazon SNS follows the 'publish-subscribe' (pub-sub) messaging paradigm, with notifications being delivered to clients using a 'push' mechanism that eliminates the need to periodically check or 'poll' for new information and updates.
+
+Incorrect:
+
+"SQS" - SQS is a distributed queuing system. Messages are not pushed to receivers. Receivers have to poll SQS to receive messages
+
+"Kinesis" - Used for processing big data
+
+"SES" - Amazon SES is an inexpensive way to send and receive emails
+
+For more information visit https://docs.aws.amazon.com/sns/latest/dg/welcome.html
+"""
+Topic = "SNS"
+
+[question-65]
+Question = "You're a developer doing contract work for the media sector. Since you work alone, you opt for technologies that require little maintenance, which allows you to focus more on your coding. You have chosen AWS Elastic Beanstalk to assist with deployment of your applications. While reading online documentation you find that Elastic Beanstalk relies on a similar deployment service to provision your resources. Which of the following services is it?"
+Correct = "A"
+A = "CloudFormation"
+B = "CodeCommit"
+C = "AWS Lambda"
+D = "Systems Manager"
+Explanation = """
+Correct answer - "CloudFormation" : Elastic Beanstalk uses AWS CloudFormation to launch the resources in your environment and propagate configuration changes.
+
+Incorrect:
+
+"CodeCommit" - You can use the Elastic Beanstalk Command Line Interface (CLI) to deploy your application directly from an AWS CodeCommit repository
+
+"AWS Lambda" - AWS Lambda runs your code, Elastic Beanstalk runs your applications
+
+"Systems Manager" - AWS Systems Manager gives you visibility and control of your infrastructure on AWS
+
+For more information visit https://aws.amazon.com/cloudformation/faqs/
+"""
+Topic = "Elastic Beanstalk"

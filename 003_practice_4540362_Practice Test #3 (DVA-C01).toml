@@ -1,0 +1,1313 @@
+CourseID = 1975038
+PracticeTestID = 4540362
+
+[question-1]
+Question = "You have been a developer for the government since the last decade building applications that exchange data between each other.  Your applications use Amazon Simple Queue Service (SQS) for its message queue service.  Due to recent government hacks, security measures have become stricter and require you to transmit sensitive data in encrypted queues.  Which of the following steps can you take to meet your requirement, without making changes to the existing code?"
+Correct = "A"
+A = "Enable SQS KMS encryption"
+B = "Use the SSL endpoint"
+C = "Use Client side encryption"
+D = "Change the IAM policy"
+Explanation = """
+Correct answer - "Enable SQS KMS encryption" : You can now choose to have SQS encrypt messages stored in both Standard and FIFO queues using an encryption key provided by AWS Key Management Service (KMS).
+
+Incorrect:
+
+"Use the SSL endpoint" - Our requirement demands encryption at rest. When dealing with SSL the data is encrypted during transit but once at rest the data needs a way to be encrypted also
+
+"Use Client side encryption" - For additional security, you can build your application to encrypt messages before they are placed in a message queue but will require code change
+
+"Change the IAM policy" - An IAM policy helps with access control but not forcing encryption
+
+For more information visit https://aws.amazon.com/blogs/aws/new-server-side-encryption-for-amazon-simple-queue-service-sqs/
+"""
+Topic = "SQS"
+
+[question-2]
+Question = "Your company plans on launching a static website hosted in Amazon Simple Storage Service (S3) with a URL that cannot be changed. As requirements change so will the infrastructure of the website.  If developers are only familiar with the programming language C#, then using the .Net Framework will be required causing the website to be moved to Amazon EC2 instances.  This change will require Elastic Load Balancing load balancers in front of the EC2 instances.  How can you achieve the infrastructure changes without changing the URL that visitors will use?"
+Correct = "A"
+A = "Expose a domain name created with Route53"
+B = "Use the domain name provided by your ELB"
+C = "Use the domain name provided by your API gateway"
+D = "Use the domain name provided by CloudFront"
+Explanation = """
+Correct answer - "Expose a domain name created with Route53" : Route53 allows you to change the record type of your domain and lets you be completely free for what architecture you want to implement or change in the future.
+
+Incorrect:
+
+"Use the domain name provided by your ELB" - The ELB provides a DNS name that is not easy for your customers to remember and use
+
+"Use the domain name provided by your API gateway" - The domain name provided is not user friendly and is meant to act as a reverse proxy, routing requests from clients to services
+
+"Use the domain name provided by CloudFront" - You can use this domain name but its not user friendly to website users, especially older folks who are not technical
+
+For more information visit https://aws.amazon.com/route53/
+"""
+Topic = "Route53"
+
+[question-3]
+Question = "Your team lead has requested that your code for AWS Lambda functions are be reviewed by another colleague.  Your code is written in python and makes use of the Amazon Simple Storage Service (S3) to upload logs to an S3 bucket.  After your colleague is done reviewing your code, they recommend the use of singletons for execution context reuse to improve the performance of your function. Which of the following actions must you take to implement the recommendation?"
+Correct = "A"
+A = "Move the S3 client initialization out of your function handler"
+B = "Assign more RAM to the function"
+C = "Change the IAM role"
+Explanation = """
+Correct answer - "Move the S3 client initialization out of your function handler" : Limit the re-initialization of variables/objects on every invocation. Instead use static initialization/constructor, global/static variables and singletons. Keep alive and reuse connections (HTTP, database, etc.) that were established during a previous invocation.
+
+Incorrect:
+
+"Assign more RAM to the function" - Yes memory can be increased but its not fixing the real issue. The real issue is that connections are not being re-used therefore causing performance issues
+
+"Change the IAM role" - IAM roles are design to help managing access and have no impact on service performance issues
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+"""
+Topic = "AWS Lambda"
+
+[question-4]
+Question = "Your company uses an Application Load Balancer to route incoming end-user traffic to applications hosted in Amazon EC2 instances. The applications capture incoming request information and store it in the Amazon Relational Database Service (RDS) running Microsoft SQL Server DB engines. Your team lead requested that you capture the clients IP address, how will you achieve that?"
+Correct = "A"
+A = "Use the header X-Forwarded-For"
+B = "We should change the client application to send their IP as part of the payloads"
+C = "Use the header X-Forwarded-IP"
+D = "Change the security groups rules"
+Explanation = """
+Correct answer - "Use the header X-Forwarded-For" : The X-Forwarded-For request header helps you identify the IP address of a client when you use an HTTP or HTTPS load balancer. Because load balancers intercept traffic between clients and servers, your server access logs contain only the IP address of the load balancer. To see the IP address of the client, use the X-Forwarded-For request header.
+
+Incorrect:
+
+"We should change the client application to send their IP as part of the payloads" - You have no control of changing the IP address from the client side
+
+"Use the header X-Forwarded-IP" - This header is used to retrieve the IP address from a user connecting to an email server
+
+"Change the security groups rules" - Security group rules filter traffic coming into and out of an EC2 instance
+
+For more information visit https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/x-forwarded-headers.html
+"""
+Topic = "ELB"
+
+[question-5]
+Question = "You would like to deploy your application to production using a programming paradigm.  The application should deploy to many environments and require final approval before being deployed to production. How can you achieve this?</p>"
+Correct = "A"
+A = "Create one CodePipeline for your entire flow, and add a manual approval step"
+B = "Create multiple CodePipelines for each environment and link them using AWS Lambda"
+C = "Create deeply integrated AWS CodePipelines for each environment"
+D = "Use CodeDeploy Pipeline integrator"
+Explanation = """
+Correct answer - "Create one CodePipeline for your entire flow, and add a manual approval step" : You can add an approval action to a stage in an AWS CodePipeline pipeline at the point where you want the pipeline to stop so someone can manually approve or reject the action.
+
+Incorrect:
+
+"Create multiple CodePipelines for each environment and link them using AWS Lambda" - You can create Lambda functions and add them as actions in your pipelines but the approval step is confined to a workflow process and not a different AWS service
+
+"Create deeply integrated AWS CodePipelines for each environment" - You can use an AWS CloudFormation template in conjunction with AWS CodePipeline and AWS CodeCommit to create a test environment that deploys to your production environment when the changes to your application are approved, helping you automate a continuous delivery workflow
+
+"Use CodeDeploy Pipeline integrator" - In a pipeline CodeDeploy can be used as a deployment action but it still requires a manual approval step to achieve the requirement
+
+For more information visit https://docs.aws.amazon.com/codepipeline/latest/userguide/approvals-action-add.html
+"""
+Topic = "CodePipeline"
+
+[question-6]
+Question = "You are looking to provide better latency for retrieving files from S3 for your users around the globe. Which technology can help you?"
+Correct = "A"
+A = "CloudFront"
+B = "ElastiCache"
+C = "S3 Caching"
+D = "EFS"
+Explanation = """
+Correct answer - "CloudFront" : Amazon CloudFront is a fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency, high transfer speeds, all within a developer-friendly environment.
+
+Incorrect:
+
+"ElastiCache" - Amazon ElastiCache can be used to significantly improve latency and throughput for many read-heavy application workloads (such as social networking, gaming, media sharing and Q&A portals)
+
+"S3 Caching" - The service does not offer caching instead AWS recommends using S3 in combination with CloudFront
+
+"EFS" - Elastic File System is a file storage service which works with EC2 virtual machines
+
+For more information visit https://aws.amazon.com/cloudfront/
+"""
+Topic = "CloudFront"
+
+[question-7]
+Question = "Your manager has a requirement that anyone who pushes code in CodeCommit must have signed an CLA first. These requirements must be checked in real-time. He has provided you with the code to check whether a committer has signed a CLA. How can you implement this solution easily?"
+Correct = "A"
+A = "AWS Lambda"
+B = "SNS"
+C = "SES"
+D = "Cron Jobs"
+E = "Kinesis"
+Explanation = """
+Correct answer - "AWS Lambda" : Lambda can be used to retrieve commits, analyze code, committers and perform creative tasks such as checking a CLA.
+
+Incorrect:
+
+"SNS" - SNS is a service used for publishing messages and allowing clients to subscribe for notifications
+
+"SES" - Amazon SES is a great solution for anyone who needs a reliable, scalable, and inexpensive way to send and receive email
+
+"Cron Jobs" - A cron job is the scheduled task itself. Cron jobs can be very useful to automate repetitive tasks. In this case it requires a server that you need to maintain so instead you want to use a serverless service such as Lambda
+
+"Kinesis" - Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information
+
+For more information visit https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-notify-lambda.html
+"""
+Topic = "CodeCommit"
+
+[question-8]
+Question = "Which of the following should you do to get the instance id of my EC2 machine from within the machine?"
+Correct = "A"
+A = "Query the meta data at http://169.254.169.254/latest/meta-data"
+B = "Query the user data at http://169.254.169.254/latest/user-data"
+C = "Create an IAM role and attach it to my EC2 instance so I can perform a 'describe' API call"
+D = "Query the user data at http://254.169.254.169/latest/meta-data"
+Explanation = """
+Correct answer - "Query the meta data at http://169.254.169.254/latest/meta-data" : Because your instance metadata is available from your running instance, you do not need to use the Amazon EC2 console or the AWS CLI. This can be helpful when you're writing scripts to run from your instance.To view all categories of instance metadata from within a running instance, use the following URI:http://169.254.169.254/latest/meta-data/
+
+Incorrect:
+
+"Query the user data at http://169.254.169.254/latest/user-data" - The address retrieves user data that you specified when launching your instance
+
+"Create an IAM role and attach it to my EC2 instance so I can perform a 'describe' API call" - The AWS CLI has a describe-instances API call you can make where you would have to specify the instance ID, so that would not work for your requirement
+
+"Kinesis" - Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+"""
+Topic = "EC2"
+
+[question-9]
+Question = "You are starting to automate the creation of ECS clusters using CloudFormation, linked to an Auto Scaling Group. The template has been working for one cluster, but upon creating more clusters, all the EC2 instances from the ASG get registered to the same ECS cluster, even though you have created a different cluster name in the CloudFormation template. What's the root cause of this issue?"
+Correct = "A"
+A = "The cluster name Parameter isn't reflected in the file /etc/ecs/ecs.config during bootstrap"
+B = "The ECS agent Docker image must be re-built to connect to the other clusters"
+C = "The EC2 instance is missing IAM permissions to join the other clusters"
+D = "The security groups on the EC2 instance are pointing to the wrong ECS cluster"
+Explanation = """
+Correct answer - "The cluster name Parameter isn't reflected in the file /etc/ecs/ecs.config during bootstrap" : In the ecs.config file you have to configure the parameter ECS_CLUSTER=your_cluster_name to register the container instance with a cluster named your_cluster_name
+
+"The ECS agent Docker image must be re-built to connect to the other clusters" - Not the case here because we know that the template is working for one cluster but its only when creating to other clusters which lead us to look at our template
+
+"The EC2 instance is missing IAM permissions to join the other clusters" - We know that the EC2 instances are getting registered to first cluster so permissions is not an issue here but rather a configuration issue that needs to be looked at otherwise we would usually get an authorization related error
+
+"The security groups on the EC2 instance are pointing to the wrong ECS cluster" - Security group rules specify which incoming network traffic is delivered to your container instance. This issue is not incoming network traffic
+
+For more information visit https://docs.aws.amazon.com/AmazonECS/latest/developerguide/bootstrap_container_instance.html
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html
+"""
+Topic = "ECS"
+
+[question-10]
+Question = "Which API should you call to delete all the messages in a SQS queue efficiently while guaranteeing uptime?"
+Correct = "A"
+A = "PurgeQueue"
+B = "DeleteQueue then CreateQueue"
+C = "BatchDelete"
+D = "ChangeVisibilityTimeout"
+Explanation = """
+Correct answer - "PurgeQueue" : Deletes the messages in a queue specified by the QueueURL parameter.
+
+Incorrect:
+
+"DeleteQueue then CreateQueue" - When you delete a queue, the deletion process takes up to 60 seconds. Requests you send involving that queue during the 60 seconds might succeed.
+
+"BatchDelete" - The command does not exist in the API
+
+"ChangeVisibilityTimeout" - Changes the visibility timeout of a specified message in a queue to a new value but does not delete all messages for you
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/sqs/purge-queue.html
+"""
+Topic = "SQS"
+
+[question-11]
+Question = "You are preparing for the biggest day of sales for the year, where your traffic will increase by 100x. You have already setup SQS standard queue. What should you do?"
+Correct = "A"
+A = "Do nothing, SQS scales automatically"
+B = "Increase the capacity of the SQS queue"
+C = "Enable auto scaling in the SQS queue"
+D = "Open a support ticket to pre-warm the SQS queue"
+Explanation = """
+Correct answer - "Do nothing, SQS scales automatically" : Amazon SQS leverages the AWS cloud to dynamically scale based on demand. SQS scales elastically with your application so you don't have to worry about capacity planning and pre-provisioning. There is no limit to the number of messages per queue, and standard queues provide nearly unlimited throughput.
+
+Incorrect:
+
+"Increase the capacity of the SQS queue" - SQS queues are dynamically created and scale automatically so you can build and grow applications quickly and efficiently
+
+"Enable auto scaling in the SQS queue" - SQS queues scale automatically
+
+"Open a support ticket to pre-warm the SQS queue" - There is no pre-provisioning or pre-warm for SQS as it handles the scale for you
+
+For more information visit https://aws.amazon.com/sqs/
+"""
+Topic = "SQS"
+
+[question-12]
+Question = "What are the only resolutions you can choose for CloudWatch Alarms for High Resolution custom metrics? (select two)"
+Correct = "A,B"
+A = "10 seconds"
+B = "30 seconds"
+C = "1 second"
+D = "1 minute"
+Explanation = """
+Correct answers - "10 seconds & 30 seconds" : If you set an alarm on a high-resolution metric, you can specify a high-resolution alarm with a period of 10 seconds or 30 seconds, or you can set a regular alarm with a period of any multiple of 60 seconds.
+
+Incorrect:
+
+"1 second"
+
+"1 minute"
+
+For more information visit https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#high-resolution-alarms
+"""
+Topic = "CloudWatch"
+
+[question-13]
+Question = "You have enabled a SQS DLQ (Dead-Letter Queues) for your AWS Lambda function, but it seems that even after a failed retried asynchronous invocation, the message does not appear in SQS. What's the reason?"
+Correct = "A"
+A = "Fix the IAM Role"
+B = "Use synchronous invocations instead"
+C = "Use aliases instead"
+D = "You need to disable encryption"
+Explanation = """
+Correct answer - "Fix the IAM Role" : Any Lambda function invoked asynchronously is retried twice before the event is discarded. If the retries fail and you're unsure why, use Dead Letter Queues (DLQ) to direct unprocessed events to an Amazon SQS queue or an Amazon SNS topic to analyze the failure. In addition, you need to add permissions to the execution role of your Lambda function for access to the SQS.
+
+Incorrect:
+
+"Use synchronous invocations instead" - When you use an AWS services as a trigger, the invocation type is predetermined for each service. You have no control over the invocation type that these event sources use when they invoke your Lambda function
+
+"Use aliases instead" - By default, an alias points to a single Lambda function version or you can have an alias shift traffic to two Lambda versions and work with SQS DLQ. Even if you did this you will still need to add permissions to the execution role of your Lambda function
+
+"You need to disable encryption" - There is the option to encrypt SQS messages but that does not matter if you do not have access to another AWS service within Lambda
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/dlq.html
+"""
+Topic = "AWS Lambda"
+
+[question-14]
+Question = "You are getting throttle errors when you push data to CloudWatch using the PutMetric API, and would like to ensure the data eventually gets to CloudWatch. What should you do?"
+Correct = "A"
+A = "Use Exponential Backoff for retries"
+B = "Use Kinesis Stream"
+C = "Check IAM policy"
+D = "Enable high throughput metrics in CloudWatch"
+Explanation = """
+Correct answer - "Use Exponential Backoff for retries" : Each AWS SDK implements exponential backoff algorithm for better flow control. The idea behind exponential backoff is to use progressively longer waits between retries for consecutive error responses. You should implement a maximum delay interval, as well as a maximum number of retries. The maximum delay interval and maximum number of retries are not necessarily fixed values, and should be set based on the operation being performed, as well as other local factors, such as network latency. With PutMetricAlarm you are allowed 3 transactions per second (TPS) which is the maximum number of operation requests you can make per second without being throttled. You can also request an increase of the limit by contacting AWS support.
+
+Incorrect:
+
+"Use Kinesis Stream" - You would want to use Amazon Kinesis Data Streams to collect and process large streams of data records in real time
+
+"Check IAM policy" - Requests that receive server (5xx) or throttling errors would benefit from Exponential Backoff for retries, however errors due to access denied or authorization would require you to check your IAM policy
+
+"Enable high throughput metrics in CloudWatch" - There is a high-resolution metric for CloudWatch where it stores it with a resolution of 1 second, and you can read and retrieve it with a period of 1 second, 5 seconds, 10 seconds, 30 seconds, or any multiple of 60 seconds
+
+For more information visit https://docs.aws.amazon.com/general/latest/gr/api-retries.html
+"""
+Topic = "CloudWatch"
+
+[question-15]
+Question = "How can you do traffic shifting between two versions of your AWS Lambda?"
+Correct = "A"
+A = "Use AWS Lambda aliases"
+B = "Use environment variables"
+C = "Use Route53"
+D = "Deploy your Lambda in a VPC"
+Explanation = """
+Correct answer - "Use AWS Lambda aliases" : By default, an alias points to a single Lambda function version. When the alias is updated to point to a different function version, incoming request traffic in turn instantly points to the updated version. This exposes that alias to any potential instabilities introduced by the new version. To minimize this impact, you can implement the routing-config parameter of the Lambda alias that allows you to point to two different versions of the Lambda function and dictate what percentage of incoming traffic is sent to each version.
+
+Incorrect:
+
+"Use environment variables" - Environment variables for Lambda functions enable you to dynamically pass settings to your function code and libraries, without making changes to your code
+
+"Use Route53" - Unfortunately Route53 cannot shift traffic between Lambda versions and is better served shifting internet traffic
+
+"Deploy your Lambda in a VPC" - Configuring a VPC is more for security purposes
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html
+"""
+Topic = "AWS Lambda"
+
+[question-16]
+Question = "Your company is starting to move away from reserving EC2 instances and would like to adopt a more agile form of serverless architecture. You would like to deploy docker containers to the cloud, but wouldn't like to deal with the hassle of using EC2 instances. Which service do you recommend?"
+Correct = "A"
+A = "Fargate"
+B = "EKS"
+C = "ECS"
+D = "Beanstalk"
+Explanation = "Correct answer - \"Fargate\" : AWS Fargate is a compute engine for Amazon ECS that allows you to run containers without having to manage servers or clusters. With AWS Fargate, you no longer have to provision, configure, and scale clusters of virtual machines to run containers. AWS Fargate eliminates the need to manage a cluster of Amazon EC2 instances"
+Topic = "ECS"
+
+[question-17]
+Question = "Which of the following operations have eventual consistency in S3? (select two)"
+Correct = "A,B"
+A = "Updating an existing object"
+B = "Deleting an existing object"
+C = "Creating a new object"
+Explanation = """
+Correct answers - "Updating an existing object & Deleting an existing object" : Amazon S3 provides read-after-write consistency for PUTS of new objects in your S3 bucket in all regions with one caveat. The caveat is that if you make a HEAD or GET request to the key name (to find if the object exists) before creating the object, Amazon S3 provides eventual consistency for read-after-write.
+
+Incorrect:
+
+"Creating a new object" - For new objects it uses read-after-write consistency
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html
+"""
+Topic = "S3"
+
+[question-18]
+Question = "You would like to send messages of over 1MB to SQS but you know the limit is 256KB for messages. What should you do?"
+Correct = "A"
+A = "Use the SQS Extended Client"
+B = "Get a service limit increase from AWS"
+C = "Use gzip compression"
+D = "Use the MultiPart API"
+Explanation = """
+Correct answer - "Use the SQS Extended Client" : To send messages larger than 256 KB, you can use the Amazon SQS Extended Client Library for Java. This library allows you to send an Amazon SQS message that contains a reference to a message payload in Amazon S3. The maximum payload size is 2 GB.
+
+"Get a service limit increase from AWS" - While you can request a limit increase on certain services, there is no need since SQS Extended Client is offered
+
+"Use gzip compression" - You can compress messages yourself but it would take a little more effort
+
+"Use the MultiPart API" - There is no multi-part API call for SQS
+
+For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html
+"""
+Topic = "SQS"
+
+[question-19]
+Question = "You are running a website with a load balancer and 10 EC2 instances. Your users are complaining about the fact that your website always asks them to re-authenticate when they switch pages. You are puzzled, because it is working just fine on your machine and in the dev environment with 1 server. What could be the reason?"
+Correct = "A"
+A = "The Load Balancer does not have stickiness enabled"
+B = "The application must have a bug"
+C = "The EC2 instances log out users because they don't see their true IP's"
+Explanation = """
+Correct answer - "The Load Balancer does not have stickiness enabled" : By default, a Classic Load Balancer routes each request independently to the registered instance with the smallest load. However, you can use the sticky session feature (also known as session affinity), which enables the load balancer to bind a user's session to a specific instance. This ensures that all requests from the user during the session are sent to the same instance.
+
+"The application must have a bug" - Not possible because we established that it works with at least 1 server
+
+"The EC2 instances log out users because they don't see their true IP's" - Elastic Load Balancing stores the IP address of the client in the X-Forwarded-For request header and passes the header to your server so you can read it if needed in your application
+
+For more information visit https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html
+"""
+Topic = "ELB"
+
+[question-20]
+Question = "Your entire stack is integrated with AWS X-Ray but now you have too much data going into X-Ray and your costs are skyrocketing. Which feature can help you reduce costs?"
+Correct = "A"
+A = "Enable X-Ray sampling"
+B = "Filter the amount of data sent client side"
+C = "Custom configuration for the X-Ray agents"
+D = "Implement a network security rule"
+Explanation = """
+Correct answer - "Enable X-Ray sampling" : To ensure efficient tracing and provide a representative sample of the requests that your application serves, the X-Ray SDK applies a sampling algorithm to determine which requests get traced. By default, the X-Ray SDK records the first request each second, and five percent of any additional requests.
+
+"Filter the amount of data sent client side" - You cannot filter but you can limit
+
+"Custom configuration for the X-Ray agents" - You cannot do a custom configuration instead you can do custom sample rules
+
+"Implement a network security rule" - Not applicable with X-Ray
+
+For more information visit https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-sampling
+"""
+Topic = "X-Ray"
+
+[question-21]
+Question = "Which of the following isn't a way to manage S3 security?"
+Correct = "A"
+A = "Security Groups"
+B = "IAM Policies"
+C = "ACLs"
+D = "Bucket Policies"
+Explanation = """
+Correct answer - "Security Groups" : Security Groups are used for several services such as EC2 and RDS where they act as a firewall to restrict/allow connections to these services. S3 is not like managing a server behind a firewall, in fact S3 is a object storage service that is managed by AWS and designed to scale.
+
+"IAM Policies" - With IAM policies you can grant an IAM user in your AWS account to access one of your buckets and allow the user to add, update, and delete objects
+
+"ACLs" - You can attach S3 ACLs to individual objects within a bucket to manage permissions for those objects.
+
+"Bucket Policies" - With Bucket policies you can grant cross-account access to your S3 environment, without using IAM roles
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html
+"""
+Topic = "S3"
+
+[question-22]
+Question = "You would like to allow a production on premise instance to run code using the AWS SDK. You already have an internal secure way of identifying production machines within your infrastructure. What's the most secure way of achieving this?"
+Correct = "A"
+A = "Enable Federated Identities integration with Cognito"
+B = "Put your IAM credentials onto the production instance"
+C = "IAM Roles for EC2"
+D = "Create an IAM user for your production instances, and run aws configure there"
+Explanation = """
+Correct answer - "Enable Federated Identities integration with Cognito" : Federation enables you to manage access to your AWS Cloud resources centrally. With federation, you can use single sign-on (SSO) to access your AWS accounts using credentials from your corporate directory.
+
+"Put your IAM credentials onto the production instance" - Its never a good practice to put IAM credentials onto your applications instead use IAM roles
+
+"IAM Roles for EC2" - IAM roles are recommended for access control but for on premise servers this is not the way to go about accessing AWS services
+
+"Create an IAM user for your production instances, and run aws configure there" - This option will require you enter your credentials in which case we want to stay away from in production servers
+
+For more information visit https://aws.amazon.com/identity/federation/
+"""
+Topic = "SDK"
+
+[question-23]
+Question = "You have an RDS database deployed within your VPC, in a private subnet. You would like your Lambda function to connect to it. How can you achieve this?"
+Correct = "A"
+A = "Deploy in a VPC and assign a Security Group"
+B = "Assign an IAM role"
+C = "Use Environment variables to pass in the RDS connection string"
+D = "Use aliases"
+Explanation = """
+Correct answer - "Deploy in a VPC and assign a Security Group" : Using a Lamba function to connect to an RDS database saves money and allows for high availability by not having to launch Amazon Elastic Compute Cloud (Amazon EC2) host in virtual private cloud (VPC) to use as database clients. Lambda functions can access RDS data where security groups are configured in RDS to allow access.
+
+"Assign an IAM role" - Although not the only thing needed to achieve this, your Lambda function will require an execution role
+
+"Use Environment variables to pass in the RDS connection string" - You can utilize environment variables but you will still need access to RDS
+
+"Use aliases" - An alias allows you to point it to a version of your choice without the caller having to know
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/vpc-rds.html
+"""
+Topic = "AWS Lambda"
+
+[question-24]
+Question = "An IAM user has two policies attached.  The first policy states that the user has explicit Denied on all EC2 actions. The second policy states that the user has Allow on EC2:Describe permission. The user tries to describe an EC2 instance using the CLI. What will happen?"
+Correct = "A"
+A = "The user will get denied because the policy has an explicit denied"
+B = "The user will get allowed because it has an explicit allow"
+C = "This IAM user is invalid and the policy conflict must be resolved first"
+D = "The order of the policy matters. If the policy 1 is before 2, then it is denied, else if policy 2 is before 1, then it is allowed"
+Explanation = """
+Correct answer - "The user will get denied because the policy has an explicit denied" : An explicit deny overrides the allow.
+
+"The user will get allowed because it has an explicit allow" - A request results in an explicit deny if an applicable policy includes a Deny statement
+
+"This IAM user is invalid and the policy conflict must be resolved first" - The IAM user is not invalid as the policy can contain allow and denies but these will be evaluated accordingly
+
+"The order of the policy matters. If the policy 1 is before 2, then it is denied, else if policy 2 is before 1, then it is allowed" - If policies that apply to a request include an Allow statement and a Deny statement, the Deny statement trumps the Allow statement. The request is explicitly denied.
+
+For more information visit https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html
+"""
+Topic = "IAM"
+
+[question-25]
+Question = "You are using the AWS SDK but haven't specified any region. You haven't run aws configure either and are not using the environment variable AWS_REGION. You are running the commands from your computer which is connected to a network in Europe. Which region will your API calls be made in?"
+Correct = "A"
+A = "us-east-1"
+B = "us-east-2"
+C = "us-west-1"
+D = "eu-west-1"
+Explanation = """
+Correct answer - "us-east-1" : If you don't select a region, then us-east-1 (US Virginia) will be used by default, which happens to be the first region AWS started in and where most of the AWS services reside.
+
+"us-east-2" - US East (Ohio) region is not the default region
+
+"us-west-1" - US West (N. California) region is not the default region
+
+"eu-west-1" - EU (Ireland) region is not the default region
+
+For more information visit https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
+"""
+Topic = "CLI"
+
+[question-26]
+Question = "You are looking to store all your code in a service that is private, secure, IAM managed and integrated with git command line. Which service would you choose?"
+Correct = "A"
+A = "CodeCommit"
+B = "S3"
+C = "GitHub"
+D = "CodeGit"
+Explanation = """
+Correct answer - "CodeCommit" : AWS CodeCommit is a fully-managed source control service that hosts secure Git-based repositories. It makes it easy for teams to collaborate on code in a secure and highly scalable ecosystem.
+
+"S3" - S3 is a storage service but not integrated with a git command line
+
+"GitHub" - GitHub is a company that provides source controls but does not integrate with IAM
+
+"CodeGit" - This service does not exist in AWS
+
+For more information visit https://aws.amazon.com/codecommit/
+"""
+Topic = "CodeCommit"
+
+[question-27]
+Question = "Your application needs to auto scale based on the number of requests that are successfully processed by your algorithmic engine. The logic is complex. How should you achieve this goal?"
+Correct = "A"
+A = "Create a custom metric in CloudWatch and make your instances send data to it using PutMetricData. Create an alarm based on that metric"
+B = "Create a custom alarm for your ASG and make your instances trigger the alarm using PutAlarmData API"
+C = "Enable detailed monitoring for EC2 and ASG"
+D = "Migrate your application to AWS Lambda"
+Explanation = """
+Correct answer - "Create a custom metric in CloudWatch and make your instances send data to it using PutMetricData. Create an alarm based on that metric" : Amazon CloudWatch enables you to retrieve statistics as an ordered set of time-series data, known as metrics. You can use these metrics to verify that your system is performing as expected. A CloudWatch alarm is an object that monitors a single metric over a specific period. A metric is a variable that you want to monitor, such as average CPU usage of the EC2 instances, or incoming network traffic from many different EC2 instances. The alarm changes its state when the value of the metric breaches a defined range and maintains the change for a specified number of periods.
+
+"Create a custom alarm for your ASG and make your instances trigger the alarm using PutAlarmData API" - PutMetricData publishes metric data points to Amazon CloudWatch whereas PutAlarmData creates alarm
+
+"Enable detailed monitoring for EC2 and ASG" - By enabling detailed monitoring you reduce the time metric data is sent to CloudWatch from 5 minutes to 1 minute but you still have to create the alarms to customize what you need
+
+"Migrate your application to AWS Lambda" - Lambda is a good option for autoscaling but there is no sense in rebuilding your application when it works and can take advantage of CloudWatch features
+
+For more information visit https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.html#CloudWatchAlarm
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html
+"""
+Topic = "CloudWatch"
+
+[question-28]
+Question = "Your GET API Gateway has started to feel the load made by calls done over and over by a variety of clients. The results of these GET API calls is always the same. What can you do to improve performance and reduce costs?"
+Correct = "A"
+A = "Enable API Gateway Caching"
+B = "Use Mapping Templates"
+C = "Use Stage Variables"
+D = "Enable In Flight Encryption"
+Explanation = """
+Correct answer - "Enable API Gateway Caching" : You can enable API caching in Amazon API Gateway to cache your endpoint's responses. With caching, you can reduce the number of calls made to your endpoint and also improve the latency of requests to your API. When you enable caching for a stage, API Gateway caches responses from your endpoint for a specified time-to-live (TTL) period, in seconds.
+
+"Use Mapping Templates" - Mapping templates allows you to display the data return in a human readable format."Use Stage Variables" - These can be used as environment variables
+
+"Enable In Flight Encryption" - Encryption does not help with performance and cost. Encryption is always for security purposes
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html
+"""
+Topic = "API Gateway"
+
+[question-29]
+Question = "Your are deploying a mobile application that needs access to API Gateway. Users will need to register and then access your API. Which authentication mechanism do you advise for your API Gateway layer?"
+Correct = "A"
+A = "Cognito User Pools"
+B = "IAM permissions with sigv4"
+C = "Lambda Authorizer"
+Explanation = """
+Correct answer - "Cognito User Pools" : A user pool is a user directory in Amazon Cognito. With a user pool, your users can sign in to your web or mobile app through Amazon Cognito. Your users can also sign in through social identity providers like Facebook or Amazon, and through SAML identity providers
+
+"IAM permissions with sigv4" - We cannot possibly create an IAM user for every visitor of the site, so this is where social identity providers come in to help"Lambda Authorizer" - This is a good option as well that helps access to API Gateway but Cognito is a better option in that it handles alot for you that you don't need to implement
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html
+"""
+Topic = "Cognito"
+
+[question-30]
+Question = "You want to setup a highly-available application that consumes messages from SQS. Which Elastic Beanstalk environment fits your needs?"
+Correct = "A"
+A = "Dedicated worker environment"
+B = "ASG and ELB"
+C = "Single Instance Worker node"
+D = "Single Instance with Elastic IP"
+Explanation = """
+Correct answer - "Dedicated worker environment" : If your application performs operations or workflows that take a long time to complete, you can offload those tasks to a dedicated worker environment. Decoupling your web application front end from a process that performs blocking operations is a common way to ensure that your application stays responsive under load.
+
+"ASG and ELB" - There is no need for Elastic Load Balancing. Amazon EC2 Auto Scaling retrieves from CloudWatch the average CPU usage across all instances in the worker environment"Single Instance Worker node" - Amazon EKS worker nodes are standard Amazon EC2 instances. EKS worker nodes are not to be confused with Elastic Beanstalk worker environment
+
+"Single Instance with Elastic IP" - Not highly available because if one instance goes down then your system is down
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features-managing-env-tiers.html
+https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html
+"""
+Topic = "Elastic Beanstalk"
+
+[question-31]
+Question = "You would like to perform a point in time restore for your PostgreSQL database managed by RDS. What feature you should use?"
+Correct = "A"
+A = "Enable RDS backups and use the built-in feature"
+B = "Use AWS Lambda to track the database binlog and persist it in S3."
+C = "Enable RDS Stream, persisted in DynamoDB and use the restore feature from DynamoDB when needed"
+D = "Enable RDS Multi AZ"
+Explanation = """
+Correct answer - "Enable RDS backups and use the built-in feature" : You can restore a DB instance to a specific point in time, creating a new DB instance. To determine the latest restorable time for a DB instance, use the AWS CLI describe-db-instances command and look at the value returned in the LatestRestorableTime field for the DB instance. In the AWS Management Console, this property is visible as the Latest restore time for the DB instance. You can restore to any point in time during your backup retention period.
+
+"Use AWS Lambda to track the database binlog and persist it in S3" - Binlogs are a way to have read replicas of your database, however we need to restore our entire database and not have a read-only database
+
+"Enable RDS Stream, persisted in DynamoDB and use the restore feature from DynamoDB when needed" - This is not how restoring is performed
+
+"Enable RDS Multi AZ" - Multi AZ allows your database to be highly available
+
+For more information visit https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html
+"""
+Topic = "RDS"
+
+[question-32]
+Question = "You would like to intercept state changes for CodePipeline (such as when a pipeline fails), which integration must you use?"
+Correct = "A"
+A = "CloudWatch Event Rules"
+B = "SNS"
+C = "SQS"
+D = "SES"
+Explanation = """
+Correct answer - "CloudWatch Event Rules" : Amazon CloudWatch Events is a web service that monitors your AWS resources and the applications you run on AWS. You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule.
+
+"SNS" - Its a service that allows you to send notifications
+
+"SQS" - A message queue service which allows you to decouple your system
+
+"SES" - Used for sending emails out
+
+For more information visit https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
+"""
+Topic = "CodePipeline"
+
+[question-33]
+Question = "You are looking to perform some analytics and reporting on large datasets stored in your database. Which database solution fits best these requirements?"
+Correct = "A"
+A = "Redshift"
+B = "RDS"
+C = "DynamoDB"
+D = "ElastiCache"
+Explanation = """
+Correct answer - "Redshift" : Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. You can start with just a few hundred gigabytes of data and scale to a petabyte or more. This enables you to use your data to acquire new insights for your business and customers
+
+"RDS" - RDS is good for transactional databases
+
+"DynamoDB" - DynamoDB is good for NoSQL databases that are non relational
+
+"ElastiCache" - Allows you to retrieve information from fast, managed, in-memory caches
+
+For more information visit https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html
+"""
+Topic = "Redshift"
+
+[question-34]
+Question = "An RDS database is experiencing read heavy workload (99% of read versus 1% of writes) and the number of rows you have is quite small. You would like to scale the read performance to possibly high numbers as your website scales, but don't want to have to experience linear cost as the read load increases. You don't mind changing the application code logic. Which solution fits best this use case?"
+Correct = "A"
+A = "Setup ElastiCache in front of RDS"
+B = "Setup RDS Read Replicas"
+C = "Use Redshift"
+D = "Switch your application code to AWS Lambda"
+Explanation = """
+Correct answer - "Setup ElastiCache in front of RDS" : Amazon ElastiCache is an ideal front-end for data stores such as Amazon RDS, providing a high-performance middle tier for applications with extremely high request rates and/or low latency requirements.
+
+"Setup RDS Read Replicas" - A replica continually syncs from the master database but its not suitable for an application where clients retrieve the same data over and over, this is where a cache system like ElastiCache helps
+
+"Use Redshift" - It is optimized for datasets ranging from a few hundred gigabytes to a petabyte or more
+
+"Switch your application code to AWS Lambda" - You will have to change code if you go with AWS Lambda however changing the code does not address the heavy load on the database and putting a front-end data store such as ElastiCache it is more of a fit solution
+
+For more information visit https://aws.amazon.com/blogs/database/automating-sql-caching-for-amazon-elasticache-and-amazon-rds/
+"""
+Topic = "ElastiCache"
+
+[question-35]
+Question = "What's absolutely necessary to run on your EC2 instances or on premise servers in order for CodeDeploy to work?"
+Correct = "A"
+A = "CodeDeploy Agent"
+B = "AWS CloudWatch Log Agent"
+C = "Mount EBS volumes on the EC2 instances"
+D = "Have a load balancer in front of your instances"
+Explanation = """
+Correct answer - "CodeDeploy Agent" : The AWS CodeDeploy agent is a software package that, when installed and configured on an instance, enables that instance to be used in AWS CodeDeploy deployments.
+
+"AWS CloudWatch Log Agent" - This is a good way to collect your server logs but not necessary for your CodeDeploy
+
+"Mount EBS volumes on the EC2 instances" - When you first launch an EC2 instance it comes with a root volume and you can add additional EBS volumes. Mounting more EBS volumes is not required for CodeDeploy to work on your instances
+
+"Have a load balancer in front of your instances" - Load balancers as the name implies is to help balance the traffic between the x number of instances behind the load balancer
+
+For more information visit https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent-operations-install.html
+"""
+Topic = "CodeDeploy"
+
+[question-36]
+Question = "You want to send email notifications every time someone comments on a pull request in CodeCommit. How can you achieve that with no custom code?"
+Correct = "A"
+A = "CloudWatch Event Rules"
+B = "SNS + SES"
+C = "AWS Lambda"
+D = "SQS"
+Explanation = """
+Correct answer - "CloudWatch Event Rules" : You can set up notifications for a repository so that repository users receive emails about the repository event types you specify. When you configure notifications, AWS CodeCommit creates an Amazon CloudWatch Events rule for your repository. This rule responds to the event types you select from the preconfigured options in the AWS CodeCommit console.
+
+"SNS + SES" - SNS and SES can work together in a notification and email relationship but the missing piece is how will CodeCommit know when to trigger this. This is where CloudWatch events come in handy
+
+"AWS Lambda" - Lambda works with trigger events from CloudWatch but CodeCommit is not configured to work with Lambda
+
+"SQS" - You would consider SQS for message queueing
+
+For more information visit https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-repository-email.html
+"""
+Topic = "CodeCommit"
+
+[question-37]
+Question = "You have an auto scaling group with a minimum capacity of 1 and a maximum capacity of 5, configured to launch instances across 3 AZ. It is configured to scale based on a target CPU Utilization of 35%. During a low utilization period of your application, an entire AWS availability zone went down and your application experienced downtime. What should you do to ensure that your application is highly available?"
+Correct = "A"
+A = "Increase the minimum instances in the ASG to 2"
+B = "Change the target auto scaling policy for network bytes"
+C = "Configure ASG fast failover"
+D = "Enable RDS Multi AZ"
+Explanation = """
+Correct answer - "Increase the minimum instances in the ASG to 2" : To maintain the same number of instances, Amazon EC2 Auto Scaling performs a periodic health check on running instances within an Auto Scaling group. When it finds that an instance is unhealthy, it terminates that instance and launches a new one.
+
+"Change the target auto scaling policy for network bytes" - Changing the metric to network byte will not get you where you need to be because we are dealing with CPU load and not network bytes
+
+"Configure ASG fast failover" - No such option exist
+
+"Enable RDS Multi AZ" - This one of the things you can do if you have a database. In addition to this you will also need to have more than 1 instance in separate availability zones to make it highly available
+
+For more information visit https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-maintain-instance-levels.html
+"""
+Topic = "ASG"
+
+[question-38]
+Question = "What is the maximum size of AWS Lambda environment variables?"
+Correct = "A"
+A = "4KB"
+B = "32KB"
+C = "1MB"
+D = "1KB"
+Explanation = """
+Correct answer - "4KB" : There is no limit to the number of environment variables you can create as long as the total size of the set does not exceed 4 KB.
+
+"32KB"
+
+"1MB"
+
+"1KB"
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html
+"""
+Topic = "AWS Lambda"
+
+[question-39]
+Question = "You would like to trigger an external HTTP service (also called webhook) when someone pushes code to AWS CodeCommit. How can you implement that with no code changes?"
+Correct = "A"
+A = "SNS + HTTP Integration"
+B = "AWS Lambda"
+C = "AWS SES"
+D = "CloudWatch Event Rules"
+Explanation = """
+Correct answer - "SNS + HTTP Integration" : You can create a trigger for an AWS CodeCommit repository so that events in that repository trigger notifications from an Amazon Simple Notification Service (Amazon SNS) topic. You might want to create a trigger to an Amazon SNS topic to enable users to subscribe to notifications about repository events, such as the deletion of branches.
+
+"AWS Lambda" - Lambda does integrate with CodeCommit but for this requirement you don't need to write custom code so instead SNS and HTTP integration is your solution
+
+"AWS SES" - Simple email service allows for more custom email but for this requirement SNS does the job
+
+"CloudWatch Event Rules" - CodeCommit does integrate with CloudWatch but it will require some work on your end to create a solution to fulfill the requirements from the question
+
+For more information visit https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-notify-sns.html
+"""
+Topic = "CodeCommit"
+
+[question-40]
+Question = "You would like to audit all the denied API calls that have been made in your AWS infrastructure to ensure one of your employees isn't trying to go beyond his rights. Which technology allows you to do this?"
+Correct = "A"
+A = "CloudTrail"
+B = "VPC Flow Logs"
+C = "IAM"
+D = "CloudWatch Logs"
+Explanation = """
+Correct answer - "CloudTrail" : With CloudTrail, you can log, continuously monitor, and retain account activity related to actions across your AWS infrastructure. CloudTrail provides event history of your AWS account activity, including actions taken through the AWS Management Console, AWS SDKs, command line tools, and other AWS services. This event history simplifies security analysis, resource change tracking, and troubleshooting.
+
+"VPC Flow Logs" - VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC
+
+"IAM" - The IAM service allows for access control
+
+"CloudWatch Logs" - You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS CloudTrail, Route 53, and other sources
+
+For more information visit https://aws.amazon.com/cloudtrail/
+"""
+Topic = "CloudTrail"
+
+[question-41]
+Question = "What is the maximum resolution you can obtain when using custom metrics in CloudWatch?"
+Correct = "A"
+A = "1 second"
+B = "5 seconds"
+C = "10 seconds"
+D = "30 seconds"
+Explanation = """
+Correct answer - "1 second" : Using the existing PutMetricData API, you can now publish Custom Metrics down to 1-second resolution. This gives you more immediate visibility and greater granularity into the state and performance of your custom applications, such as observing short-lived spikes and functions.
+
+"5 seconds"
+
+"10 seconds"
+
+"30 seconds"
+
+For more information visit https://aws.amazon.com/about-aws/whats-new/2017/07/amazon-cloudwatch-introduces-high-resolution-custom-metrics-and-alarms/
+"""
+Topic = "CloudWatch"
+
+[question-42]
+Question = "Your company has a requirement to keep a monthly database backup for three years, for compliance and audit purposes. How can you implement that feature?"
+Correct = "A"
+A = "Create a cron event in CloudWatch, which triggers an AWS Lambda function that triggers the snapshotting feature"
+B = "Enable RDS periodic backups"
+C = "Enable RDS Read replicas"
+D = "Enable RDS Multi AZ"
+Explanation = """
+Correct answer - "Create a cron event in CloudWatch, which triggers an AWS Lambda function that triggers the snapshotting feature" : You need to provide the automation layer as it doesn't exist. This is a very common use case of Lambda.
+
+"Enable RDS periodic backups" - You can enable automatic backups but as of 2019 the retention period is 0 to 35 days
+
+"Enable RDS Read replicas" - Read replicas to allow read-only data from the master database
+
+"Enable RDS Multi AZ" - Multi AZ allows you to create a highly available application with RDS
+
+For more information visit https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateSnapshot.html
+https://docs.aws.amazon.com/lambda/latest/dg/with-scheduled-events.html
+"""
+Topic = "RDS"
+
+[question-43]
+Question = "You would like to deploy a Lambda function which unzipped amounts to 300 MB of data. How can you do that?"
+Correct = "A"
+A = "You need to upload a smaller function and load extra files at runtime into the /tmp directory"
+B = "You need to place a service limit increase"
+C = "You need to zip your function with higher compression ratio"
+D = "The limit of unzipped functions is 512MB so you don't need to do any changes"
+Explanation = """
+Correct answer - "You need to upload a smaller function and load extra files at runtime into the /tmp directory" : The deployment package size limit is 250 MB (unzipped, including layers). The /tmp directory limit is 512 MB.
+
+"You need to place a service limit increase" - This limit cannot be changed
+
+"You need to zip your function with higher compression ratio" - Instead only include the libraries you need for your function to work
+
+"The limit of unzipped functions is 512MB so you don't need to do any changes" - The limit of unzipped deployment package is 250 MB
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/limits.html
+"""
+Topic = "AWS Lambda"
+
+[question-44]
+Question = "At which frequency do EC2 instances report their metrics under detailed monitoring configuration?"
+Correct = "A"
+A = "1 minute"
+B = "2 minutes"
+C = "30 seconds"
+D = "5 minutes"
+Explanation = """
+Correct answer - "1 minute" : Data is available in 1-minute periods for an additional cost. To get this level of data, you must specifically enable it for the instance. For the instances where you've enabled detailed monitoring, you can also get aggregated data across groups of similar instances.
+
+"2 minutes"
+
+"30 seconds"
+
+"5 minutes"
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html
+"""
+Topic = "CloudWatch"
+
+[question-45]
+Question = "You have 20 partitions in your DynamoDB table and 200 WCU. You observe a usage of 30 WCU, and you are getting ProvisionedThroughputExceededException. What is the likely cause of this?"
+Correct = "A"
+A = "You have a hot partition"
+B = "Your IAM policy is wrong"
+C = "WCU are applied across to all your DynamoDB tables, not just one table"
+D = "CloudWatch monitoring is lagging"
+Explanation = """
+Correct answer - "You have a hot partition" : It is not always possible to distribute read and write activity evenly all the time. When data access is imbalanced, a 'hot' partition can receive such a higher volume of read and write traffic compared to other partitions.
+
+"Your IAM policy is wrong" - The error is not associated to authorization but to exceeding something so we know permissions are not the issue
+
+"WCU are applied across to all your DynamoDB tables, not just one table" - WCU is per table
+
+"CloudWatch monitoring is lagging" - The error was specific to something that was provisioned therefore its specific to DynamoDB itself
+
+For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html
+"""
+Topic = "DynamoDB"
+
+[question-46]
+Question = "Your API Gateway is receiving requests from an authorized external domain name you don't control. As a result, your costs are sky-rocketing. What should you do to prevent illegitimate requests?"
+Correct = "A"
+A = "Restrict CORS"
+B = "Use Mapping Templates"
+C = "Assign a Security Groups to your API Gateway"
+D = "Enable Caching"
+Explanation = """
+Correct answer - "Restrict CORS" : When your API's resources receive requests from a domain other than the API's own domain and you want to restrict servicing these requests, you must disable cross-origin resource sharing (CORS) for selected methods on the resource.
+
+"Use Mapping Templates" - A way to define a model and make data human readable
+
+"Assign a Security Groups to your API Gateway" - Instead of a security group you can use Resource policies since you can restrict the calling IP address. The downside is that the IP address may change once they know they are being blocked
+
+"Enable Caching" - Caching is to improve performance which does not deal with the real issue
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html
+"""
+Topic = "API Gateway"
+
+[question-47]
+Question = "Your manager would like messages to be stored in SQS for 12 days. What can you do to achieve that?"
+Correct = "A"
+A = "Change the setting for message retention"
+B = "The maximum retention of messages is 7 days, therefore you cannot have 12 days retention"
+C = "Enable Long Polling"
+D = "Use a FIFO queue"
+Explanation = """
+Correct answer - "Change the setting for message retention" : Amazon SQS automatically deletes messages that have been in a queue for more than maximum message retention period. The default message retention period is 4 days. However, you can set the message retention period to a value from 60 seconds to 1,209,600 seconds (14 days) using the SetQueueAttributes action.
+
+"The maximum retention of messages is 7 days, therefore you cannot have 12 days retention" - The maximum is 14 days
+
+"Enable Long Polling" - Long polling helps reduce the cost of using Amazon SQS by eliminating the number of empty responses
+
+"Use a FIFO queue" - Designed to enhance messaging between applications when the order of operations and events is critical
+
+For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-basic-architecture.html
+"""
+Topic = "SQS"
+
+[question-48]
+Question = "You want to have parameters control your Lambda function connection string to your RDS database. Which feature helps you achieve this?"
+Correct = "A"
+A = "Environment variables"
+B = "IAM Roles"
+C = "Timeouts"
+D = "Aliases"
+Explanation = """
+Correct answer - "Environment variables" : Environment variables for Lambda functions enable you to dynamically pass settings to your function code and libraries, without making changes to your code. Environment variables are key-value pairs that you create and modify as part of your function configuration, using either the AWS Lambda Console, the AWS Lambda CLI or the AWS Lambda SDK.
+
+"IAM Roles" - IAM roles help you with configuring permissions
+
+"Timeouts" - Timeouts help with preventing your Lambda function from running indefinitely
+
+"Aliases" - AWS Lambda aliases are pointers to a specific Lambda function version
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html
+"""
+Topic = "AWS Lambda"
+
+[question-49]
+Question = "When you upload a code update to your AWS Lambda function, it creates a new version. How do you handle versioning to ensure your production environment isn't impacted by code updates done by your developers?"
+Correct = "A"
+A = "Use AWS Lambda aliases"
+B = "Disable AWS Lambda versioning"
+C = "Use environment variables"
+D = "Enable X-Ray integration"
+Explanation = """
+Correct answer - "Use AWS Lambda aliases" : AWS Lambda also supports creating aliases for each of your Lambda function versions. Conceptually, an AWS Lambda alias is a pointer to a specific Lambda function version. It is also a resource similar to a Lambda function, and each alias has a unique ARN. Each alias maintains an ARN for the function version to which it points.
+
+"Disable AWS Lambda versioning" - Although possible, aliases are a great way to shift traffic when new versions are available
+
+"Use environment variables" - Environment variables enable you to dynamically pass settings to your function code
+
+"Enable X-Ray integration" - You can use AWS X-Ray to trace your AWS Lambda functions
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html
+"""
+Topic = "AWS Lambda"
+
+[question-50]
+Question = "You have total ordering requirements for your messages in SQS. Which queue should you use?"
+Correct = "A"
+A = "Use SQS FIFO"
+B = "Use SQS DLQ"
+C = "Use SQS Standard"
+D = "Use Kinesis"
+Explanation = """
+Correct answer - "Use SQS FIFO" : FIFO (First-In-First-Out) queues are designed to enhance messaging between applications when the order of operations and events is critical, or where duplicates cannot be tolerated.
+
+"Use SQS DLQ" - Useful for debugging your application or messaging system
+
+"Use SQS Standard" - Occasionally more than one copy of a message might be delivered out of order
+
+"Use Kinesis" - With Kinesis you can do ordering but you will have to change your application to achieve this
+
+For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html
+"""
+Topic = "SQS"
+
+[question-51]
+Question = "You would like to scale CodeBuild to run parallel builds. How can you achieve it?"
+Correct = "A"
+A = "CodeBuild scales automatically"
+B = "Increase the instance types for your CodeBuild instances"
+C = "Run CodeBuild in an ASG"
+D = "Enable CodeBuild Auto Scaling"
+Explanation = """
+Correct answer - "CodeBuild scales automatically" : CodeBuild runs build in parallel automatically and has a 20 concurrent build limit that you can increase.
+
+"Increase the instance types for your CodeBuild instances" - Changing the instance type has nothing to do with parallel builds
+
+"Run CodeBuild in an ASG" - CodeBuild is a managed service that scales on demand
+
+"Enable CodeBuild Auto Scaling" - It scales automatically
+
+For more information visit https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html
+"""
+Topic = "CodeBuild"
+
+[question-52]
+Question = "Your manager would like to track CPU Utilization of your EC2 instance with a resolution of 10 seconds. What do you advise?"
+Correct = "A"
+A = "Create a high resolution custom metric and push the data using cron"
+B = "Enable EC2 detailed monitoring"
+C = "Simply get it from the CloudWatch Metrics"
+D = "Open a support ticket with AWS"
+Explanation = """
+Correct answer - "Create a high resolution custom metric and push the data using cron" : You can alert with High-Resolution Alarms, as frequently as 10-second periods. High-Resolution Alarms allow you to react and take actions faster, and support the same actions available today with standard 1-minute alarms.
+
+"Enable EC2 detailed monitoring" - With this option data is available in 1-minute periods for an additional cost
+
+"Simply get it from the CloudWatch Metrics" - You can get data from metrics. The basic data is available automatically in 5-minute periods and detailed is in 1-minute periods
+
+"Open a support ticket with AWS" - Although there is a cost for this, you are better off looking at the documentation first
+
+For more information visit https://aws.amazon.com/about-aws/whats-new/2017/07/amazon-cloudwatch-introduces-high-resolution-custom-metrics-and-alarms/
+"""
+Topic = "CloudWatch"
+
+[question-53]
+Question = "Your company wants the most secure setup for your EBS volumes with minimal effort. You tell them"
+Correct = "A"
+A = "EBS volumes support in flight SSL encryption and do support encryption at rest using KMS"
+B = "EBS volumes do not support in flight SSL encryption but do support encryption at rest using KMS"
+C = "EBS volumes support in flight SSL encryption but no encryption at rest"
+D = "EBS volumes aren't secure"
+Explanation = """
+Correct answer - "EBS volumes support in flight SSL encryption and do support encryption at rest using KMS" : When you create an encrypted EBS volume and attach it to a supported instance type, the following types of data are encrypted: Data at rest inside the volumeAll data moving between the volume and the instanceAll snapshots created from the volumeAll volumes created from those snapshots.
+
+"EBS volumes do not support in flight SSL encryption but do support encryption at rest using KMS" - All data moving between the volume and the instance is encrypted
+
+"EBS volumes support in flight SSL encryption but no encryption at rest" - Data at rest inside the volume is encrypted
+
+"EBS volumes aren't secure" - EBS volumes offer encryption without the need to build, maintain, and secure your own key management infrastructure
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html
+"""
+Topic = "EBS"
+
+[question-54]
+Question = "Which of the following two statements is true about EBS encryption?"
+Correct = "A,B"
+A = "A snapshot of an encrypted volume is always encrypted"
+B = "Restoring a volume from an encrypted snapshot must be an encrypted volume"
+C = "A snapshot of an encrypted volume can be encrypted or unencrypted"
+D = "Restoring a volume from an encrypted snapshot can be an un-encrypted volume"
+E = "EBS encryption impacts performance"
+Explanation = """
+Correct answers - "A snapshot of an encrypted volume is always encrypted & Restoring a volume from an encrypted snapshot must be an encrypted volume" : Amazon EBS encryption uses AWS Key Management Service (AWS KMS) customer master keys (CMKs) when creating encrypted volumes and any snapshots created from them.
+
+"A snapshot of an encrypted volume can be encrypted or unencrypted" - There is no direct way to encrypt an existing unencrypted volume, or to remove encryption from an encrypted volume
+
+"Restoring a volume from an encrypted snapshot can be an un-encrypted volume" - Volumes restored from encrypted copy are also encrypted
+
+"EBS encryption impacts performance" - You can expect the same IOPS performance on encrypted volumes as on unencrypted volumes
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html
+"""
+Topic = "EBS"
+
+[question-55]
+Question = "Your CodePipeline now fails and it seems it has been heavily modified. Which service can you leverage to figure out the origin of the modifications?"
+Correct = "A"
+A = "CloudTrail"
+B = "SNS"
+C = "SQS"
+D = "CloudWatch"
+Explanation = """
+Correct answer - "CloudTrail" : CloudTrail provides event history of your AWS account activity, including actions taken through the AWS Management Console, AWS SDKs, command line tools, and other AWS services. This event history simplifies security analysis, resource change tracking, and troubleshooting.
+
+"SNS" - SNS can be used to send notifications whenever there are changes to the execution state of your pipelines, or in the stages or actions in your pipelines
+
+"SQS" - When you publish approval notifications to Amazon SNS topics, you can choose from formats such as email or SMS recipients, SQS queues in regards to CodePipeline
+
+"CloudWatch" - You can create a CloudWatch Events notification rule with AWS CodePipeline as the event source to integrate them together
+
+For more information visit https://aws.amazon.com/cloudtrail/
+"""
+Topic = "CodePipeline"
+
+[question-56]
+Question = "What two types of deployment are supported by CodeDeploy? (select two)"
+Correct = "A,B"
+A = "In-place deployment"
+B = "Blue/Green"
+C = "Rolling with additional batches"
+D = "Rolling"
+E = "Immutable"
+Explanation = """
+Correct answers - "In-place deployment & Blue/Green" : The application on each instance in the deployment group is stopped, the latest application revision is installed, and the new version of the application is started and validated. Blue/green on an EC2/On-Premises compute platform: The instances in a deployment group (the original environment) are replaced by a different set of instances (the replacement environment)Blue/green on an AWS Lambda compute platform: Traffic is shifted from your current serverless environment to one with your updated Lambda function versions.
+
+"Rolling with additional batches" - A deployment option within Elastic Beanstalk
+
+"Rolling" - A deployment option within Elastic Beanstalk
+
+"Immutable" - A deployment option within Elastic Beanstalk
+
+For more information visit https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments.html
+"""
+Topic = "CodeDeploy"
+
+[question-57]
+Question = "You want to be able to quickly rollback any failed deployments in Elastic Beanstalk. Cost is not a problem. Which deployment method fits your needs?"
+Correct = "A"
+A = "immutable"
+B = "all at once"
+C = "rolling with additional batches"
+D = "rolling"
+Explanation = """
+Correct answer - "immutable" : Immutable deployments perform an immutable update to launch a full set of new instances running the new version of the application in a separate Auto Scaling group, alongside the instances running the old version. Immutable deployments can prevent issues caused by partially completed rolling deployments. If the new instances don't pass health checks, Elastic Beanstalk terminates them, leaving the original instances untouched.
+
+"all at once" - Deploy the new version to all instances simultaneously. All instances in your environment are out of service for a short time while the deployment occurs
+
+"rolling with additional batches" - Deploy the new version in batches, but first launch a new batch of instances to ensure full capacity during the deployment process
+
+"rolling" - Deploy the new version in batches. Each batch is taken out of service during the deployment phase, reducing your environment's capacity by the number of instances in a batch
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rolling-version-deploy.html
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deploy-existing-version.html
+"""
+Topic = "Elastic Beanstalk"
+
+[question-58]
+Question = "You would like to troubleshoot which service is failing in your microservice architecture when your users get the error code 501. Which service should you use?"
+Correct = "A"
+A = "X-Ray"
+B = "API Gateway"
+C = "CloudWatch"
+D = "CloudTrail"
+Explanation = """
+Correct answer - "X-Ray" : AWS X-Ray helps developers analyze and debug production, distributed applications, such as those built using a microservices architecture. With X-Ray, you can understand how your application and its underlying services are performing to identify and troubleshoot the root cause of performance issues and errors.
+
+"API Gateway" - Amazon API Gateway allows you to process hundreds of thousands of concurrent API calls
+
+"CloudWatch" - You can view error rates for each of your Lambda functions by using the AWS the CloudWatch console but X-Ray will help you with troubleshooting
+
+"CloudTrail" - With CloudTrail you can see the API calls being made by X-Ray but X-Ray is the service helping you determining performance issues
+
+For more information visit https://aws.amazon.com/xray/
+"""
+Topic = "X-Ray"
+
+[question-59]
+Question = "You would like to perform envelope encryption. Which API call do you need to first call on KMS?"
+Correct = "A"
+A = "GenerateDataKey"
+B = "Encrypt"
+C = "RetrieveCMK"
+D = "Decrypt"
+Explanation = """
+Correct answer - "GenerateDataKey" : Envelope encryption is the practice of encrypting plaintext data with a data key, and then encrypting the data key under another key. GenerateDataKey returns a data encryption key that you can use in your application to encrypt data locally.
+
+Encrypt" - You don't need use this operation to encrypt a data key, GenerateDataKey returns the a data encryption key
+
+"RetrieveCMK" - Action does not exist
+
+"Decrypt" - Decrypts ciphertext
+
+For more information visit https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html
+"""
+Topic = "KMS"
+
+[question-60]
+Question = "You would like to perform SQL analytics on data streams. Which solution is the easiest to deploy on AWS ?"
+Correct = "A"
+A = "Kinesis Stream + Analytics"
+B = "SQS + Lambda"
+C = "EC2 + EMR"
+D = "SNS + HTTP endpoint"
+Explanation = """
+Correct answer - "Kinesis Stream + Analytics" : Amazon Kinesis Data Analytics is the easiest way to process streaming data in real time with standard SQL without having to learn new programming languages or processing frameworks. Amazon Kinesis Data Analytics enables you to query streaming data or build entire streaming applications using SQL, so that you can gain actionable insights and respond to your business and customer needs promptly.
+
+"SQS + Lambda" - You would need to write custom code using a programming language supported
+
+"EC2 + EMR" - EMR is used for processing big data. Kinesis processes stream data
+
+"SNS + HTTP endpoint" - This is a notification combination system that is not suited for this requirement
+
+For more information visit https://aws.amazon.com/kinesis/data-analytics/
+"""
+Topic = "Kinesis"
+
+[question-61]
+Question = "You have enabled a Dead Letter Queue (DLQ) for AWS Lambda. Which of the following will put a message into a DLQ after being processed by AWS Lambda? (select two)"
+Correct = "A,B"
+A = "The invocation was asynchronous"
+B = "The invocation failed"
+C = "The invocation was synchronous"
+D = "The invocation succeeded"
+E = "The invocation failed only once but succeeded afterwards"
+Explanation = """
+Correct answers - "The invocation was asynchronous & The invocation failed" : Any Lambda function invoked asynchronously is retried twice before the event is discarded. If the retries fail and you're unsure why, use Dead Letter Queues (DLQ) to direct unprocessed events to an Amazon SQS queue.
+
+"The invocation was synchronous" - Any Lambda function invoked asynchronously is retried twice before the event is discarded
+
+"The invocation succeeded" - The initial invocations have to fail that's what tells us there is something wrong
+
+"The invocation failed only once but succeeded afterwards" - It would have to fail twice before using SQS DLQ
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/dlq.html
+"""
+Topic = "AWS Lambda"
+
+[question-62]
+Question = "Application Load Balancers can have all the following listeners except which one?"
+Correct = "A"
+A = "TCP"
+B = "HTTP"
+C = "HTTPS"
+D = "Websocket"
+Explanation = """
+Correct answer - "TCP" : The Application Load Balancer supports following protocols: WebSocket and HTTP/2.
+
+"HTTP"
+
+"HTTPS"
+
+"Websocket"
+
+For more information visit https://aws.amazon.com/blogs/aws/new-aws-application-load-balancer/
+"""
+Topic = "ELB"
+
+[question-63]
+Question = "Which of the following AWS services rely on CloudFormation to provision resources? (select two)"
+Correct = "A,B"
+A = "Elastic Beanstalk"
+B = "Step Function"
+C = "Autoscaling"
+D = "CodeBuild"
+E = "Lambda"
+Explanation = """
+Correct answers - "Elastic Beanstalk & Step Function" : AWS Elastic Beanstalk automates the details of capacity provisioning, load balancing, auto scaling, and application deployment, creating an environment that runs a version of your application with the help of AWS CloudFormation. You can now use CloudFormation templates to create and delete Step Functions state machines and Activities. You can also insert AWS Lambda functions and Activity ARNs into your state machines as part of your CloudFormation template.
+
+"Autoscaling" - Autoscaling is a resource that can be added to a CloudFormation template but it does not depend on it as it can run independent
+
+"CodeBuild" - CodeBuild is a service that compiles source code, runs tests, and produces software packages
+
+"Lambda" - Lambda is a resource that can be added to a CloudFormation template but it does not depend on it as it can run independent
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-resources.html
+https://aws.amazon.com/about-aws/whats-new/2017/02/aws-cloudformation-adds-support-for-aws-step-functions/
+"""
+Topic = "CloudFormation"
+
+[question-64]
+Question = "Your users are complaining that they have to re-login into your website very often. You have deployed a traditional 3-tier web application architecture with a load balancer, an auto scaling group and an RDS database. The session information is stored in-memory for each application. What can you do, that possibly involves application code change, to improve the situation in the longer term?"
+Correct = "A"
+A = "Add an ElastiCache Cluster"
+B = "Enable RDS read replicas"
+C = "Enable Load Balancer stickiness"
+D = "Use Elastic IP"
+Explanation = """
+Correct answer - "Add an ElastiCache Cluster" : In order to address scalability and to provide a shared data storage for sessions that can be accessible from any individual web server, you can abstract the HTTP sessions from the web servers themselves. A common solution to for this is to leverage an ElastiCache service offerings which is an In-Memory Key/Value store such as Redis and Memcached.
+
+"Enable RDS read replicas" - Read-replicas syncs from the master database so there will be inconsistencies in using this approach
+
+"Enable Load Balancer stickiness" - With sticky sessions feature, it instructs the load balancer to route repeated requests to the same EC2 instance whenever possible. It can be used but ElastiCache is more scaleable
+
+"Use Elastic IP" - An Elastic IP is a way to give your server a static IP address but won't really solve your issue with sessions
+
+For more information visit https://aws.amazon.com/caching/session-management/
+"""
+Topic = "Elastic Beanstalk"
+
+[question-65]
+Question = "You would like to audit which employees and applications are using your KMS key. Where should you look?"
+Correct = "A"
+A = "CloudTrail"
+B = "KMS Key Logs"
+C = "IAM"
+D = "VPC Flow Logs"
+Explanation = """
+Correct answer - "CloudTrail" : With CloudTrail, you can log, continuously monitor, and retain account activity related to actions across your AWS infrastructure. CloudTrail provides event history of your AWS account activity, including actions taken through the AWS Management Console, AWS SDKs, command line tools, and other AWS services. This event history simplifies security analysis, resource change tracking, and troubleshooting.
+
+"KMS Key Logs" - Logs are events requests from any source and includes information about the requested action, the date and time of the action, request parameters
+
+"IAM" - You can manually look to see what permissions a user or IAM role has but will not show if API calls were made
+
+"VPC Flow Logs" - VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC and not API calls
+
+For more information visit https://aws.amazon.com/cloudtrail/
+"""
+Topic = "CloudTrail"

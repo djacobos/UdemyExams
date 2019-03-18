@@ -1,0 +1,1315 @@
+CourseID = 1975038
+PracticeTestID = 4540364
+
+[question-1]
+Question = "You are performing a DynamoDB scan but the performance is really low. You have a high number of partitions and would like to scan faster. How can you achieve that?"
+Correct = "A"
+A = "Use parallel scans"
+B = "Use a ProjectionExpression"
+C = "Use a FilterExpression"
+D = "Use a Query"
+Explanation = """
+Correct answer - "Use parallel scans" : In order to give you the ability to retrieve data from your DynamoDB tables more rapidly, AWS introduced a new parallel scan model. To make use of this feature, you will need to run multiple worker threads or processes in parallel. Each worker will be able to scan a separate segment of a table concurrently with the other workers.
+
+"Use a ProjectionExpression" - A projection expression is a string that identifies the attributes you want. To retrieve a single attribute, specify its name. For multiple attributes, the names must be comma-separated
+
+"Use a FilterExpression" - The ProjectionExpression property specifies the attributes to be returned
+
+"Use a Query" - For faster response times, design your tables and indexes so that your applications can use Query instead of Scan. Alternatively, you can design your application to use Scan operations in a way that minimizes the impact on your request. Scans are limited to one partition at a time and parallel scans are the solution to that
+
+For more information visit https://aws.amazon.com/blogs/aws/amazon-dynamodb-parallel-scans-and-other-good-news/
+"""
+Topic = "DynamoDB"
+
+[question-2]
+Question = "Your company does not want to have to manage S3 encryption keys and would like to have server side encryption. Which encryption mechanism suits best?"
+Correct = "A"
+A = "SSE-S3"
+B = "SSE-C"
+C = "Client Side Encryption"
+D = "SSE-KMS"
+Explanation = """
+Correct answer - "SSE-S3" : Use Server-Side Encryption with Amazon S3-Managed Keys (SSE-S3) : Each object is encrypted with a unique key employing strong multi-factor encryption. As an additional safeguard, it encrypts the key itself with a master key that it regularly rotates. Amazon S3 server-side encryption uses one of the strongest block ciphers available, 256-bit Advanced Encryption Standard (AES-256), to encrypt your data.
+
+"SSE-C" - You manage the encryption keys and Amazon S3 manages the encryption, as it writes to disks, and decryption, when you access your objects
+
+"Client Side Encryption" - You can encrypt data client-side and upload the encrypted data to Amazon S3. In this case, you manage the encryption process, the encryption keys, and related tools
+
+"SSE-KMS" - Similar to SSE-S3 and also provides you with an audit trail of when your key was used and by whom. Additionally, you have the option to create and manage encryption keys yourself
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html
+"""
+Topic = "S3"
+
+[question-3]
+Question = "We need to perform 10 strongly consistent reads per second of 4KB each. How many RCU do we need?"
+Correct = "A"
+A = "10"
+B = "40"
+C = "20"
+D = "5"
+Explanation = """
+Correct answer - "10" : One read capacity unit represents one strongly consistent read per second, or two eventually consistent reads per second, for an item up to 4 KB in size. If you need to read an item that is larger than 4 KB, DynamoDB will need to consume additional read capacity units. The total number of read capacity units required depends on the item size, and whether you want an eventually consistent or strongly consistent read.
+
+"40"
+
+"20"
+
+"5"
+
+For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html
+"""
+Topic = "DynamoDB"
+
+[question-4]
+Question = "Using Auto Scaling, you are running at a desired capacity of 3 and a maximum capacity of 3. You have alarms set at 60% CPU to scale out your application and are now running at 80% capacity. What will happen?"
+Correct = "A"
+A = "System will keep running as is"
+B = "The desired capacity will go up to 4 and the maximum will stay at 3"
+C = "The desired capacity will go up to 4 and the maximum will stay at 4"
+D = "System will trigger CloudWatch alarms to AWS support"
+Explanation = """
+Correct answer - "System will keep running as is" : You are already running at max capacity. After you have created your Auto Scaling group, the Auto Scaling group starts by launching enough EC2 instances to meet its minimum capacity (or its desired capacity, if specified). If there are no other scaling conditions attached to the Auto Scaling group, the Auto Scaling group maintains this number of running instances even if an instance becomes unhealthy.
+
+"The desired capacity will go up to 4 and the maximum will stay at 3" - The desired capacity cannot go over the maximum capacity
+
+"The desired capacity will go up to 4 and the maximum will stay at 4" - The maximum capacity cannot change on its own because the desired capacity has reached its limit. You will have to make those changes manually
+
+"System will trigger CloudWatch alarms to AWS support " - You already have alarms configured based on rules but AWS support will not intervene for you. You are the admin of the settings AWS allows you to change
+
+For more information visit https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-maintain-instance-levels.html#replace-unhealthy-instance
+"""
+Topic = "ASG"
+
+[question-5]
+Question = "The AWS CLI depends on which language?"
+Correct = "A"
+A = "Python"
+B = "C#"
+C = "Golang"
+D = "Java"
+Explanation = """
+Correct answer - "Python" : Python is the programming language that the AWS CLI is dependent upon.
+
+"C#" - Not a dependency but the AWS SDK for .NET can be used to access commands and make it easier for developers to work with commands in code
+
+"Golang" - Not a dependency but the AWS SDK for Go can be used to access commands and make it easier for developers to work with commands in code
+
+"Java" - Not a dependency but the AWS SDK for Java can be used to access commands and make it easier for developers to work with commands in code
+
+For more information visit https://packages.debian.org/sid/awscli
+https://github.com/aws/aws-cli
+"""
+Topic = "CLI"
+
+[question-6]
+Question = "A producer application needs to deliver many messages to consumer applications. These consumer applications have various consumption patterns and can either consume the message instantaneously or up to 10 days later. The number of consumer applications can grow and shouldn't trigger a code change for the producing application. Which solution should you use?"
+Correct = "A"
+A = "SNS + SQS"
+B = "SNS + Kinesis"
+C = "SNS + Lambda"
+D = "SQS"
+Explanation = """
+Correct answer - "SNS + SQS" : SNS and SQS can be used to create a fanout messaging scenario in which messages are "pushed" to multiple subscribers, which eliminates the need to periodically check or poll for updates and enables parallel asynchronous processing of the message by the subscribers.
+
+"SNS + Kinesis" - You can use Amazon Kinesis Data Streams to collect and process large streams of data records in real time. The only issue is that the retention day period is 7 days
+
+"SNS + Lambda" - Amazon SNS and AWS Lambda are integrated so you can invoke Lambda functions with Amazon SNS notifications. The Lambda function receives the message payload as an input parameter and can manipulate the information in the message, publish the message to other SNS topics, or send the message to other AWS services. However it will require custom code which you do not have to do if you used SQS
+
+"Java" - The consumer applications may be created using Java but this still does not address a solution for a highly available messaging system
+
+For more information visit https://aws.amazon.com/getting-started/tutorials/send-fanout-event-notifications/
+"""
+Topic = "SNS"
+
+[question-7]
+Question = "You would like to access the amount of RAM as a metric on your EC2 instances. How can you get that information?"
+Correct = "A"
+A = "Use a cron job on the instances that push the EC2 RAM metric as a Custom metric"
+B = "Use instance metadata ram disk-id"
+C = "Access as a standard CloudWatch metric"
+D = "Use X-Ray"
+Explanation = """
+Correct answer - "Use a cron job on the instances that push the EC2 RAM metric as a Custom metric" : The Amazon CloudWatch Monitoring Scripts for Amazon Elastic Compute Cloud (Amazon EC2) Linux-based instances demonstrate how to produce and consume Amazon CloudWatch custom metrics. These Perl scripts comprise a fully functional example that reports memory, swap, and disk space utilization metrics for a Linux instance. You can set a cron schedule for metrics reported to CloudWatch and report memory utilization to CloudWatch every x minutes.
+
+"Use instance metadata ram disk-id" - This can be retrieved by the instance metadata but it is just an ID of the RAM disk specified at launch time
+
+"Access as a standard CloudWatch metric" - AWS CloudWatch provides most of the monitoring Metrics by default but it doesn't have any metrics for memory utilization details
+
+"Use X-Ray" - This service helps with Identifying errors and bugs
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
+"""
+Topic = "CloudWatch"
+
+[question-8]
+Question = "You would like to store small encrypted secrets in SSM Parameter store. What is the right way of doing it?"
+Correct = "A"
+A = "Enable seamless encryption with KMS integration"
+B = "Encrypt first with KMS then store in Parameter store"
+C = "Encrypt with the Encryption SDK then store in Parameter Store"
+D = "Store in S3 with SSE-KMS encryption and put a reference to the secret in the parameter store"
+Explanation = """
+Correct answer - "Enable seamless encryption with KMS integration" : With AWS Systems Manager Parameter Store, you can create Secure String parameters, which are parameters that have a plaintext parameter name and an encrypted parameter value. Parameter Store uses AWS KMS to encrypt and decrypt the parameter values of Secure String parameters. Also, if you are using customer managed CMKs, you can use IAM policies and key policies to manage encrypt and decrypt permissions.
+
+"Encrypt first with KMS then store in Parameter store" - When you create or change a Secure String parameter value, Parameter Store calls the AWS KMS Encrypt API operation
+
+"Encrypt with the Encryption SDK then store in Parameter Store" - Parameter Store already integrates with AWS KMS, so let it do what it does best
+
+"Store in S3 with SSE-KMS encryption and put a reference to the secret in the parameter store" - Parameter Store is not designed to work this way. You can create a parameter in Parameter Store and use it in multiple applications and when you need to change a parameter value, you change one instance, rather than managing an error-prone change to numerous sources.
+
+For more information visit https://docs.aws.amazon.com/kms/latest/developerguide/services-parameter-store.html
+"""
+Topic = "SSM"
+
+[question-9]
+Question = "What service would you choose if you want to orchestrate your Lambda functions as a state machine?"
+Correct = "A"
+A = "AWS Step Functions"
+B = "CloudWatch Rules"
+C = "AWS SWF"
+D = "AWS ECS"
+Explanation = """
+Correct answer - "AWS Step Functions" : Using Step Functions, you can design and run workflows that stitch together services such as AWS Lambda and Amazon ECS into feature-rich applications. Workflows are made up of a series of steps, with the output of one step acting as input into the next.
+
+"CloudWatch Rules" - CloudWatch rules can integrate with an AWS Lambda function on a schedule. You can send the matching events to an AWS Step Functions state machine to start a workflow responding to the event of interest but CloudWatch rules alone does not create a state machine
+
+"AWS SWF" - AWS SWF is similar to AWS Step functions. With AWS SWF you can write a program that separates activity steps, allows for more control but increases the complexity of the application. With SWF you create decider programs and with Step Functions you define state machines
+
+"AWS ECS" - All work in your state machine is done by tasks. A task performs work by using an activity, a Lambda function, or by passing parameters to the API actions of other services. You can use AWS ECS to host an activity
+
+For more information visit https://aws.amazon.com/step-functions/
+https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html
+"""
+Topic = "Step Functions"
+
+[question-10]
+Question = "What is not true about enabling versioning on an S3 bucket?"
+Correct = "A"
+A = "Versioning can be enabled only for a specific folder"
+B = "Overwriting a file increases its versions"
+C = "Deleting a file is a recoverable operation"
+D = "Any file that was unversioned before enabling versioning will have the 'null' version"
+Explanation = """
+Correct answer - "Versioning can be enabled only for a specific folder" : The versioning state applies to all (never some) of the objects in that bucket. The first time you enable a bucket for versioning, objects in it are thereafter always versioned and given a unique version ID.
+
+"Overwriting a file increases its versions" - If you overwrite an object (file), it results in a new object version in the bucket. You can always restore the previous version
+
+"Deleting a file is a recoverable operation" - Correct, when you delete an object (file), Amazon S3 inserts a delete marker, which becomes the current object version and you can restore the previous version
+
+"Any file that was unversioned before enabling versioning will have the 'null' version" - Objects stored in your bucket before you set the versioning state have a version ID of null. Those existing objects in your bucket do not change
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html
+"""
+Topic = "S3"
+
+[question-11]
+Question = "Your company would like to move away from manual operations, and script the ECS service creation from the CLI, so it can be included in bash scripts. Which command must you use to create an ECS service?"
+Correct = "A"
+A = "aws ecs create-service --service-name ecs-simple-service --task-definition ecs-demo --desired-count 10"
+B = "aws ecr create-service --service-name ecs-simple-service --task-definition ecs-demo --desired-count 10"
+C = "docker-compose create ecs-simple-service"
+D = "aws ecs run-task --cluster default --task-definition ecs-demo"
+Explanation = """
+Correct answer - "aws ecs create-service --service-name ecs-simple-service --task-definition ecs-demo --desired-count 10" : To create a new service you would use this command which creates a service in your default region called ecs-simple-service. The service uses the ecs-demo task definition and it maintains 10 instantiations of that task.
+
+"aws ecr create-service --service-name ecs-simple-service --task-definition ecs-demo --desired-count 10" - This command is referencing a different service called Amazon Elastic Container Registry (ECR) which's is a fully-managed Docker container registry
+
+"docker-compose create ecs-simple-service" - This is a docker command to create containers for a service and not a command used in the CLI
+
+"aws ecs run-task --cluster default --task-definition ecs-demo" - This is a valid command but used for starting a new task using a specified task definition
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/ecs/create-service.html
+"""
+Topic = "ECS"
+
+[question-12]
+Question = "You want to be able to stage your deployment to one third of your fleet, then another third and finally the last third. How can you best achieve this using CodeDeploy?"
+Correct = "A"
+A = "CodeDeploy deployment groups"
+B = "Tags"
+C = "CodeDeploy Hooks"
+D = "Use multiple CodeDeploy"
+Explanation = """
+Correct answer - "CodeDeploy deployment groups" : In an EC2/On-Premises deployment, a deployment group is a set of individual instances targeted for a deployment. A deployment group contains individually tagged instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups, or both.
+
+"Tags" - Tags enable you to categorize your AWS resources in different ways, for example, by purpose, owner, or environment. It would seem reasonable but since your mind is thinking of groups when you read the question but its not the solution
+
+"CodeDeploy Hooks" - Hooks are found in the AppSec file used by AWS CodeDeploy to manage a deployment. Hooks correspond to lifecycle events such as ApplicationStart, ApplicationStop, etc. which you can assign a script to
+
+"Use multiple CodeDeploy" - You can have multiple stages deployed and tested such as (development, testing, staging, and so on), but instead of doing this all you want to do is use the same deployment and maybe separate the times when a group of instances receive the software updates
+
+For more information visit https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-groups.html
+"""
+Topic = "CodeDeploy"
+
+[question-13]
+Question = "You would like to query items based on the same partition key but an attribute that is not part of the same sort key. What should you do?"
+Correct = "A"
+A = "Create a LSI"
+B = "Call Scan"
+C = "Create a GSI"
+D = "Migrate away from DynamoDB"
+Explanation = """
+Correct answer - "Create a LSI" : LSI stands for Local Secondary Index. Some applications only need to query data using the base table's primary key; however, there may be situations where an alternate sort key would be helpful. To give your application a choice of sort keys, you can create one or more local secondary indexes on a table and issue Query or Scan requests against these indexes.
+
+"Call Scan" - Scan is an operation on the data. Once you create your local secondary indexes on a table you can then issue a Scan requests again
+
+"Create a GSI" - GSI (Global Secondary Index) is an index with a partition key and a sort key that can be different from those on the base table
+
+"Migrate away from DynamoDB" - When your application has invested alot of time to work with a NoSQL database it may require you to make application code changes that can be expensive by doing so
+
+For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LSI.html
+"""
+Topic = "DynamoDB"
+
+[question-14]
+Question = "You are designing a high performance application that will require millions of connections to be handled, as well as low latency. Which of the following load balancers is best for this?"
+Correct = "A"
+A = "Network Load Balancer"
+B = "Application Load Balancer"
+C = "Elastic Load Balancer"
+D = "Classic Load Balancer"
+Explanation = """
+Correct answer - "Network Load Balancer" : A Network Load Balancer functions at the fourth layer of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration.
+
+"Application Load Balancer" - One of many benefits of the Application Load Balancer is its support for path-based routing. You can configure rules for your listener that forward requests based on the URL in the request. This enables you to structure your application as smaller services, and route requests to the correct service based on the content of the URL. For needs relating to network traffic go with Network Load Balancer
+
+"Elastic Load Balancer" - Elastic Load Balancing is the service itself that offers different types of load balancers
+
+"Classic Load Balancer" - Its a basic load balancer that distributes traffic. If your account was created before 2013-12-04, your account supports EC2-Classic instances and you will benefit in using this type of load balancer. The classic load balancer can be used regardless of when your account was created and whether you use EC2-Classic or whether your instances are in a VPC but just remember its the basic load balancer AWS offers and not advanced as the others
+
+For more information visit https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html
+"""
+Topic = "ELB"
+
+[question-15]
+Question = "How can you ensure that your EC2 instances execute a customizable set of instructions when they first start?"
+Correct = "A"
+A = "EC2 User Data"
+B = "Mount EFS network drives"
+C = "EC2 Meta Data"
+D = "Custom AMI"
+Explanation = """
+Correct answer - "EC2 User Data" : When you launch an instance in Amazon EC2, you have the option of passing user data to the instance that can be used to perform common automated configuration tasks and even run scripts after the instance starts. A use case for user data would be if you run web servers for various small businesses, they can all use the same AMI and retrieve their content from the Amazon S3 bucket you specify in the user data at launch.
+
+"Mount EFS network drives" - Amazon EFS is a file storage service for use with Amazon EC2 that can provide storage for up to thousands of Amazon EC2 instances. EFS does not provide instructions but instead a storage service
+
+"EC2 Meta Data" - Meta Data is information about your running instance, for example you can access information such as the local IP address of your instance
+
+"Custom AMI" - With a Custom AMI you can pre-install software and configure your Operating System to have all it needs before launching. If you were using User Data, you would have software or other tasks that you can specify when the instance launches but may take longer to boot so a Custom AMI can be recommended.
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html#instancedata-data-retrieval
+"""
+Topic = "EC2"
+
+[question-16]
+Question = "At which frequency do EC2 instances report their metrics under normal configurations?"
+Correct = "A"
+A = "5 minutes"
+B = "10 minutes"
+C = "2 minutes"
+D = "1 minute"
+Explanation = """
+Correct answer - "5 minutes" : By default, Amazon EC2 sends metric data to CloudWatch in 5-minute periods.
+
+"10 minutes"
+
+"2 minutes"
+
+"1 minute" - To send metric data for your instance to CloudWatch in 1-minute periods, you can enable detailed monitoring on the instance
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html
+"""
+Topic = "CloudWatch"
+
+[question-17]
+Question = "You are storing your video files in a separate bucket from your main S3 website bucket. If using directly the video URL, we users are able to download the videos, but it is impossible for them to play the videos while visiting your main website. What's the problem?"
+Correct = "A"
+A = "Enable CORS"
+B = "Change the bucket policy"
+C = "Amend the IAM policy"
+D = "Disable Server-Side Encryption"
+Explanation = """
+Correct answer - "Enable CORS" : Cross-origin resource sharing (CORS) defines a way for client web applications that are loaded in one domain to interact with resources in a different domain. With CORS support, you can build rich client-side web applications with Amazon S3 and selectively allow cross-origin access to your Amazon S3 resources.
+
+"Change the bucket policy" - A bucket policy is a resource-based AWS Identity and Access Management (IAM) policy that grants permissions. With this policy you can do things such as allow one IP address to access the video file in the S3 bucket. In this scenario we know its not the case because it works using the direct URL but it doesn't work when you click on a link to access the vide
+
+"Amend the IAM policy" - You attach IAM policies to IAM users, groups, or roles, which are then subject to the permissions you've defined. This scenario is dealing with public users to a website and they do not have their own IAM user account
+
+"Disable Server-Side Encryption" - Amazon S3 encrypts your data at the object level as it writes it to disks in its data centers and decrypts it for you when you access it, if the video file is encrypted at rest then there is nothing you need to do because AWS handles encrypt and decrypt. Disabling encryption is not the issue because you can access the video directly using an URL but not from the main website
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
+"""
+Topic = "S3"
+
+[question-18]
+Question = "(Legacy question - answer as if before November 2018). You would like to deploy a function programmed in Rust to AWS Lambda. Rust is not yet a supported runtime. What should you do?"
+Correct = "A"
+A = "You cannot deploy functions that aren't supported at runtime"
+B = "Package as a docker image and deploy to AWS Lambda"
+C = "Define a custom runtime for AWS Lambda"
+D = "Open a support ticket with AWS"
+Explanation = """
+Correct answer - "You cannot deploy functions that aren't supported at runtime" : Lambda does support now custom runtimes, but this was announced at re-invent November 2018 and it will take time for the announcement to make it to the exam (usually 6 months). If the actual exam offers "layers / custom runtime" as an answer, then please select that and send me a message so I can update this question. In the meantime, from an exam perspective, you cannot define custom Lambda runtimes.
+
+"Package as a docker image and deploy to AWS Lambda" - With Lambda you can upload a zip package with size restrictions but it is designed to work with programming languages that it supports
+
+"Define a custom runtime for AWS Lambda" - To use other languages in Lambda, you can implement a custom runtime. A custom runtime's entry point is an executable file named bootstrap. A bootstrap file can be the runtime, or it can invoke another file that creates the runtime
+
+"Open a support ticket with AWS" - You can open a ticket to request a new runtime but don't expect that to happen anytime soon, support will help you to work around it
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+https://docs.aws.amazon.com/lambda/latest/dg/runtimes-custom.html
+"""
+Topic = "AWS Lambda"
+
+[question-19]
+Question = "(Legacy Question). You are looking to improve S3 performance. How should you name your files?"
+Correct = "A"
+A = "<my_bucket>/<random 4 characters>_my_folder/my_file1.txt"
+B = "<my_bucket>/MMDDYYYY_my_folder/my_file1.txt"
+C = "<my_bucket>/DDMMYYYY_my_folder/my_file1.txt"
+D = "<my_bucket>/YYMMDD_my_folder/my_file1.txt"
+Explanation = """
+Correct answer - "/_my_folder/my_file1.txt" : This is legacy, for now still asked in the exam. The previous guidance was to randomize object prefixes to achieve faster performance but the change made with S3 request rate performance increase removes the previous guidance.
+
+"/MMDDYYYY_my_folder/my_file1.txt" - No randomness to the prefix because you will have several files with same MM value
+
+"/DDMMYYYY_my_folder/my_file1.txt" - No randomness to the prefix because you will have several files with same DD value
+
+"/YYMMDD_my_folder/my_file1.txt" - No randomness to the prefix because you will have several files with same YY value
+
+For more information visit https://aws.amazon.com/about-aws/whats-new/2018/07/amazon-s3-announces-increased-request-rate-performance/
+"""
+Topic = "S3"
+
+[question-20]
+Question = "You are a developer in your company and you have deployed a web application that heavily relies on the performance of the back-end database which is not hosted by RDS. Your boss wants to scale your ASG based on the number of requests per minute your application makes to your database."
+Correct = "A"
+A = "You create a CloudWatch custom metric and build an alarm to scale your ASG"
+B = "Attach an Elastic Load Balancer"
+C = "Attach additional Elastic File Storage"
+D = "You enable detailed monitoring and use that to scale your ASG"
+Explanation = """
+Correct answer - "You create a CloudWatch custom metric and build an alarm to scale your ASG" : Amazon CloudWatch is a web service that enables you to monitor, manage, and publish various metrics, as well as configure alarm actions based on data from metrics. You can define custom metrics for your own use, and Elastic Beanstalk will push those metrics to Amazon CloudWatch. Once Amazon CloudWatch contains your custom metrics, you can view those in the Amazon CloudWatch console.
+
+"Attach an Elastic Load Balancer" - Not what you need for auto scaling. An Elastic Load Balancer distributes workloads across multiple compute resources and checks your instances health status to name a few, but it does not automatically increase and decrease the number of instances based on the application requirement
+
+"Attach additional Elastic File Storage" - This is a file storage service designed for performance so not a solution
+
+"You enable detailed monitoring and use that to scale your ASG" - By default, basic monitoring is enabled where data is available automatically in 5-minute periods or you can enable detailed monitoring where data is available in 1-minute periods but at an additional cost. It depends on what you need and if you are willing to pay those costs
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-containers-cw.html
+https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.html
+"""
+Topic = "ASG"
+
+[question-21]
+Question = "You would like to use SSE-S3 encryption mechanism. What header must you set in your request?"
+Correct = "A"
+A = "'x-amz-server-side-encryption': 'AES256'"
+B = "x-amz-server-side-encryption': 'SSE-S3'"
+C = "'x-amz-server-side-encryption': 'SSE-KMS'"
+D = "'x-amz-server-side-encryption': 'aws:kms'"
+Explanation = """
+Correct answer - "'x-amz-server-side-encryption': 'AES256'" : To request server-side encryption using the object creation REST APIs, provide the , x-amz-server-side-encryption request header. Amazon S3 server-side encryption uses one of the strongest block ciphers available, 256-bit Advanced Encryption Standard (AES-256), to encrypt your data.
+
+"'x-amz-server-side-encryption': 'SSE-S3'" - SSE-S3 (Amazon S3-Managed Keys) is an option available but not a header value
+
+"'x-amz-server-side-encryption': 'SSE-KMS'" - SSE-KMS (AWS KMS-Managed Keys) is an option available but not a header value. A valid value would be 'aws:kms'
+
+"'x-amz-server-side-encryption': 'aws:kms'" - This is a valid header value and you can use if you need more control over your keys like create, rotating, disabling them otherwise if you wish to let AWS S3 manage your keys just stick with SSE-S3
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html
+https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
+"""
+Topic = "S3"
+
+[question-22]
+Question = "CodeDeploy is deploying to EC2 instances but they seem to have a problem pulling the code from S3. What should you do?"
+Correct = "A"
+A = "Fix the IAM permissions for the EC2 instance role"
+B = "Fix the IAM permissions for the CodeDeploy service role"
+C = "Make the S3 bucket public"
+D = "Enable CodeDeploy Proxy"
+Explanation = """
+Correct answer - "Fix the IAM permissions for the EC2 instance role" : You should use an IAM role to manage temporary credentials for applications that run on an EC2 instance. When you use a role, you don't have to distribute long-term credentials (such as a user name and password or access keys) to an EC2 instance. Instead, the role supplies temporary permissions that applications can use when they make calls to other AWS resources. In this case make sure your role has access to the S3 bucket.
+
+"Fix the IAM permissions for the CodeDeploy service role" - The fact that CodeDeploy deployed the application to EC2 instances tells us that there was no issue between those two, the issue here is between the EC2 instances and S3
+
+"Make the S3 bucket public" - This is not a good practice, you should strive to do least privilege access. You may have files in here that should not be allowed public access and you are opening the door to security breaches
+
+"Enable CodeDeploy Proxy" - False, we don't need to look into CodeDeploy settings but rather between EC2 and S3 permissions
+
+For more information visit https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html
+"""
+Topic = "CodeDeploy"
+
+[question-23]
+Question = "You are trying to collect metrics in near real time in order to track your application performance. Which service should you use?"
+Correct = "A"
+A = "CloudWatch Metrics"
+B = "X-Ray"
+C = "CloudWatch Alarms"
+D = "CloudTrail"
+Explanation = """
+Correct answer - "CloudWatch Metrics" : Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real time. You can use CloudWatch to collect and track metrics, which are variables you can measure for your resources and applications. CloudWatch alarms send notifications or automatically make changes to the resources you are monitoring based on rules that you define.
+
+"X-Ray" - This is an option however it will require you to install the SDK depending on your programming language used. If your language is not supported then stick with CloudWatch Metrics
+
+"CloudWatch Alarms" - Alarms work together with Metrics. CloudWatch alarms check metrics based on the current time in UTC. Custom metrics sent to CloudWatch with time stamps other than the current UTC time can cause alarms to display the Insufficient Data state or result in delayed alarms
+
+"CloudTrail" - CloudWatch is a monitoring service whereas CloudTrail is more of an audit service where you can find API calls made on services and by whom
+
+For more information visit https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html
+"""
+Topic = "CloudWatch"
+
+[question-24]
+Question = "Messages produced to SQS by bidders in your betting application must not be visible to other applications for 30 seconds. How can you achieve that easily?"
+Correct = "A"
+A = "Use DelaySeconds parameter"
+B = "implement application-side delay"
+C = "Enable ConsumerReadDelay"
+D = "Enable LongPolling"
+Explanation = """
+Correct answer - "Use DelaySeconds parameter" : Delay queues let you postpone the delivery of new messages to a queue for a number of seconds. If you create a delay queue, any messages that you send to the queue remain invisible to consumers for the duration of the delay period.
+
+"Implement application-side delay" - You can customize your application to delay sending messages but its not a highly available solution
+
+"Enable ConsumerReadDelay" - This option does not exist
+
+"Enable LongPolling" - Not a solution you need as this option eliminates empty responses by allowing Amazon SQS to wait until a message is available
+
+For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html
+"""
+Topic = "SQS"
+
+[question-25]
+Question = "What are some key differences between a standard SQS and SWF? (select two)"
+Correct = "A,B"
+A = "SWF ensures the task is assigned only once while SQS may deliver the message multiple times"
+B = "SWF is task oriented API and SQS is message-oriented API"
+C = "SQS is task oriented API and SWF is message-oriented API"
+D = "SQS ensures the task is assigned only once while SWF may deliver the message multiple times"
+Explanation = """
+Correct answers - "SWF ensures the task is assigned only once while SQS may deliver the message multiple times & SWF is task oriented API and SQS is message-oriented API" : Amazon SWF provides useful guarantees around task assignment. It ensures that a task is never duplicated and is assigned only once. Thus, even though you may have multiple workers for a particular activity type (or a number of instances of a decider), Amazon SWF will give a specific task to only one worker (or one decider instance).
+
+"SQS is task oriented API and SWF is message-oriented API" - Amazon SWF API actions are task-oriented. Amazon SQS API actions are message-oriented
+
+"SQS ensures the task is assigned only once while SWF may deliver the message multiple times" - Its the other way around. SWF ensures the task is assigned only once while SQS may deliver the message multiple times
+
+For more information visit https://aws.amazon.com/swf/faqs/
+"""
+Topic = "SWF"
+
+[question-26]
+Question = "You would like to trigger a notification when a CodeBuild fails. Which AWS service helps you achieve that?"
+Correct = "A"
+A = "AWS CloudWatch Events + SNS"
+B = "AWS CloudWatch Alarms + SNS"
+C = "Kinesis"
+D = "CloudTrail"
+Explanation = """
+Correct answer - "AWS CloudWatch Events + SNS" : You can create a CloudWatch Event for your failed builds and send build notifications to subscribers whenever builds fail
+
+"AWS CloudWatch Alarms + SNS" - Alarms do integrate with SNS notifications, the difference is that an alarm takes place once, at a specific point in time. Events are recorded constantly, over time and provide a stream of information
+
+"Kinesis" - Don't confuse data streams with event stream data from CloudWatch events. Kinesis is not a monitoring service that sends data streams based on monitoring your services
+
+"CloudTrail" - This is a service that enables governance, compliance, operational auditing, and risk auditing of your AWS account, obviously not what you need for our solution
+
+For more information visit https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html
+"""
+Topic = "CodeBuild"
+
+[question-27]
+Question = "Your application runs on Elastic Beanstalk. Its configuration values change often and the devops team does not want to re-deploy the application every time a configuration changes. They would rather manage configuration externally and securely and have it load dynamically into the application at runtime. What advice do you give?"
+Correct = "A"
+A = "Use SSM Parameter Store"
+B = "Use Environment variables"
+C = "Use Stage Variables"
+D = "Use S3"
+Explanation = """
+Correct answer - "Use SSM Parameter Store" : AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values.
+
+"Use Environment variables" - If your refer to the AWS CLI, Environment variables provide another way to specify configuration options and credentials, and can be useful for scripting or temporarily setting a named profile as the default. Your application is not running AWS CLI
+
+"Use Stage Variables" - You can use stage variables for managing multiple release stages for API Gateway, this is not what you are looking for here
+
+"Use S3" - S3 offers the same benefit as Parameter store where there are no servers to manage. With S3 you have to set encryption and choose other security options and there are more chances of misconfiguring security if you share your S3 bucket with other objects. You would have to create a custom setup in order to come close to parameter store. Use Parameter Store and let AWS handle the rest
+
+For more information visit https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html
+"""
+Topic = "SSM"
+
+[question-28]
+Question = "We need to perform 16 eventually consistent reads per seconds of 12KB each. How many RCU do we need?"
+Correct = "A"
+A = "24"
+B = "192"
+C = "12"
+D = "48"
+Explanation = """
+Correct answer - "24" : One read capacity unit represents two eventually consistent reads per second, for an item up to 4 KB in size. If you need to read an item that is larger than 4 KB, DynamoDB will need to consume additional read capacity units. The total number of read capacity units required depends on the item size.
+
+"192"
+
+"12"
+
+"48"
+
+For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ProvisionedThroughput.html
+"""
+Topic = "DynamoDB"
+
+[question-29]
+Question = "You are running a public DNS service on EC2 and a requirement is that it is accessible using the same IP. You wish to upgrade your DNS service but would like to do it without downtime. Which service will help you accomplish this?"
+Correct = "A"
+A = "Elastic IP"
+B = "Create a Load Balancer and an auto scaling group"
+C = "Provide a static private IP"
+D = "Use Route53"
+Explanation = """
+Correct answer - "Elastic IP" : DNS services are identified by a public IP, so you need to use Elastic IP.
+
+"Create a Load Balancer and an auto scaling group" - Load balancers do not provide an IP, instead they provide a DNS name
+
+"Provide a static private IP" - If you provide a private IP it will not be accessible from the internet
+
+"Use Route53" - Route53 is a DNS service but here it is offering a DNS service using an EC2 instance
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#using-instance-addressing-eips-associating-different
+"""
+Topic = "EC2"
+
+[question-30]
+Question = "How can REST API clients invalidate the API Gateway Cache?"
+Correct = "A"
+A = "Using the Header Cache-Control: max-age=0"
+B = "Use the Request parameter: ?bypass_cache=1"
+C = "Using the Header Bypass-Cache=1"
+D = "Using the request parameter ?cache-control-max-age=0"
+Explanation = """
+Correct answer - "Using the Header Cache-Control: max-age=0" : A client of your API can invalidate an existing cache entry and reload it from the integration endpoint for individual requests. The client must send a request that contains the Cache-Control: max-age=0 header. The client receives the response directly from the integration endpoint instead of the cache, provided that the client is authorized to do so. This replaces the existing cache entry with the new response, which is fetched from the integration endpoint.
+
+"Use the Request parameter: ?bypass_cache=1" - Method parameters take querystring but this is not one of them
+
+"Using the Header Bypass-Cache=1" - This header is not available
+
+"Using the request parameter ?cache-control-max-age=0" - To invalidate cache it requires a header and not a request parameter
+
+For more information visit https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html#invalidate-method-caching
+"""
+Topic = "API Gateway"
+
+[question-31]
+Question = "You would like to trigger AWS Lambda based on a specific service state change. That service does not have a direct integration with AWS Lambda. How can you best achieve it?"
+Correct = "A"
+A = "CloudWatch Event Rules with AWS Lambda"
+B = "AWS Lambda Custom Sources"
+C = "Open a support ticket with AWS"
+D = "Cron jobs to trigger AWS Lambda to check the state of your service"
+Explanation = """
+Correct answer - "CloudWatch Event Rules with AWS Lambda" : You can create a Lambda function and direct AWS Lambda to execute it on a regular schedule. You can specify a fixed rate (for example, execute a Lambda function every hour or 15 minutes), or you can specify a Cron expression.
+
+"AWS Lambda Custom Sources" - There is no custom source option
+
+"Open a support ticket with AWS" - You can although they will not add a custom source they will step you through creating event rule with Lambda
+
+"Cron jobs to trigger AWS Lambda to check the state of your service" - You would need an additional server for your cron job instead use a cron expression with CloudWatch
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/with-scheduled-events.html
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.html
+"""
+Topic = "CloudWatch"
+
+[question-32]
+Question = "You need a database from which you can extract an event stream of every changes that happened. Which database technology will you choose?"
+Correct = "A"
+A = "DynamoDB"
+B = "RDS"
+C = "ElastiCache"
+D = "Kinesis"
+Explanation = """
+Correct answer - "DynamoDB" : DynamoDB Streams captures a time-ordered sequence of item-level modifications in any DynamoDB table, and stores this information in a log for up to 24 hours. Applications can access this log and view the data items as they appeared before and after they were modified, in near real time.
+
+"RDS" - A relational database works different than a NoSQL database such as DynamoDB. However you can use Amazon Kinesis for streaming with Relational data
+
+"ElastiCache" - ElastiCache works as an in-memory data store and cache
+
+"Kinesis" - Kinesis streams is similar to DynamoDB streams although different but with Kinesis you use it for processing larges amounts of data whereas DynamoDB streams is for the service itself
+
+For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html
+"""
+Topic = "DynamoDB"
+
+[question-33]
+Question = "Every time your CodeBuild runs its build step, it has to resolve Java dependencies from an external Ivy repository. Your project has over 100 dependencies and this takes a long time. Your manager wants you to speed up the execution of the CodeBuild. How should you proceed with minimal changes?"
+Correct = "A"
+A = "Enable S3 caching"
+B = "Reduce the number of dependencies"
+C = "Ship all the dependencies as part of the source code"
+D = "Setup a Nexus repository in EC2 that will act as an internal dependency cache"
+Explanation = """
+Correct answer - "Enable S3 caching" : Downloading dependencies is a critical phase in the build process. These dependent files can range in size from a few KBs to multiple MBs. Because most of the dependent files do not change frequently between builds, you can noticeably reduce your build time by caching dependencies in S3.
+
+"Reduce the number of dependencies" - This is ideal but sometimes you may not have control over this
+
+"Ship all the dependencies as part of the source code" - Not a good practice as doing this will increase your build time. If your dependencies are not changing then its best to cache them
+
+"Setup a Nexus repository in EC2 that will act as an internal dependency cache" - CodeBuild has a built in option for this which is better to let AWS handle these things so you can focus on code
+
+For more information visit https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/
+"""
+Topic = "CodeBuild"
+
+[question-34]
+Question = "Your application is issuing too many polls to your SQS queue, which all return empty because you don't have a lot of traffic on it. What should you do to decrease your cost while maintaining your processing latency?"
+Correct = "A"
+A = "Use LongPolling"
+B = "Increase the VisibiltyTimeout"
+C = "Use a FIFO queue"
+D = "Decrease DelaySeconds"
+Explanation = """
+Correct answer - "Use LongPolling" : Eliminate empty responses by allowing Amazon SQS to wait until a message is available in a queue before sending a response. Unless the connection times out, the response to the ReceiveMessage request contains at least one of the available messages, up to the maximum number of messages specified in the ReceiveMessage action.Eliminate false empty responses by querying all rather than a subset of Amazon SQS servers.
+
+"Increase the VisibiltyTimeout" - Because there is no guarantee that a consumer received a message, the consumer must delete it. To prevent other consumers from processing the message again, Amazon SQS sets a visibility timeout
+
+"Use a FIFO queue" - Designed to enhance messaging between applications when the order of operations and events is critical
+
+"Decrease DelaySeconds" - Similar to VisibilityTimeout the difference that a message is hidden when it is first added to queue for DelaySeconds, whereas for visibility timeouts a message is hidden only after it is consumed from the queue
+
+For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-long-polling.html
+"""
+Topic = "SQS"
+
+[question-35]
+Question = "Your application clients are resolving the public IP for your load balancers at boot time. The public IP is used for the remaining of the time. After a while, the application breaks. Why?"
+Correct = "A"
+A = "The load balancer is highly available and its public IP may change. The DNS is constant"
+B = "Your security groups are not stable"
+C = "You need to enable stickiness"
+D = "You need to disable multi AZ deployments"
+Explanation = """
+Correct answer - "The load balancer is highly available and its public IP may change. The DNS is constant" : When your load balancer is created, it receives a public DNS name that clients can use to send requests. The DNS servers resolve the DNS name of your load balancer to the public IP addresses of the load balancer nodes for your load balancer Never resolve the IP of load balancer, always use the DNS name.
+
+"Your security groups are not stable" - You security groups to allow your load balancer to work with registered instances. Its stable if set correctly. If your application is working and stops after a while the issue is not security groups
+
+"You need to enable stickiness" - This enables the load balancer to bind a user's session to a specific instance
+
+"You need to disable multi AZ deployments" - This has no effect because the change is happening with the IP of the load balancer
+
+For more information visit https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-internet-facing-load-balancers.html
+"""
+Topic = "ELB"
+
+[question-36]
+Question = "You have a Kinesis stream with 10 shards, and from the metrics you are well below the throughput utilizations (10MB/s) send. You currently send 3 MB/s of data, yet, you are getting a ProvisionedThroughputException. What is the likely cause of this?"
+Correct = "A"
+A = "The partition key that you have selected isn't distributed enough"
+B = "Metrics are slow to update"
+C = "You have too many shards"
+D = "The data retention period is too long"
+Explanation = """
+Correct answer - "The partition key that you have selected isn't distributed enough" : As the partition key is not distributed enough, all the data is getting skewed at few specific shards and not leveraging the entire cluster of shards.
+
+"Metrics are slow to update" - Metrics are a concept in CloudWatch that you can leverage
+
+"You have too many shards" - Too many shards is not the issue, if it was you would see a LimitExceededException
+
+"The data retention period is too long" - Your streaming data is retained for up to 7 days. Too long of a period is not an issue causing this error
+
+For more information visit https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecords.html
+https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-resharding-strategies.html
+"""
+Topic = "Kinesis"
+
+[question-37]
+Question = "You would like to pull Docker images from the central ECR repository, so you can start running local tests against the latest application version. Which commands must you run to pull an existing Docker image from ECR? (select two)"
+Correct = "A,B"
+A = "$(aws ecr get-login --no-include-email)"
+B = "docker pull 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest"
+C = "docker login -u $AWS_ACCESS_KEY_ID -p $AWS_SECRET_ACCESS_KEY"
+D = "aws docker push 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest"
+E = "docker build -t 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest"
+Explanation = """
+Correct answers - "$(aws ecr get-login --no-include-email) & docker pull 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest" : The get-login command retrieves a token that is valid for a specified registry for 12 hours, and then it prints a docker login command with that authorization token. You can execute the printed command to log in to your registry with Docker, or just run it automatically using the $() command wrapper. After you have logged in to an Amazon ECR registry with this command, you can use the Docker CLI to push and pull images from that registry until the token expires. The docker pull command is used to pull an image from the ECR registry.
+
+"docker login -u $AWS_ACCESS_KEY_ID -p $AWS_SECRET_ACCESS_KEY" - You cannot login to AWS ECR this way. AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are only used by the CLI, not docker
+
+"aws docker push 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest" - docker push here is the wrong answer, you need to use docker pull
+
+"docker build -t 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest" - This is a docker command that is used to build Docker images from a Dockerfile and a 'context"
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html
+https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-basics.html
+"""
+Topic = "ECS"
+
+[question-38]
+Question = "You would like to programmatically define your CodeBuild steps. What should you do?"
+Correct = "A"
+A = "define a .buildspec file in the root directory"
+B = "define a .appspec file in the root directory"
+C = "define a .buildspec file in the codebuild/ directory"
+D = "define a .appspec file in the codebuild/ directory"
+Explanation = """
+Correct answer - "define a .buildspec file in the root directory" : A build spec is a collection of build commands and related settings, in YAML format, that AWS CodeBuild uses to run a build. You can include a build spec as part of the source code or you can define a build spec when you create a build project.
+
+"define a .appspec file in the root directory" - The AppSpec file is use for deployment in the CodeDeploy service
+
+"define a .buildspec file in the codebuild/ directory" - The file is correct but must be in the root directory
+
+"define a .appspec file in the codebuild/ directory" - The AppSpec file is use for deployment in the CodeDeploy service
+
+For more information visit https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+"""
+Topic = "CodeBuild"
+
+[question-39]
+Question = "You would like to receive notifications when a parameter changes in Parameter Store for security reasons. Which service will help you achieve that?"
+Correct = "A"
+A = "SNS"
+B = "SQS"
+C = "SES"
+D = "CloudTrail"
+Explanation = """
+Correct answer - "SNS" : You can use Amazon CloudWatch Events and Amazon SNS to notify you about changes to Systems Manager Parameters. You can be notified when a parameter is created, updated, or deleted.
+
+"SQS" - SQS is a messaging queue service but its not used with Parameter store
+
+"SES" - You can use the AWS SMTP interface or one of the AWS SDKs to integrate Amazon SES directly into applications and as you can see its not suitable for Parameter Store
+
+"CloudTrail" - All access to Parameter Store is logged with AWS CloudTrail but CloudTrail does not do notifications
+
+For more information visit https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html
+"""
+Topic = "SSM"
+
+[question-40]
+Question = "Your ELB is sending traffic to all your EC2 instances. When one of your server crashes, you realize the ELB still sends traffic to it, which results in bad user experience. What can you do to minimize this problem?"
+Correct = "A"
+A = "Enable Health Checks"
+B = "Enable Stickiness"
+C = "Enable Multi AZ deployments"
+D = "Enable SSL"
+Explanation = """
+Correct answer - "Enable Health Checks" : To discover the availability of your EC2 instances, a load balancer periodically sends pings, attempts connections, or sends requests to test the EC2 instances. These tests are called health checks. The status of the instances that are healthy at the time of the health check is InService. The status of any instances that are unhealthy at the time of the health check is OutOfService.
+
+"Enable Stickiness" - Enables the load balancer to bind a user's session to a specific instance
+
+"Enable Multi AZ deployments" - Its a good practice to divide instances in more than one availability zone however you still need a way to check the health status of the instances
+
+"Enable SSL" - SSL encrypts transmission of data between a web server and a browser
+
+For more information visit https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-healthchecks.html
+"""
+Topic = "ELB"
+
+[question-41]
+Question = "Where is CloudFront SSL in flight encryption available?"
+Correct = "A"
+A = "Between clients and CloudFront and CloudFront and backend"
+B = "Between clients and CloudFront only"
+C = "Between CloudFront and backend only"
+D = "Nowhere"
+Explanation = """
+Correct answer - "Between clients and CloudFront and CloudFront and backend" : For web distributions, you can configure CloudFront to require that viewers use HTTPS to request your objects, so connections are encrypted when CloudFront communicates with viewers. You also can configure CloudFront to use HTTPS to get objects from your origin, so connections are encrypted when CloudFront communicates with your origin.
+
+"Between clients and CloudFront only" - Incorrect, you can choose to require HTTPS between CloudFront and your origin
+
+"Between CloudFront and backend only" - Incorrect, you can choose to require HTTPS between viewers and CloudFront
+
+"Nowhere" - Incorrect, you can choose HTTPS settings both for communication between viewers and CloudFront, and between CloudFront and your origin
+
+For more information visit https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html#secure-connections-supported-ciphers-cloudfront-to-origin
+"""
+Topic = "CloudFront"
+
+[question-42]
+Question = "You would like to run command from the CLI on your EC2 instance. The instance should automatically obtain credentials to perform these commands. What feature will allow you to do this in the most secure way?"
+Correct = "A"
+A = "IAM Roles for EC2"
+B = "EC2 User Data"
+C = "Run `aws configure` on the EC2 instance"
+D = "CloudFormation"
+Explanation = """
+Correct answer - "IAM Roles for EC2" : IAM roles have been incorporated so that your applications can securely make API requests from your instances, without requiring you to manage the security credentials that the applications use. Instead of creating and distributing your AWS credentials, you can delegate permission to make API requests using IAM roles.
+
+"EC2 User Data" - You can specify user data when you launch an instance and you would not want to hard code that in the user data
+
+"Run `aws configure` on the EC2 instance" - When you first configure the CLI you have to run this command, afterwards you should not need to if you want to obtain credentials to authenticate to other AWS services. An IAM role will receive temporary credentials for you so you can focus on using the CLI to get access to other AWS services, if you have permissions set
+
+"CloudFormation" - AWS CloudFormation allows you to model your entire infrastructure in a text file
+
+For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html
+"""
+Topic = "CLI"
+
+[question-43]
+Question = "Which are the two deployment options provided by CodeDeploy? (select two)"
+Correct = "A,B"
+A = "In-place deployment"
+B = "Blue/green Deployment"
+C = "Cattle deployment"
+D = "Classic Deployment"
+Explanation = """
+Correct answers - "In-place deployment & Blue/green Deployment" : The application on each instance in the deployment group is stopped, the latest application revision is installed, and the new version of the application is started and validated. You can use a load balancer so that each instance is deregistered during its deployment and then restored to service after the deployment is complete. With a blue/green deployment, you provision a new set of instances on which CodeDeploy installs the latest version of your application. CodeDeploy then reroutes load balancer traffic from an existing set of instances running the previous version of your application to the new set of instances running the latest version. After traffic is rerouted to the new instances, the existing instances can be terminated.
+
+"Cattle deployment" - This is a good option if you have cattle in a farm
+
+For more information visit https://aws.amazon.com/about-aws/whats-new/2017/01/aws-codedeploy-introduces-blue-green-deployments/
+"""
+Topic = "CodeDeploy"
+
+[question-44]
+Question = "Which function should you use to make cross stack references in CloudFormation?"
+Correct = "A"
+A = "`!ImportValue`"
+B = "`!Ref`"
+C = "`!GetAtt`"
+D = "`!Sub`"
+Explanation = """
+Correct answer - `!ImportValue` : The intrinsic function `Fn::ImportValue` returns the value of an output exported by another stack. You typically use this function to create cross-stack references.
+
+`!Ref` - Returns the value of the specified parameter or resource
+
+`!GetAtt` - Returns the value of an attribute from a resource in the template
+
+`!Sub` - Substitutes variables in an input string with values that you specify
+
+For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html
+"""
+Topic = "CloudFormation"
+
+[question-45]
+Question = "You would like to run multiple versions of your application in Elastic Beanstalk to ensure you can perform regular development and load testing. What do you recommend?"
+Correct = "A"
+A = "Define a dev environment with a single instance and a 'load test'  environment that has settings close to prod"
+B = "You cannot have multiple development environment in Elastic Beanstalk, just one development and one production environment"
+C = "Use only one Beanstalk environment and perform configuration changes using an Ansible script"
+D = "Create an Application Load Balancer to route based on hostname so you can pass on parameters to the development Elastic Beanstalk environment. Create a file in .ebextensions/ in order to know how to handle the traffic coming from the ALB"
+Explanation = """
+Correct answer - "Define a dev environment with a single instance and a 'load test' environment that has settings close to prod" : It is common practice to have many environments for the same application. You can deploy multiple environments when you need to run multiple versions of an application. For example, you might have development, integration, and production environments.
+
+"You cannot have multiple development environment in Elastic Beanstalk, just one development and one production environment" - Incorrect, use the Create New Environment wizard in the AWS Management Console to guide you
+
+"Use only one Beanstalk environment and perform configuration changes using an Ansible script" - Ansible is an open source deployment tool that integrates with AWS. It allows us to deploy the infrastructure. Elastic Beanstalk provisions the servers that need and handles multiple environments as part of AWS so keep using Beanstalk
+
+"Create an Application Load Balancer to route based on hostname so you can pass on parameters to the development Elastic Beanstalk environment. Create a file in .ebextensions/ in order to know how to handle the traffic coming from the ALB" - This is not a good design if you need to load test because you will have two versions on the same instances and may not be able to access resources in the system due to the load testing
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.environments.html
+"""
+Topic = "Elastic Beanstalk"
+
+[question-46]
+Question = "You have uploaded a zip file to AWS Lambda that contains code files written in Node.Js and when your function is executed you receive the following output, 'Error : Memory Size: 3008 MB Max Memory Used'. What is the problem?"
+Correct = "D"
+A = "The uncompressed zip file exceeds AWS Lambda limits"
+B = "You have uploaded a zip file larger than 50 MB to AWS Lambda"
+C = "Your zip file is corrupt"
+D = "Your Lambda function ran out of RAM"
+Explanation = """
+Correct answer - "Your Lamdba function was deployed with 3008MB of RAM, but it seems your code requested or used more than that, so the Lambda function failed" :
+
+"Your zip file is corrupt" - A memory size error states that Lambda was able to extract so the file is not corrupt
+
+The uncompressed zip file exceeds AWS Lambda limits: this is not correct as your function was able to execute
+
+You have uploaded a zip file larger than 50 MB to AWS Lambda: this is not correct as your lambda function was able to execute
+
+For more information visit https://docs.aws.amazon.com/lambda/latest/dg/limits.html
+"""
+Topic = "Lambda"
+
+[question-47]
+Question = "The application load balancer can redirect to different target groups based on which of these variables? (select two)"
+Correct = "A,B"
+A = "hostname"
+B = "url path"
+C = "client IP"
+D = "web browser version"
+E = "cookie value"
+Explanation = """
+Correct answers - "hostname & url path" : You can create a listener with rules to forward requests based on the URL path. This is known as path-based routing. If you are running microservices, you can route traffic to multiple back-end services using path-based routing. For example, you can route general requests to one target group and requests to render images to another target group.
+
+"client IP" - Routing is not based on client IP address
+
+"web browser version" - Routing has nothing to do with client web browser, if it was then there is something sneaky going on
+
+I"cookie value" - Application Load Balancers support load balancer-generated cookies only and you cannot modify them. When routing sticky sessions to route requests to same target then cookies are need to be supported by the clients browser
+
+For more information visit https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html
+https://docs.aws.amazon.com/elasticloadbalancing/latest/application/tutorial-load-balancer-routing.html
+"""
+Topic = "ELB"
+
+[question-48]
+Question = "You want to delete all the items in your DynamoDB table (over 10 million of them), how should you achieve this quickly while maintaining low costs?"
+Correct = "A"
+A = "Delete then re-create the table"
+B = "Scan and call DeleteItem"
+C = "Scan and call BatchDeleteItem"
+D = "Call PurgeTable"
+Explanation = """
+Correct answer - "Delete then re-create the table" : The DeleteTable operation deletes a table and all of its items. After a DeleteTable request, the specified table is in the DELETING state until DynamoDB completes the deletion.
+
+"Scan and call DeleteItem" - Scan is a very slow operation for 10 million items and you should avoid if there is a better way
+
+"Scan and call BatchDeleteItem" - Scan is a very slow operation for 10 million items and you should avoid if there is a better way
+
+"Call PurgeTable" - The operation does not exist
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/dynamodb/delete-table.html
+"""
+Topic = "DynamoDB"
+
+[question-49]
+Question = "Which is the correct order for CodeDeploy steps in appspec.yml?"
+Correct = "A"
+A = "DownloadBundle => BeforeInstall => ApplicationStart => ValidateService"
+B = "BeforeInstall => ApplicationStart => DownloadBundle => ValidateService"
+C = "ValidateService => BeforeInstall =>DownloadBundle => ApplicationStart"
+D = "BeforeInstall => ValidateService =>DownloadBundle => ApplicationStart"
+Explanation = """
+Correct answer - "DownloadBundle => BeforeInstall => ApplicationStart => ValidateService" : You can specify one or more scripts to run in a hook. Each hook for a lifecycle event is specified with a string on a separate line. Following are descriptions of the hooks that are available for use in your AppSpec file. DownloadBundle ' During this deployment lifecycle event, the CodeDeploy agent copies the application revision files to a temporary location.
+
+"BeforeInstall => ApplicationStart => DownloadBundle => ValidateService" - Read correct answer
+
+"ValidateService => BeforeInstall =>DownloadBundle => ApplicationStart" - Read correct answer
+
+"BeforeInstall => ValidateService =>DownloadBundle => ApplicationStart" - - Read correct answer
+
+For more information visit https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#reference-appspec-file-structure-hooks-run-order-lambda
+"""
+Topic = "CodeDeploy"
+
+[question-50]
+Question = "Your company does want S3 server side encryption but wants to manage the keys through their AWS portal. Which encryption mechanism suits best?"
+Correct = "A"
+A = "SSE-KMS"
+B = "SSE-C"
+C = "Client Side Encryption"
+D = "SSE-S3"
+Explanation = """
+Correct answer - "SSE-KMS" : You have the option to create and manage encryption keys yourself, or use a default key that is unique to you, the service you're using, and the region you're working in.
+
+"SSE-C" - When retrieving objects encrypted server-side with SSE-C, you must provide the same encryption key as part of your request. Amazon S3 first verifies that the encryption key you provided matches, and then decrypts the object before returning the object data to you
+
+"Client Side Encryption" - Client side encryption is encrypting the data before sending to S3, but your company is looking for server-side encryption
+
+"SSE-S3" - With this option AWS encrypts the data at rest and handles the key
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html
+https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html
+"""
+Topic = "S3"
+
+[question-51]
+Question = "Your mobile application needs to perform API calls to DynamoDB. You do not want to store secrets onto the mobile devices and need all the calls to DynamoDB done with a different identity per mobile device. Which service allows you to achieve this?"
+Correct = "A"
+A = "Cognito Identity Pools"
+B = "Cognito User Pools"
+C = "Cognito Sync"
+D = "IAM"
+Explanation = """
+Correct answer - "Cognito Identity Pools" : Amazon Cognito identity pools provide temporary AWS credentials for users who are guests (unauthenticated) and for users who have been authenticated and received a token. Identity pools provide AWS credentials to grant your users access to other AWS services
+
+"Cognito User Pools" - AWS Cognito User Pools is there to authenticate users for your applications which looks similar to Cognito Identity Pools. The difference is that Identity Pools allows a way to authorize your users to use the various AWS services and User Pools is not about authorizing to AWS services but to provide add sign-up and sign-in functionality to web and mobile applications
+
+"Cognito Sync" - You can use it to synchronize user profile data across mobile devices and the web without requiring your own backend. The client libraries cache data locally so your app can read and write data regardless of device connectivity status
+
+"IAM" - Not a good solution because it would require you to have a IAM user for each mobile device which is not a good practice or manageable way of handling deployment
+
+For more information visit https://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html
+https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html
+"""
+Topic = "Cognito"
+
+[question-52]
+Question = "You are running an application leveraging the SDK on an EC2 instance. How do you pass credentials to the SDK?"
+Correct = "A"
+A = "Use an IAM Instance Role"
+B = "Use environment variables"
+C = "Hardcode the credentials in the application code"
+D = "Use the SSM parameter store"
+Explanation = """
+Correct answer - "Use an IAM Instance Role" : An instance profile is a container for an IAM role that you can use to pass role information to an EC2 instance when the instance starts.
+
+"Use environment variables" - This is another option if you configure AWS CLI on the EC2 instance. When configuring the AWS CLI you will set the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables. This practice may not be bad for one instance but once you start running more EC2 instances this is not a good practice because you may have to change credentials on each instance whereas an IAM Role gets temporary permissions
+
+"Hardcode the credentials in the application code" - It will work no doubt, not a good practice for a professional
+
+"Use the SSM parameter store" - With parameter store you can store data such as passwords. The problem is that you need the SDK to access parameter store and without credentials you cannot use the SDK. Use parameter store for other uses such as database connectionstrings or other secret codes when you have already authenticated to AWS
+
+For more information visit https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html
+"""
+Topic = "SDK"
+
+[question-53]
+Question = "What two commands will upload Lambda functions and CloudFormation templates to AWS?"
+Correct = "A"
+A = "cloudformation package and cloudformation deploy"
+B = "cloudformation package and cloudformation upload"
+C = "cloudformation zip and cloudformation upload"
+D = "cloudformation zip and cloudformation deploy"
+Explanation = """
+Correct answer - "cloudformation package and cloudformation deploy" : The cloudformation package command packages the local artifacts (local paths) that your AWS CloudFormation template references. The command will upload local artifacts, such as your source code for your AWS Lambda function. The cloudformation deploy command deploys the specified AWS CloudFormation template by creating and then executing a change set.
+
+"cloudformation package and cloudformation upload" - The cloudformation upload command does not exist
+
+"cloudformation zip and cloudformation upload" - Both commands do not exist
+
+"cloudformation zip and cloudformation deploy" - The cloudformation zip command does not exist
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/cloudformation/package.html
+https://docs.aws.amazon.com/cli/latest/reference/cloudformation/deploy/index.html
+"""
+Topic = "SAM"
+
+[question-54]
+Question = "You would like to run an application continuously for a year and can predict how much capacity you will need. You need the application instances to be stable and not terminated abruptly as you believe this will impact your users. What should you use?"
+Correct = "A"
+A = "EC2 Reserved Instances"
+B = "EC2 On Demand Instances"
+C = "EC2 Spot Instances"
+D = "Bring your own EC2 instance"
+Explanation = """
+Correct answer - "EC2 Reserved Instances" : Reserved instances can provide a capacity reservation, offering additional confidence in your ability to launch the number of instances you have reserved when you need them. You save money going with Reserved instances vs on demand especially in a years worth of time.
+
+"EC2 On Demand Instances" - On-Demand instances let you pay for compute capacity by the hour or second (minimum of 60 seconds) with no long-term commitments. This will cost you much more than going with Reserved instances
+
+"EC2 Spot Instances" - Spot instances save you alot more money than on demand but they may not work in your situation because their is interruptions when AWS needs to reclaim these back
+
+"Bring your own EC2 instance" - Not available
+
+For more information visit https://aws.amazon.com/ec2/pricing/reserved-instances/
+"""
+Topic = "EC2"
+
+[question-55]
+Question = "You want to send your CloudWatch logs to S3 for archival. How can you achieve it?"
+Correct = "A"
+A = "Use CloudWatch integration feature with S3"
+B = "Use CloudWatch integration feature with Kinesis"
+C = "Use CloudWatch integration feature with Lambda"
+D = "Use CloudWatch integration feature with Glue"
+Explanation = """
+Correct answer - "Use CloudWatch integration feature with S3" : You can export log data from your log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
+
+"Use CloudWatch integration feature with Kinesis" - You can use both to do custom processing or analysis but with S3 you don't have to process anything instead you configure the CloudWatch settings to send logs to S3
+
+"Use CloudWatch integration feature with Lambda" - You can use both to do custom processing or analysis but with S3 you don't have to process anything instead you configure the CloudWatch settings to send logs to S3
+
+"Use CloudWatch integration feature with Glue" - Glue is for working with ETL (extract, transform, and load) jobs
+
+For more information visit https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/S3Export.html
+"""
+Topic = "CloudWatch"
+
+[question-56]
+Question = "You use the CLI and it fails with the following exception: You are not authorized to perform this operation. Encoded authorization failure message: 6h34GtpmGjJJUm946eDVBfzWQJk6z5GePbbGDs9Z2T8xZj9EZtEduSnTbmrR7pMqpJrVYJCew2m8YBZQf4HRWEtrpncANrZMsnzk   How do you decode the message?"
+Correct = "A"
+A = "AWS STS decode-authorization-message"
+B = "AWS IAM decode-authorization-message"
+C = "Use KMS decode-authorization-message"
+D = "AWS Cognito Decoder"
+Explanation = """
+Correct answer - "AWS STS decode-authorization-message" : Use decode-authorization-message to decode additional information about the authorization status of a request from an encoded message returned in response to an AWS request. If a user is not authorized to perform an action that was requested, the request returns a Client.UnauthorizedOperation response (an HTTP 403 response).
+
+"AWS IAM decode-authorization-message" - The IAM service does not have this command
+
+"Use KMS decode-authorization-message" - The KMS service does not have this command
+
+"AWS Cognito Decoder" - The Cognito service does not have this command
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/sts/decode-authorization-message.html
+"""
+Topic = "STS"
+
+[question-57]
+Question = "You would like to audit which API calls are made to Amazon S3 within your environment, what do you use?"
+Correct = "A"
+A = "CloudTrail"
+B = "S3 Access Logs"
+C = "VPC Flow Logs"
+D = "IAM"
+Explanation = """
+Correct answer - "CloudTrail" : CloudTrail captures a subset of API calls for Amazon S3 as events, including calls from the Amazon S3 console and from code calls to the Amazon S3 APIs. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for Amazon S3. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in Event history.
+
+"S3 Access Logs" - Records of access attempts made against objects in your bucket. Logs contain info for bucket request, time, remote ip, request-uri and more
+
+"VPC Flow Logs" - VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC
+
+"IAM" - IAM allows you to add users, group and set permissions but not for auditing API calls
+
+For more information visit https://aws.amazon.com/cloudtrail/
+https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html
+"""
+Topic = "S3"
+
+[question-58]
+Question = "You have a read heavy workload on your DynamoDB table which causes a hot partition problem, as one popular item in your catalog is always requested. What technology will allow you to reduce the read load on your DynamoDB table while minimizing code changes?"
+Correct = "A"
+A = "DynamoDB DAX"
+B = "DynamoDB Streams"
+C = "ElastiCache"
+D = "More partitions"
+Explanation = """
+Correct answer - "DynamoDB DAX" : Amazon DynamoDB Accelerator (DAX) is a fully managed, highly available, in-memory cache for DynamoDB that delivers up to a 10x performance improvement : from milliseconds to microseconds : even at millions of requests per second.
+
+"DynamoDB Streams" - A stream record contains information about a data modification to a single item in a DynamoDB table. Not what you are looking for
+
+"ElastiCache" - ElastiCache can cache the results from anything but you will need to adjust your code to check the cache before querying the main query store
+
+"More partitions" - DynamoDB handles that for you automatically
+
+For more information visit https://aws.amazon.com/dynamodb/dax/
+"""
+Topic = "DynamoDB"
+
+[question-59]
+Question = "You have an application producing messages from 20 KB to 200 KB. Is it possible to send these messages to SQS?"
+Correct = "A"
+A = "Yes, the max message size is 256KB"
+B = "Yes, the max message size is 512KB"
+C = "No, the max message size is 128KB"
+D = "No, the max message size is 64KB"
+Explanation = """
+Correct answer - "Yes, the max message size is 256KB" : The minimum message size is 1 byte (1 character). The maximum is 262,144 bytes (256 KB).
+
+"Yes, the max message size is 512KB" - The max size is 256KB
+
+"No, the max message size is 128KB" - The max size is 256KB
+
+"No, the max message size is 64KB" - The max size is 256KB
+
+For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html
+"""
+Topic = "SQS"
+
+[question-60]
+Question = "You would like to use SSE-KMS encryption mechanism. What header must you set in your request?"
+Correct = "A"
+A = "'x-amz-server-side-encryption': 'aws:kms'"
+B = "'x-amz-server-side-encryption': 'SSE-S3'"
+C = "'x-amz-server-side-encryption': 'SSE-KMS'"
+D = "'x-amz-server-side-encryption': 'AES256'"
+Explanation = """
+Correct answer - "'x-amz-server-side-encryption': 'aws:kms'" : If the request does not include the x-amz-server-side-encryption header, then the request is denied.
+
+"'x-amz-server-side-encryption': 'SSE-S3'" - Invalid header value
+
+"'x-amz-server-side-encryption': 'SSE-KMS'" - Invalid header value. SSE-KMS is an encryption option
+
+"x-amz-server-side-encryption': 'AES256'" - Correct header value if using SSE-S3 server-side encryption
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html
+"""
+Topic = "S3"
+
+[question-61]
+Question = "Which Beanstalk deployment modes allows for the quickest deployment strategy?"
+Correct = "A"
+A = "all at once"
+B = "rolling"
+C = "rolling with additional batches"
+D = "immutable"
+E = "blue/green"
+Explanation = """
+Correct answer - "all at once" : Deploy the new version to all instances simultaneously and hence the shortest time. All instances in your environment are out of service for a short time while the deployment occurs.
+
+"rolling" - Deploys the new version in batches. Each batch is taken out of service during the deployment phase, reducing your environment's capacity by the number of instances in a batch
+
+"rolling with additional batches" - Deploys the new version in batches, but first launch a new batch of instances to ensure full capacity during the deployment process
+
+"immutable" - Deploys the new version to a fresh group of instances by performing an immutable update
+
+"blue/green" - With this strategy you deploy the new version to a separate environment, and then swap CNAMEs of the two environments to redirect traffic to the new version instantly.
+
+For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rolling-version-deploy.html
+"""
+Topic = "Elastic Beanstalk"
+
+[question-62]
+Question = "Your organization has a requirement that all the code must be encrypted in the cloud. You have proposed CodeCommit as a solution, how can you ensure the code is encrypted?"
+Correct = "A"
+A = "Repositories are automatically encrypted at rest"
+B = "Enable KMS encryption"
+C = "Use AWS Lambda as a hook to encrypt the pushed code"
+D = "Use a git command line hook to encrypt the code client side"
+Explanation = """
+Correct answer - "Repositories are automatically encrypted at rest" : Data in AWS CodeCommit repositories is encrypted in transit and at rest. When data is pushed into an AWS CodeCommit repository (for example, by calling git push), AWS CodeCommit encrypts the received data as it is stored in the repository.
+
+"Enable KMS encryption" - You don't have to. The first time you create an AWS CodeCommit repository in a new region in your AWS account, CodeCommit creates an AWS-managed key in that same region in AWS Key Management Service (AWS KMS) that is used only by CodeCommit
+
+"Use AWS Lambda as a hook to encrypt the pushed code" - No need to, CodeCommit handles it for you
+
+"Use a git command line hook to encrypt the code client side" - No need to, CodeCommit handles it for you
+
+For more information visit https://docs.aws.amazon.com/codecommit/latest/userguide/encryption.html
+"""
+Topic = "CodeCommit"
+
+[question-63]
+Question = "AWS Route 53 can be used almost as an alternative of another AWS service. Which one ?"
+Correct = "A"
+A = "ELB"
+B = "CloudFront"
+C = "S3"
+D = "Auto Scaling"
+Explanation = """
+Correct answer - "ELB" : Elastic Load Balancing automatically distributes incoming application traffic across multiple targets, such as Amazon EC2 instances, containers, IP addresses, and Lambda functions. Route 53 failover policy is similar to an ELB in that when using failover routing, it lets you route traffic to a resource when the resource is healthy or to a different resource when the first resource is unhealthy.
+
+"CloudFront" - Allows you to distribute content with low latency and high data transfer rates
+
+"S3" - Amazon S3 provides you a way to store and retrieve any amount of data
+
+"Auto Scaling" - AWS Auto Scaling will automatically scale resources as needed to align to your selected scaling strategy, so you maintain performance and pay only for the resources you actually need
+
+For more information visit https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html
+"""
+Topic = "Route53"
+
+[question-64]
+Question = "For which encryption mechanism is HTTPS (SSL) mandatory?"
+Correct = "A"
+A = "SSE-C"
+B = "SSE-KMS for metadata"
+C = "Client Side Encryption"
+D = "SSE-S3"
+Explanation = """
+Correct answer - "SSE-C" : Amazon S3 will reject any requests made over http when using SSE-C. For security considerations, we recommend you consider any key you send erroneously using http to be compromised.
+
+"SSE-KMS for metadata" - Any object metadata is not encrypted
+
+"Client Side Encryption" - Client-side encryption is the act of encrypting data before sending it to Amazon S3. It is not mandatory to do so
+
+"SSE-S3" - Not mandatory. Amazon S3 encrypts your data at the object level as it writes it to disks in its data centers
+
+For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html
+"""
+Topic = "S3"
+
+[question-65]
+Question = "What is the maximum number of messages one SQS consumer can receive at a time?"
+Correct = "A"
+A = "10"
+B = "5"
+C = "20"
+D = "100"
+Explanation = """
+Correct answer - "10" : SQS Consumer retrieves one or more messages (up to 10), from the specified queue.
+
+"5"
+
+"20"
+
+"100"
+
+For more information visit https://docs.aws.amazon.com/cli/latest/reference/sqs/receive-message.html
+"""
+Topic = "SQS"
