@@ -2,7 +2,7 @@ CourseID = 1975038
 PracticeTestID = 4540364
 
 [question-1]
-Question = "You are performing a DynamoDB scan but the performance is really low. You have a high number of partitions and would like to scan faster. How can you achieve that?"
+Question = "A development team uses the AWS SDK for Java to maintain an application that stores data in AWS DynamoDB. The application makes use of scan operations to return several items from a 25 GB table. Developers are trying to achieve faster response times from DynamoDB. Which of the following options can be used to improve performance?"
 Correct = "A"
 A = "Use parallel scans"
 B = "Use a ProjectionExpression"
@@ -22,7 +22,7 @@ For more information visit https://aws.amazon.com/blogs/aws/amazon-dynamodb-para
 Topic = "DynamoDB"
 
 [question-2]
-Question = "Your company does not want to have to manage S3 encryption keys and would like to have server side encryption. Which encryption mechanism suits best?"
+Question = "Your company stores confidential data on an Amazon Simple Storage Service (S3) bucket.  New security compliance guidelines require that files be stored with server-side encryption. The encryption used must be Advanced Encryption Standard (AES-256) and should allow you to download files without needing to decrypt it.  Which of the following options should you use?"
 Correct = "A"
 A = "SSE-S3"
 B = "SSE-C"
@@ -42,7 +42,7 @@ For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/Using
 Topic = "S3"
 
 [question-3]
-Question = "We need to perform 10 strongly consistent reads per second of 4KB each. How many RCU do we need?"
+Question = "You are a software engineer working for an IT company and are asked to contribute to a growing internal application that includes dashboards for data visualization. You are provisioning your AWS DynamoDB table and need to perform 10 strongly consistent reads per second of 4 KB in size each.  How many read capacity units (RCUs) are needed?"
 Correct = "A"
 A = "10"
 B = "40"
@@ -62,7 +62,7 @@ For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/dev
 Topic = "DynamoDB"
 
 [question-4]
-Question = "Using Auto Scaling, you are running at a desired capacity of 3 and a maximum capacity of 3. You have alarms set at 60% CPU to scale out your application and are now running at 80% capacity. What will happen?"
+Question = "A company has configured an Auto Scaling group with health checks. The configuration is set to a desired capacity value of 3 and a maximum capacity value of 3. The EC2 instances of your Auto Scaling group are configured to scale when CPU utilization is at 60 percent and are now running at 80 percent utilization. Which of the following will take place?"
 Correct = "A"
 A = "System will keep running as is"
 B = "The desired capacity will go up to 4 and the maximum will stay at 3"
@@ -82,28 +82,27 @@ For more information visit https://docs.aws.amazon.com/autoscaling/ec2/userguide
 Topic = "ASG"
 
 [question-5]
-Question = "The AWS CLI depends on which language?"
+Question = "You have been hired at a company that needs an experienced developer to help with a continuous integration/continuous delivery (CD/CD) workflow on AWS. You configure the company’s workflow to run an AWS CodePipeline pipeline whenever application’s source code changes in a repository hosted in AWS Code Commit and compiles source code with AWS Code Build. You are configuring ProjectArtifacts in your build stage.  Which of the following should you do?"
 Correct = "A"
-A = "Python"
-B = "C#"
-C = "Golang"
-D = "Java"
+A = "Give AWS CodeBuild permission to upload the build output to your Amazon S3 bucket"
+B = "Confiure AWS CodeBuild to store output artifacts on EC2 servers"
+C = "Give AWS CodeCommit permission to upload the build output to your Amazon S3 bucket"
+D = "Contact AWS Support to allow AWS CodePipeline to manage build outputs"
 Explanation = """
-Correct answer - "Python" : Python is the programming language that the AWS CLI is dependent upon.
+Correct answer - "Give AWS CodeBuild permission to upload the build output to your Amazon S3 bucket" : If you choose ProjectArtifacts and your value type is S3 then the build project stores build output in Amazon Simple Storage Service (Amazon S3). For that you will need to give AWS CodeBuild permissions to upload.
 
-"C#" - Not a dependency but the AWS SDK for .NET can be used to access commands and make it easier for developers to work with commands in code
+"Confiure AWS CodeBuild to store output artifacts on EC2 servers" - EC2 servers are not a valid output location
 
-"Golang" - Not a dependency but the AWS SDK for Go can be used to access commands and make it easier for developers to work with commands in code
+"Give AWS CodeCommit permission to upload the build output to your Amazon S3 bucket" - AWS CodeCommit is the repository that holds source code and has no control over compiling the source code
 
-"Java" - Not a dependency but the AWS SDK for Java can be used to access commands and make it easier for developers to work with commands in code
+"Contact AWS Support to allow AWS CodePipeline to manage build outputs" - You can set AWS CodePipeline to manage its build output locations instead of AWS CodeBuild.
 
-For more information visit https://packages.debian.org/sid/awscli
-https://github.com/aws/aws-cli
+For more information visit https://docs.aws.amazon.com/codebuild/latest/userguide/create-project.html#create-project-cli
 """
-Topic = "CLI"
+Topic = "CodeBuild"
 
 [question-6]
-Question = "A producer application needs to deliver many messages to consumer applications. These consumer applications have various consumption patterns and can either consume the message instantaneously or up to 10 days later. The number of consumer applications can grow and shouldn't trigger a code change for the producing application. Which solution should you use?"
+Question = "DevOps engineers are developing an order processing system where notifications are sent to a department whenever an order is placed for a product.  The system also pushes identical notifications of the new order to a processing module that would allow EC2 instances to handle the fulfillment of the order.  How can this be achieved?"
 Correct = "A"
 A = "SNS + SQS"
 B = "SNS + Kinesis"
@@ -123,7 +122,7 @@ For more information visit https://aws.amazon.com/getting-started/tutorials/send
 Topic = "SNS"
 
 [question-7]
-Question = "You would like to access the amount of RAM as a metric on your EC2 instances. How can you get that information?"
+Question = "Your company manages hundreds of EC2 instances running Linux. The instances are configured in several Availability Zones in the eu-west-3 region. Your manager has requested to collect system memory metrics on all EC2 instances using a script. Which of the following solutions will help you collect this data?"
 Correct = "A"
 A = "Use a cron job on the instances that push the EC2 RAM metric as a Custom metric"
 B = "Use instance metadata ram disk-id"
@@ -143,7 +142,7 @@ For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/m
 Topic = "CloudWatch"
 
 [question-8]
-Question = "You would like to store small encrypted secrets in SSM Parameter store. What is the right way of doing it?"
+Question = "You are planning to build a fleet of EBS-optimized EC2 instances to handle the load of your new application. Due to security compliance, your organization wants any secure strings used in the application to be encrypted to prevent exposing values as clear text. The solution requires that decryption events can be audited and that secure strings be rotated. How can this be achieved?"
 Correct = "A"
 A = "Enable seamless encryption with KMS integration"
 B = "Encrypt first with KMS then store in Parameter store"
@@ -163,7 +162,7 @@ For more information visit https://docs.aws.amazon.com/kms/latest/developerguide
 Topic = "SSM"
 
 [question-9]
-Question = "What service would you choose if you want to orchestrate your Lambda functions as a state machine?"
+Question = "You manage a group of developers that are experienced with the AWS SDK for Java. You have given them a requirement to build a workflow where each state executes an AWS Lambda function written in Java.  Data payloads of 1KB in size will be passed between states and should allow for two retry attempts it the state fails. Which of the following options will assist your developers with this requirement?"
 Correct = "A"
 A = "AWS Step Functions"
 B = "CloudWatch Rules"
@@ -184,7 +183,7 @@ https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html
 Topic = "Step Functions"
 
 [question-10]
-Question = "What is not true about enabling versioning on an S3 bucket?"
+Question = "Your organization has a single Amazon Simple Storage Service (S3) bucket that contains folders labeled with customer names.  Several administrators have IAM access S3 bucket and versioning was enabled to easily recover from unintended user actions.  Which of the following statements about versioning is not true based on this scenario?"
 Correct = "A"
 A = "Versioning can be enabled only for a specific folder"
 B = "Overwriting a file increases its versions"
@@ -204,7 +203,7 @@ For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/Versi
 Topic = "S3"
 
 [question-11]
-Question = "Your company would like to move away from manual operations, and script the ECS service creation from the CLI, so it can be included in bash scripts. Which command must you use to create an ECS service?"
+Question = "Your company is shifting towards Elastic Container Service (ECS) to deploy applications. The process should be automated using the AWS CLI to create a service where at least ten instances of a task definition are kept running under the default cluster.  Which of the following commands should be executed?"
 Correct = "A"
 A = "aws ecs create-service --service-name ecs-simple-service --task-definition ecs-demo --desired-count 10"
 B = "aws ecr create-service --service-name ecs-simple-service --task-definition ecs-demo --desired-count 10"
@@ -224,7 +223,7 @@ For more information visit https://docs.aws.amazon.com/cli/latest/reference/ecs/
 Topic = "ECS"
 
 [question-12]
-Question = "You want to be able to stage your deployment to one third of your fleet, then another third and finally the last third. How can you best achieve this using CodeDeploy?"
+Question = "As a site reliability engineer, you are responsible for improving the company’s deployment by scaling and automating applications.  As new application versions are ready for production you ensure that the application gets deployed to different sets of EC2 instances at different times, allowing for a smooth a transition. Using AWS CodeDeploy, which of the following options will allow you to do this?"
 Correct = "A"
 A = "CodeDeploy deployment groups"
 B = "Tags"
@@ -244,7 +243,7 @@ For more information visit https://docs.aws.amazon.com/codedeploy/latest/usergui
 Topic = "CodeDeploy"
 
 [question-13]
-Question = "You would like to query items based on the same partition key but an attribute that is not part of the same sort key. What should you do?"
+Question = "You are a system administrator whose company recently moved its production application to AWS and migrated data from MySQL to AWS DynamoDB. You are adding new tables to AWS DynamoDB and need to allow your application to query your data by the primary key and by an alternate key. This option must be added when first creating tables otherwise changes cannot be made afterwards. Which of the following actions should you take?"
 Correct = "A"
 A = "Create a LSI"
 B = "Call Scan"
@@ -257,21 +256,21 @@ Correct answer - "Create a LSI" : LSI stands for Local Secondary Index. Some app
 
 "Create a GSI" - GSI (Global Secondary Index) is an index with a partition key and a sort key that can be different from those on the base table
 
-"Migrate away from DynamoDB" - When your application has invested alot of time to work with a NoSQL database it may require you to make application code changes that can be expensive by doing so
+"Migrate away from DynamoDB" - Migrating to another database that is not NoSQL may cause you to make changes that require substantial code changes
 
 For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LSI.html
 """
 Topic = "DynamoDB"
 
 [question-14]
-Question = "You are designing a high performance application that will require millions of connections to be handled, as well as low latency. Which of the following load balancers is best for this?"
+Question = "You are designing a high performance application that requires millions of connections. You have several EC2 instances running Apache2 webservers and the application will require capturing the user’s original source IP address and source port, without the use of X-Forwarded-For. Which of the following options will meet your needs?"
 Correct = "A"
 A = "Network Load Balancer"
 B = "Application Load Balancer"
 C = "Elastic Load Balancer"
 D = "Classic Load Balancer"
 Explanation = """
-Correct answer - "Network Load Balancer" : A Network Load Balancer functions at the fourth layer of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration.
+Correct answer - "Network Load Balancer" : A Network Load Balancer functions at the fourth layer of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration. Incoming connections remain unmodified, so application software need not support X-Forwarded-For.
 
 "Application Load Balancer" - One of many benefits of the Application Load Balancer is its support for path-based routing. You can configure rules for your listener that forward requests based on the URL in the request. This enables you to structure your application as smaller services, and route requests to the correct service based on the content of the URL. For needs relating to network traffic go with Network Load Balancer
 
@@ -284,7 +283,7 @@ For more information visit https://docs.aws.amazon.com/elasticloadbalancing/late
 Topic = "ELB"
 
 [question-15]
-Question = "How can you ensure that your EC2 instances execute a customizable set of instructions when they first start?"
+Question = "Your organization is looking into making a change to all virtual machines in the cloud. They would like to take advantage of running a bootstrap script for their Windows Server 2012 Base AMI virtual machines when they first boot.  Which of the following options will allow the organization to achieve this?"
 Correct = "A"
 A = "EC2 User Data"
 B = "Mount EFS network drives"
@@ -305,7 +304,7 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html#i
 Topic = "EC2"
 
 [question-16]
-Question = "At which frequency do EC2 instances report their metrics under normal configurations?"
+Question = "You are revising what options would be best for monitoring a few EC2 instances you currently manage.  Amazon CloudWatch has metrics available to monitor your EC2 instances for CPU load, I/O and network I/O.  Your budget does not allow for spending on monitoring so using the default monitoring available is your preferred choice. With default monitoring, at what interval will these metrics be collected at?"
 Correct = "A"
 A = "5 minutes"
 B = "10 minutes"
@@ -325,7 +324,7 @@ For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/u
 Topic = "CloudWatch"
 
 [question-17]
-Question = "You are storing your video files in a separate bucket from your main S3 website bucket. If using directly the video URL, we users are able to download the videos, but it is impossible for them to play the videos while visiting your main website. What's the problem?"
+Question = "You run an online training application hosted on a reserved T2 instance. A new feature you added requiring the use of JavaScript files that are hosted on an Amazon Simple Storage Service (S3) bucket. When you test the application on your machine with a local JavaScript file, the application works, however when you test the application on a testing T2 instance and JavaScript loaded from another S3 bucket your application fails. What could be the reason for this?"
 Correct = "A"
 A = "Enable CORS"
 B = "Change the bucket policy"
@@ -366,7 +365,7 @@ https://docs.aws.amazon.com/lambda/latest/dg/runtimes-custom.html
 Topic = "AWS Lambda"
 
 [question-19]
-Question = "(Legacy Question). You are looking to improve S3 performance. How should you name your files?"
+Question = "(Legacy Question). A company adds hundreds of files in Amazon Simple Storage Service (S3) daily. The files are labeled by date-time format and are being retrieved by clients at 3500 requests per second, all day every day.  The solutions architect recommends that files be given a new naming convention to get the best possible performance from S3.  Which of the following naming conventions should the company adopt?"
 Correct = "A"
 A = "<my_bucket>/<random 4 characters>_my_folder/my_file1.txt"
 B = "<my_bucket>/MMDDYYYY_my_folder/my_file1.txt"
@@ -386,7 +385,7 @@ For more information visit https://aws.amazon.com/about-aws/whats-new/2018/07/am
 Topic = "S3"
 
 [question-20]
-Question = "You are a developer in your company and you have deployed a web application that heavily relies on the performance of the back-end database which is not hosted by RDS. Your boss wants to scale your ASG based on the number of requests per minute your application makes to your database."
+Question = "Your company manages MySQL databases on EC2 instances to have full control over them. Applications on other EC2 instances make requests to these databases to get information that displays data on dashboards viewed on mobile phones, tablets and web browsers. Your manager would like scale your Auto Scaling group based on the number of requests per minute.  How can you achieve this?"
 Correct = "A"
 A = "You create a CloudWatch custom metric and build an alarm to scale your ASG"
 B = "Attach an Elastic Load Balancer"
@@ -407,7 +406,7 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.htm
 Topic = "ASG"
 
 [question-21]
-Question = "You would like to use SSE-S3 encryption mechanism. What header must you set in your request?"
+Question = "You have a popular web application that accesses data stored in an Amazon Simple Storage Service (S3) bucket. Developers use the SDK to maintain the application and add new features. A security compliance requests that all new objects uploaded to S3 be encrypted using SSE-S3 at the time of upload. Which of the following headers must the developers add to their request?"
 Correct = "A"
 A = "'x-amz-server-side-encryption': 'AES256'"
 B = "x-amz-server-side-encryption': 'SSE-S3'"
@@ -428,7 +427,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
 Topic = "S3"
 
 [question-22]
-Question = "CodeDeploy is deploying to EC2 instances but they seem to have a problem pulling the code from S3. What should you do?"
+Question = "Your AWS CodeDeploy deployment to T2 instances succeeds. The application running on those instances makes API calls to other AWS services however the applications are not working as expected and you were assigned to troubleshoot the issue. Which of the following should you do?"
 Correct = "A"
 A = "Fix the IAM permissions for the EC2 instance role"
 B = "Fix the IAM permissions for the CodeDeploy service role"
@@ -448,7 +447,7 @@ For more information visit https://docs.aws.amazon.com/IAM/latest/UserGuide/id_r
 Topic = "CodeDeploy"
 
 [question-23]
-Question = "You are trying to collect metrics in near real time in order to track your application performance. Which service should you use?"
+Question = "An organization uses Alexa as their intelligent assistant to improve productivity throughout the organization.  A group of developers manage custom Alexa Skills written in Node.Js to control conference-room equipment settings and start meetings using voice activation.   The manager has made a request to developers, that all functions code should be monitored for error rates. Which of the following options should be chosen?"
 Correct = "A"
 A = "CloudWatch Metrics"
 B = "X-Ray"
@@ -468,7 +467,7 @@ For more information visit https://docs.aws.amazon.com/AmazonCloudWatch/latest/m
 Topic = "CloudWatch"
 
 [question-24]
-Question = "Messages produced to SQS by bidders in your betting application must not be visible to other applications for 30 seconds. How can you achieve that easily?"
+Question = "A senior cloud engineer designs and deploys online fraud detection solutions for credit card companies processing millions of transactions daily.  An Amazon SQS queue receives JSON messages and the credit card holders file is updated in an Amazon Simple Storage Service (S3) object. Since PUTS to existing objects in S3 deliver eventual consistency, it can take some time for worker applications to get the new updated file. What can be done in the queue to allow S3 time to replicate the data across servers so the workers receive the updated file?"
 Correct = "A"
 A = "Use DelaySeconds parameter"
 B = "implement application-side delay"
@@ -488,7 +487,7 @@ For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/lat
 Topic = "SQS"
 
 [question-25]
-Question = "What are some key differences between a standard SQS and SWF? (select two)"
+Question = "Which of the following are key differences between an Amazon SQS standard queue and Amazon Simple Workflow Service (SWF)? (Select two)"
 Correct = "A,B"
 A = "SWF ensures the task is assigned only once while SQS may deliver the message multiple times"
 B = "SWF is task oriented API and SQS is message-oriented API"
@@ -506,7 +505,7 @@ For more information visit https://aws.amazon.com/swf/faqs/
 Topic = "SWF"
 
 [question-26]
-Question = "You would like to trigger a notification when a CodeBuild fails. Which AWS service helps you achieve that?"
+Question = "A startup company was acquired by a technology innovator whose applications run on Docker. You will be responsible for packaging the runtime and tools for your AWS CodeBuild build into a Docker image and upload it to the Amazon EC2 Container Registry (ECR).  The team lead has requested you add a trigger notification when your build fails or succeeds.  Which of the following options can you use to implement the notification?"
 Correct = "A"
 A = "AWS CloudWatch Events + SNS"
 B = "AWS CloudWatch Alarms + SNS"
@@ -526,7 +525,7 @@ For more information visit https://docs.aws.amazon.com/codebuild/latest/userguid
 Topic = "CodeBuild"
 
 [question-27]
-Question = "Your application runs on Elastic Beanstalk. Its configuration values change often and the devops team does not want to re-deploy the application every time a configuration changes. They would rather manage configuration externally and securely and have it load dynamically into the application at runtime. What advice do you give?"
+Question = "Your application is deployed automatically using AWS Elastic Beanstalk. Your YAML configuration files are stored in the folder .ebextensions and new files are added or updated often.  The DevOps team does not want to re-deploy the application every time there’s configuration changes, instead they would rather manage configuration externally and securely and have it load dynamically into the application at runtime.  What option provides a way to do this?"
 Correct = "A"
 A = "Use SSM Parameter Store"
 B = "Use Environment variables"
@@ -546,7 +545,7 @@ For more information visit https://docs.aws.amazon.com/systems-manager/latest/us
 Topic = "SSM"
 
 [question-28]
-Question = "We need to perform 16 eventually consistent reads per seconds of 12KB each. How many RCU do we need?"
+Question = "As a Full-stack Web Developer, you are involved with every aspect of a company’s platform, focusing on development with PHP and JavaScript to configuring NoSQL databases with Amazon DynamoDB.  You are not concerned about your response receiving stale data from your database and need to perform 16 eventually consistent reads per second of 12 KB in size each.  How many read capacity units (RCUs) do you need?"
 Correct = "A"
 A = "24"
 B = "192"
@@ -566,7 +565,7 @@ For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/dev
 Topic = "DynamoDB"
 
 [question-29]
-Question = "You are running a public DNS service on EC2 and a requirement is that it is accessible using the same IP. You wish to upgrade your DNS service but would like to do it without downtime. Which service will help you accomplish this?"
+Question = "You are running a public DNS service on an EC2 instance where the DNS name is pointing to the IP address of the instance. You wish to upgrade your DNS service, but would like to do it without any downtime. Which of the following options will help you accomplish this?"
 Correct = "A"
 A = "Elastic IP"
 B = "Create a Load Balancer and an auto scaling group"
@@ -586,7 +585,7 @@ For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/e
 Topic = "EC2"
 
 [question-30]
-Question = "How can REST API clients invalidate the API Gateway Cache?"
+Question = "Lincoln Financial, a company with over 10,000 employees, has added you as the new Sr. Solutions Architect. Initially caching was enabled to reduce the number of calls made to all API endpoints and to improve latency of requests to the company’s API Gateway. For testing purposes, you would like to invalidate caching for the API clients to get the most recent responses. Which of the following should you do?"
 Correct = "A"
 A = "Using the Header Cache-Control: max-age=0"
 B = "Use the Request parameter: ?bypass_cache=1"
@@ -606,7 +605,7 @@ For more information visit https://docs.aws.amazon.com/apigateway/latest/develop
 Topic = "API Gateway"
 
 [question-31]
-Question = "You would like to trigger AWS Lambda based on a specific service state change. That service does not have a direct integration with AWS Lambda. How can you best achieve it?"
+Question = "A voting system hosted on premises was recently migrated to AWS to lower cost and gain scalability to better server thousands of concurrent users. When one of the AWS resource state changes, it generates an event and will need to trigger AWS Lambda. The AWS resource whose state changed and AWS Lambda do not have direct integration. Which of the following methods can be used to trigger AWS Lambda?"
 Correct = "A"
 A = "CloudWatch Event Rules with AWS Lambda"
 B = "AWS Lambda Custom Sources"
@@ -622,12 +621,12 @@ Correct answer - "CloudWatch Event Rules with AWS Lambda" : You can create a Lam
 "Cron jobs to trigger AWS Lambda to check the state of your service" - You would need an additional server for your cron job instead use a cron expression with CloudWatch
 
 For more information visit https://docs.aws.amazon.com/lambda/latest/dg/with-scheduled-events.html
-https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.html
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html
 """
 Topic = "CloudWatch"
 
 [question-32]
-Question = "You need a database from which you can extract an event stream of every changes that happened. Which database technology will you choose?"
+Question = "You are assigned as the new project lead for a web application that processes orders for customers. The application currently uses Memcached to cache frequently used database queries.  You want to integrate event-driven processing anytime data is modified or deleted and use a serverless approach using AWS Lambda for processing stream events.  Which of the following databases should you choose from?"
 Correct = "A"
 A = "DynamoDB"
 B = "RDS"
@@ -647,7 +646,7 @@ For more information visit https://docs.aws.amazon.com/amazondynamodb/latest/dev
 Topic = "DynamoDB"
 
 [question-33]
-Question = "Every time your CodeBuild runs its build step, it has to resolve Java dependencies from an external Ivy repository. Your project has over 100 dependencies and this takes a long time. Your manager wants you to speed up the execution of the CodeBuild. How should you proceed with minimal changes?"
+Question = "You are working on a project that has over 100 dependencies.  Every time your AWS CodeBuild runs the build step, it has to resolve Java dependencies from an eternal Ivy repository which takes a long time. Your manager wants to speed this process up in AWS CodeBuild. Which of the following will help you do this with minimal effort?"
 Correct = "A"
 A = "Enable S3 caching"
 B = "Reduce the number of dependencies"
@@ -667,14 +666,14 @@ For more information visit https://aws.amazon.com/blogs/devops/how-to-enable-cac
 Topic = "CodeBuild"
 
 [question-34]
-Question = "Your application is issuing too many polls to your SQS queue, which all return empty because you don't have a lot of traffic on it. What should you do to decrease your cost while maintaining your processing latency?"
+Question = "After reviewing your monthly AWS bill you notice that the cost of using Amazon SQS has gone up substantially after creating new queues, however you know that your queue clients do not have a lot of traffic and are receiving empty responses. Which of the following actions should you take?"
 Correct = "A"
 A = "Use LongPolling"
 B = "Increase the VisibiltyTimeout"
 C = "Use a FIFO queue"
 D = "Decrease DelaySeconds"
 Explanation = """
-Correct answer - "Use LongPolling" : Eliminate empty responses by allowing Amazon SQS to wait until a message is available in a queue before sending a response. Unless the connection times out, the response to the ReceiveMessage request contains at least one of the available messages, up to the maximum number of messages specified in the ReceiveMessage action.Eliminate false empty responses by querying all rather than a subset of Amazon SQS servers.
+Correct answer - "Use LongPolling" : Eliminate empty responses by allowing Amazon SQS to wait until a message is available in a queue before sending a response. Unless the connection times out, the response to the ReceiveMessage request contains at least one of the available messages, up to the maximum number of messages specified in the ReceiveMessage action. Eliminate false empty responses by querying all rather than a subset of Amazon SQS servers.
 
 "Increase the VisibiltyTimeout" - Because there is no guarantee that a consumer received a message, the consumer must delete it. To prevent other consumers from processing the message again, Amazon SQS sets a visibility timeout
 
@@ -687,7 +686,7 @@ For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/lat
 Topic = "SQS"
 
 [question-35]
-Question = "Your application clients are resolving the public IP for your load balancers at boot time. The public IP is used for the remaining of the time. After a while, the application breaks. Why?"
+Question = "Your company has a load balancer in a VPC configured to be internet facing. The public DNS name assigned to the load balancer is `myDns-1234567890.us-east-1.elb.amazonaws.com`. When your client applications first load, they capture the load balancer DNS name and resolve it to the IP address, which is a value used throughout other actions in the application. After a while of running, client applications break. What is the reason for this?"
 Correct = "A"
 A = "The load balancer is highly available and its public IP may change. The DNS is constant"
 B = "Your security groups are not stable"
@@ -707,7 +706,7 @@ For more information visit https://docs.aws.amazon.com/elasticloadbalancing/late
 Topic = "ELB"
 
 [question-36]
-Question = "You have a Kinesis stream with 10 shards, and from the metrics you are well below the throughput utilizations (10MB/s) send. You currently send 3 MB/s of data, yet, you are getting a ProvisionedThroughputException. What is the likely cause of this?"
+Question = "You have an Amazon Kinesis Data stream with 10 shards, and from the metrics you are well below the throughput utilizations of 10 MB per second to send data. You currently send 3 MB per second of data and yet you are receiving ProvisionedThroughputException errors frequently. What is the likely cause of this?"
 Correct = "A"
 A = "The partition key that you have selected isn't distributed enough"
 B = "Metrics are slow to update"
@@ -728,7 +727,7 @@ https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-resharding
 Topic = "Kinesis"
 
 [question-37]
-Question = "You would like to pull Docker images from the central ECR repository, so you can start running local tests against the latest application version. Which commands must you run to pull an existing Docker image from ECR? (select two)"
+Question = "You are working for a technology startup building web and mobile applications.  You would like to pull Docker images from the ECR repository called `myubuntu` so you can start running local tests against the latest application version. Which of the following commands must you run to pull existing Docker images from ECR? (Select two)"
 Correct = "A,B"
 A = "$(aws ecr get-login --no-include-email)"
 B = "docker pull 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest"
@@ -750,7 +749,7 @@ https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-basics.html
 Topic = "ECS"
 
 [question-38]
-Question = "You would like to programmatically define your CodeBuild steps. What should you do?"
+Question = "As a site reliability engineer, you work on building and running large-scale, distributed, fault-tolerant systems in the cloud using automation. You currently replaced the companies Jenkins based CI/CD platform with AWS CodeBuild and would like to programmatically define your build steps. Which of the following options should you choose?"
 Correct = "A"
 A = "define a .buildspec file in the root directory"
 B = "define a .appspec file in the root directory"
@@ -770,7 +769,7 @@ For more information visit https://docs.aws.amazon.com/codebuild/latest/userguid
 Topic = "CodeBuild"
 
 [question-39]
-Question = "You would like to receive notifications when a parameter changes in Parameter Store for security reasons. Which service will help you achieve that?"
+Question = "Your company had a recent data breach where an ex-employee had gained access to your Windows Server using credentials that were never revoked after termination. The perpetrator removed all web.config files from all production web application root directories, leaving web applications down for hours.  There were no backups of the secret keys being stored in the configuration files or any EC2 snapshots to recover the information. Using AWS Parameter Store how can you add secret application data and notify the security audit team when changes are made?"
 Correct = "A"
 A = "SNS"
 B = "SQS"
@@ -790,7 +789,7 @@ For more information visit https://docs.aws.amazon.com/systems-manager/latest/us
 Topic = "SSM"
 
 [question-40]
-Question = "Your ELB is sending traffic to all your EC2 instances. When one of your server crashes, you realize the ELB still sends traffic to it, which results in bad user experience. What can you do to minimize this problem?"
+Question = "A developer new to the cloud is learning to reap the benefits of elasticity, horizontal scalability and high availability. They inherited a web application running in the us-east-1 region with three availability zones (us-east-1a, us-east1-b and us-east-1c) whose incoming web traffic is routed by a load balancer. When one of the EC2 instances hosting the web application crashes, they realize that the load balancer continues to route traffic to that instance causing intermittent issues. Which of the following should the developer do to minimize this problem?"
 Correct = "A"
 A = "Enable Health Checks"
 B = "Enable Stickiness"
@@ -810,7 +809,7 @@ For more information visit https://docs.aws.amazon.com/elasticloadbalancing/late
 Topic = "ELB"
 
 [question-41]
-Question = "Where is CloudFront SSL in flight encryption available?"
+Question = "Your company leverages Amazon CloudFront to provide content via the internet to customers with low latency. Aside from latency, security is also another concern and you are looking for help in enforcing end-to-end connections using HTTPS so that content is protected. Which of the following options is available for HTTPS in AWS CloudFront?"
 Correct = "A"
 A = "Between clients and CloudFront and CloudFront and backend"
 B = "Between clients and CloudFront only"
@@ -830,7 +829,7 @@ For more information visit https://docs.aws.amazon.com/AmazonCloudFront/latest/D
 Topic = "CloudFront"
 
 [question-42]
-Question = "You would like to run command from the CLI on your EC2 instance. The instance should automatically obtain credentials to perform these commands. What feature will allow you to do this in the most secure way?"
+Question = "A company developed an app-based service for citizens to book transportation rides in the local community. The platform is running on AWS EC2 instances and Amazon Relational Database Service (RDS) for storing transportation information. A new feature has been requested where receipts are emailed to customers and files will be attached from Amazon Simple Storage Service (S3).  Which of the following options will allow permissions to the EC2 instances to perform these actions?"
 Correct = "A"
 A = "IAM Roles for EC2"
 B = "EC2 User Data"
