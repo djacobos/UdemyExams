@@ -22,7 +22,7 @@ For more information visit https://aws.amazon.com/blogs/aws/amazon-dynamodb-para
 Topic = "DynamoDB"
 
 [question-2]
-Question = "Your company stores confidential data on an Amazon Simple Storage Service (S3) bucket.  New security compliance guidelines require that files be stored with server-side encryption. The encryption used must be Advanced Encryption Standard (AES-256) and should allow you to download files without needing to decrypt it.  Which of the following options should you use?"
+Question = "Your company stores confidential data on an Amazon Simple Storage Service (S3) bucket. New security compliance guidelines require that files be stored with server-side encryption. The encryption used must be Advanced Encryption Standard (AES-256) and the company does not want to have to manage S3 encryption keys. Which of the following options should you use?"
 Correct = "A"
 A = "SSE-S3"
 B = "SSE-C"
@@ -849,23 +849,24 @@ For more information visit https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/i
 Topic = "CLI"
 
 [question-43]
-Question = "Which are the two deployment options provided by CodeDeploy? (select two)"
+Question = "You have a Java based application running on EC2 instances loaded with AWS CodeDeploy agents. You are considering different options for deployment, one is flexibility where you can incrementally deploy your new application version by replacing the existing versions in the EC2 instances. The other option is a strategy in which an Auto Scaling group is used to perform a deployment. Which of the following options will allow you to deploy in this manner? (Select two)"
 Correct = "A,B"
-A = "In-place deployment"
+A = "In-place Deployment"
 B = "Blue/green Deployment"
-C = "Cattle deployment"
+C = "Cattle Deployment"
 D = "Classic Deployment"
 Explanation = """
-Correct answers - "In-place deployment & Blue/green Deployment" : The application on each instance in the deployment group is stopped, the latest application revision is installed, and the new version of the application is started and validated. You can use a load balancer so that each instance is deregistered during its deployment and then restored to service after the deployment is complete. With a blue/green deployment, you provision a new set of instances on which CodeDeploy installs the latest version of your application. CodeDeploy then reroutes load balancer traffic from an existing set of instances running the previous version of your application to the new set of instances running the latest version. After traffic is rerouted to the new instances, the existing instances can be terminated.
+Correct answers - "In-place Deployment & Blue/green Deployment" : The application on each instance in the deployment group is stopped, the latest application revision is installed, and the new version of the application is started and validated. You can use a load balancer so that each instance is deregistered during its deployment and then restored to service after the deployment is complete. With a blue/green deployment, you provision a new set of instances on which CodeDeploy installs the latest version of your application. CodeDeploy then reroutes load balancer traffic from an existing set of instances running the previous version of your application to the new set of instances running the latest version. After traffic is rerouted to the new instances, the existing instances can be terminated.
 
-"Cattle deployment" - This is a good option if you have cattle in a farm
+"Cattle Deployment" - This is a good option if you have cattle in a farm
+"Classic Deployment" - This option does not exist in CodeDeploy
 
 For more information visit https://aws.amazon.com/about-aws/whats-new/2017/01/aws-codedeploy-introduces-blue-green-deployments/
 """
 Topic = "CodeDeploy"
 
 [question-44]
-Question = "Which function should you use to make cross stack references in CloudFormation?"
+Question = "Bigdog is a firm that uses AWS CloudFormation templates to provision their AWS infrastructure for Amazon EC2, Amazon VPC and Amazon S3 resources. Using cross-stack referencing, a developer creates a stack name called `NetworkStack` which will export the `subnetId` that can be used when creating EC2 instances in another stack. To use the exported value in another stack which of the following functions must be used?"
 Correct = "A"
 A = "`!ImportValue`"
 B = "`!Ref`"
@@ -885,14 +886,14 @@ For more information visit https://docs.aws.amazon.com/AWSCloudFormation/latest/
 Topic = "CloudFormation"
 
 [question-45]
-Question = "You would like to run multiple versions of your application in Elastic Beanstalk to ensure you can perform regular development and load testing. What do you recommend?"
+Question = "A .NET developer team works with many ASP.NET web applications that use EC2 instances to host them on IIS. The deployment process needs to be configured so that multiple versions of the application run in AWS Elastic Beanstalk. One version would be used for development or testing and another version for load testing.  Which of the following methods do you recommend?"
 Correct = "A"
-A = "Define a dev environment with a single instance and a 'load test'  environment that has settings close to prod"
+A = "Define a dev environment with a single instance and a 'load test' environment that has settings close to production"
 B = "You cannot have multiple development environment in Elastic Beanstalk, just one development and one production environment"
 C = "Use only one Beanstalk environment and perform configuration changes using an Ansible script"
 D = "Create an Application Load Balancer to route based on hostname so you can pass on parameters to the development Elastic Beanstalk environment. Create a file in .ebextensions/ in order to know how to handle the traffic coming from the ALB"
 Explanation = """
-Correct answer - "Define a dev environment with a single instance and a 'load test' environment that has settings close to prod" : It is common practice to have many environments for the same application. You can deploy multiple environments when you need to run multiple versions of an application. For example, you might have development, integration, and production environments.
+Correct answer - "Define a dev environment with a single instance and a 'load test' environment that has settings close to production" : It is common practice to have many environments for the same application. You can deploy multiple environments when you need to run multiple versions of an application. For example, you might have development, integration, and production environments.
 
 "You cannot have multiple development environment in Elastic Beanstalk, just one development and one production environment" - Incorrect, use the Create New Environment wizard in the AWS Management Console to guide you
 
@@ -905,7 +906,7 @@ For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/d
 Topic = "Elastic Beanstalk"
 
 [question-46]
-Question = "You have uploaded a zip file to AWS Lambda that contains code files written in Node.Js and when your function is executed you receive the following output, 'Error : Memory Size: 3008 MB Max Memory Used'. What is the problem?"
+Question = "You have uploaded a zip file to AWS Lambda that contains code files written in Node.Js. When your function is executed you receive the following output, 'Error : Memory Size: 3008 MB Max Memory Used'. Which of the following explains the problem?"
 Correct = "D"
 A = "The uncompressed zip file exceeds AWS Lambda limits"
 B = "You have uploaded a zip file larger than 50 MB to AWS Lambda"
@@ -925,7 +926,7 @@ For more information visit https://docs.aws.amazon.com/lambda/latest/dg/limits.h
 Topic = "Lambda"
 
 [question-47]
-Question = "The application load balancer can redirect to different target groups based on which of these variables? (select two)"
+Question = "A firm maintains a highly available application with URL, smart.com that receives HTTPS traffic from mobile devices and web browsers. The main solutions architect would like to set up routing to route traffic from web servers to smart.com/api and smart.com/mobile for mobile devices. A developer advises that the previous recommendation is not needed and that requests should be sent to api.smart.com. Which of the following routing options were described? (select two)"
 Correct = "A,B"
 A = "hostname"
 B = "url path"
@@ -947,7 +948,7 @@ https://docs.aws.amazon.com/elasticloadbalancing/latest/application/tutorial-loa
 Topic = "ELB"
 
 [question-48]
-Question = "You want to delete all the items in your DynamoDB table (over 10 million of them), how should you achieve this quickly while maintaining low costs?"
+Question = "A firm uses AWS DynamoDB to store information about people’s favorite sports teams and the information can be searched from their home page. As the platform evolves, data continues to grow, leaving the tables containing over 10 million items unused. Which of the following actions do you take to quickly clean data and keep costs down?"
 Correct = "A"
 A = "Delete then re-create the table"
 B = "Scan and call DeleteItem"
@@ -967,7 +968,7 @@ For more information visit https://docs.aws.amazon.com/cli/latest/reference/dyna
 Topic = "DynamoDB"
 
 [question-49]
-Question = "Which is the correct order for CodeDeploy steps in appspec.yml?"
+Question = "A communication platform serves millions of customers and deploys features in production daily in AWS. You are reviewing scripts for the deployment process located in the AppSec file. Which of the following options lists the correct order of lifecycle events?"
 Correct = "A"
 A = "DownloadBundle => BeforeInstall => ApplicationStart => ValidateService"
 B = "BeforeInstall => ApplicationStart => DownloadBundle => ValidateService"
@@ -987,7 +988,7 @@ For more information visit https://docs.aws.amazon.com/codedeploy/latest/usergui
 Topic = "CodeDeploy"
 
 [question-50]
-Question = "Your company does want S3 server side encryption but wants to manage the keys through their AWS portal. Which encryption mechanism suits best?"
+Question = "Your company has developers worldwide, all with access to the companies Amazon Simple Storage Service (S3) buckets. The objects in the buckets are encrypted at server side but need more flexibility with access control, auditing, rotation and deletion of keys. You would also like to limit who can use the key.  Which encryption mechanism best fits your needs?"
 Correct = "A"
 A = "SSE-KMS"
 B = "SSE-C"
@@ -1008,7 +1009,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html
 Topic = "S3"
 
 [question-51]
-Question = "Your mobile application needs to perform API calls to DynamoDB. You do not want to store secrets onto the mobile devices and need all the calls to DynamoDB done with a different identity per mobile device. Which service allows you to achieve this?"
+Question = "Your mobile application needs to perform API calls to DynamoDB. You do not want to store secrets onto the mobile devices and need all the calls to DynamoDB made with a different identity per mobile device. Which of the following services allows you to achieve this?"
 Correct = "A"
 A = "Cognito Identity Pools"
 B = "Cognito User Pools"
@@ -1029,7 +1030,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-
 Topic = "Cognito"
 
 [question-52]
-Question = "You are running an application leveraging the SDK on an EC2 instance. How do you pass credentials to the SDK?"
+Question = "You have a web application that makes GET and PUT request for objects stored in Amazon Simple Storage Service (S3) using the SDK for PHP. As the security team has completed their final review of your application for vulnerabilities, they noticed that your application passes your IAM access key and secret access key to AWS services. They recommend that you distribute, store and rotate these credentials in a more secure way. How do you accomplish that?"
 Correct = "A"
 A = "Use an IAM Instance Role"
 B = "Use environment variables"
@@ -1049,7 +1050,7 @@ For more information visit https://docs.aws.amazon.com/IAM/latest/UserGuide/id_r
 Topic = "SDK"
 
 [question-53]
-Question = "What two commands will upload Lambda functions and CloudFormation templates to AWS?"
+Question = "Your company is in the process of building a DevOps culture and is moving all of its on premise resources to the cloud using serverless architectures and automated deployments. You have created a CloudFormation template in YAML that uses an AWS Lambda function to pull html files from GitHub and place them into an Amazon Simple Storage Service (S3) bucket that you specify. Which of the following AWS CLI commands can you use to upload AWS Lambda functions and AWS CloudFormation templates to AWS?"
 Correct = "A"
 A = "cloudformation package and cloudformation deploy"
 B = "cloudformation package and cloudformation upload"
@@ -1070,7 +1071,7 @@ https://docs.aws.amazon.com/cli/latest/reference/cloudformation/deploy/index.htm
 Topic = "SAM"
 
 [question-54]
-Question = "You would like to run an application continuously for a year and can predict how much capacity you will need. You need the application instances to be stable and not terminated abruptly as you believe this will impact your users. What should you use?"
+Question = "You just signed a year contract with a client maintaining a three-tier web application who has steady traffic throughout the day. You need the application instances to be stable and not terminated abruptly as you believe this will impact your users. Which of the following options should you choose?"
 Correct = "A"
 A = "EC2 Reserved Instances"
 B = "EC2 On Demand Instances"
@@ -1090,7 +1091,7 @@ For more information visit https://aws.amazon.com/ec2/pricing/reserved-instances
 Topic = "EC2"
 
 [question-55]
-Question = "You want to send your CloudWatch logs to S3 for archival. How can you achieve it?"
+Question = "You are getting ready for an event to show off your Alexa skill written in Python. As you are testing your voice activation commands you find that some intents are not invoking as they should and you are struggling to figure out what is happening. You included the following to your code `console.log(JSON.stringify(this.event))` in hopes of getting more details about the request to your Alexa skill. You would like the logs stored in an Amazon Simple Storage Service (S3) bucket named `MyAlexaLog`. How do you achieve this?"
 Correct = "A"
 A = "Use CloudWatch integration feature with S3"
 B = "Use CloudWatch integration feature with Kinesis"
@@ -1110,7 +1111,7 @@ For more information visit https://docs.aws.amazon.com/AmazonCloudWatch/latest/l
 Topic = "CloudWatch"
 
 [question-56]
-Question = "You use the CLI and it fails with the following exception: You are not authorized to perform this operation. Encoded authorization failure message: 6h34GtpmGjJJUm946eDVBfzWQJk6z5GePbbGDs9Z2T8xZj9EZtEduSnTbmrR7pMqpJrVYJCew2m8YBZQf4HRWEtrpncANrZMsnzk   How do you decode the message?"
+Question = "You are a manager for a tech company who has just hired a team of developers to work on the companies AWS infrastructure. All the developers are reporting to you that when using the AWS CLI to execute commands it fails with the following exception: You are not authorized to perform this operation. Encoded authorization failure message: 6h34GtpmGjJJUm946eDVBfzWQJk6z5GePbbGDs9Z2T8xZj9EZtEduSnTbmrR7pMqpJrVYJCew2m8YBZQf4HRWEtrpncANrZMsnzk. Which of the following actions will help developers decode the message?"
 Correct = "A"
 A = "AWS STS decode-authorization-message"
 B = "AWS IAM decode-authorization-message"
@@ -1130,7 +1131,7 @@ For more information visit https://docs.aws.amazon.com/cli/latest/reference/sts/
 Topic = "STS"
 
 [question-57]
-Question = "You would like to audit which API calls are made to Amazon S3 within your environment, what do you use?"
+Question = "You are a cloud security engineer for a popular cyber exposure company that offers vulnerability scanning solutions to government contractors. The scanning solutions are integrated with AWS resources to monitor EC2 and S3 API calls which then are displayed then in an analytical dashboard for users. Which of the following AWS services makes this possible?"
 Correct = "A"
 A = "CloudTrail"
 B = "S3 Access Logs"
@@ -1151,7 +1152,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html
 Topic = "S3"
 
 [question-58]
-Question = "You have a read heavy workload on your DynamoDB table which causes a hot partition problem, as one popular item in your catalog is always requested. What technology will allow you to reduce the read load on your DynamoDB table while minimizing code changes?"
+Question = "A popular mobile app retrieves data from an AWS DynamoDB table that was provisioned with read-capacity units (RCU’s) that are evenly shared across four partitions. One of those partitions is receiving more traffic than the other partitions causing hot partition issues. What technology will allow you to reduce the read traffic on your AWS DynamoDB table with minimal effort?"
 Correct = "A"
 A = "DynamoDB DAX"
 B = "DynamoDB Streams"
@@ -1171,7 +1172,7 @@ For more information visit https://aws.amazon.com/dynamodb/dax/
 Topic = "DynamoDB"
 
 [question-59]
-Question = "You have an application producing messages from 20 KB to 200 KB. Is it possible to send these messages to SQS?"
+Question = "Your company has been hired to build a resilient mobile voting app for an upcoming music award show that expects to have from 5 to 20 million viewers. The mobile voting app will be marketed heavily months in advanced so you are expected to handle millions of messages into a system. You are configuring Amazon Simple Queue Service (SQS) queues for your architecture that should receive messages from 20 KB to 200 KB. Is it possible to send these messages to SQS?"
 Correct = "A"
 A = "Yes, the max message size is 256KB"
 B = "Yes, the max message size is 512KB"
@@ -1191,7 +1192,7 @@ For more information visit https://docs.aws.amazon.com/AWSSimpleQueueService/lat
 Topic = "SQS"
 
 [question-60]
-Question = "You would like to use SSE-KMS encryption mechanism. What header must you set in your request?"
+Question = "Your development team uses the AWS SDK for Java on a web application that uploads files to several Amazon Simple Storage Service (S3) buckets. You have added a bucket policy to those S3 buckets that requires server-side encryption for all objects stored. Developers are reporting that they started receiving permission errors.  Which of the following headers should they include in their request?"
 Correct = "A"
 A = "'x-amz-server-side-encryption': 'aws:kms'"
 B = "'x-amz-server-side-encryption': 'SSE-S3'"
@@ -1211,7 +1212,7 @@ For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/Using
 Topic = "S3"
 
 [question-61]
-Question = "Which Beanstalk deployment modes allows for the quickest deployment strategy?"
+Question = "You have moved your on premise infrastructure to AWS and are in the process of configuring an AWS Elastic Beanstalk deployment environment for production, development and testing. You have configured your production environment to use a rolling deployment to prevent your application from becoming unavailable to users. For the development and testing environment you would like to deploy quickly and are not concerned about downtime. Which of the following deployment policies meets your needs?"
 Correct = "A"
 A = "all at once"
 B = "rolling"
@@ -1234,7 +1235,7 @@ For more information visit https://docs.aws.amazon.com/elasticbeanstalk/latest/d
 Topic = "Elastic Beanstalk"
 
 [question-62]
-Question = "Your organization has a requirement that all the code must be encrypted in the cloud. You have proposed CodeCommit as a solution, how can you ensure the code is encrypted?"
+Question = "An organization recently began using AWS CodeCommit for its source control service. A compliance security team visiting the organization was auditing the software development process and noticed developers making many git push commands within their development machines. The compliance team requires that encryption be used for this activity. How can the organization ensure source code is encrypted in transit and at rest?"
 Correct = "A"
 A = "Repositories are automatically encrypted at rest"
 B = "Enable KMS encryption"
@@ -1254,7 +1255,7 @@ For more information visit https://docs.aws.amazon.com/codecommit/latest/usergui
 Topic = "CodeCommit"
 
 [question-63]
-Question = "AWS Route 53 can be used almost as an alternative of another AWS service. Which one ?"
+Question = "You have a popular three-tier web application that is used by users throughout the entire globe receiving thousands of incoming requests daily. You have AWS Route 53 policies to automatically distribute weighted traffic to the API resources located at URL api.global.com. What is an alternative way of distributing traffic to a web application?"
 Correct = "A"
 A = "ELB"
 B = "CloudFront"
@@ -1274,7 +1275,7 @@ For more information visit https://docs.aws.amazon.com/Route53/latest/DeveloperG
 Topic = "Route53"
 
 [question-64]
-Question = "For which encryption mechanism is HTTPS (SSL) mandatory?"
+Question = "Your company has several Amazon Simple Storage Service (S3) buckets that were found to be open to the public after a security research firm contacted you. You make immediate changes to make the buckets private and are looking into enabling server-side encryption to retrieve objects from clients who must use https. Which of the following encryption mechanism should you choose?"
 Correct = "A"
 A = "SSE-C"
 B = "SSE-KMS for metadata"
@@ -1294,7 +1295,7 @@ For more information visit https://docs.aws.amazon.com/AmazonS3/latest/dev/Using
 Topic = "S3"
 
 [question-65]
-Question = "What is the maximum number of messages one SQS consumer can receive at a time?"
+Question = "Your application sends messages to an Amazon Simple Queue Service (SQS) queue frequently, which are then polled by another application that would like to specify which message to get but instead specifies a number of messages to process. Which of the following options describes the maximum number of messages that can be retrieved at one time?"
 Correct = "A"
 A = "10"
 B = "5"
