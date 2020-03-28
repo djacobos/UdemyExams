@@ -14,5 +14,7 @@ You are a solutions architect who has been asked to do some consulting for a US 
 ======================================
 
 
-You’re a developer doing contract work for the media sector. Since you work alone, you opt for technologies that require little maintenance, which allows you to focus more on your coding. You have chosen AWS Elastic Beanstalk to assist with deployment of your applications. While reading online documentation you find that Elastic Beanstalk relies on a similar deployment service to provision your resources. Which of the following services is it?
+You are preparing for the biggest day of sales for the year, where your traffic will increase by 100x. You have already setup SQS standard queue. What should you do?
 
+
+What are the only resolutions you can choose for CloudWatch Alarms for High Resolution custom metrics? (select two)
